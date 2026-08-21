@@ -1,0 +1,18 @@
+# Runs automatically on `git commit` after `pre-commit install`.
+# Keeps formatting/lint consistent without you thinking about it.
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files      # blocks accidental >500kB commits
+        args: ["--maxkb=500"]
+      - id: check-merge-conflict
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.4
+    hooks:
+      - id: ruff                          # lint (autofix)
+        args: ["--fix"]
+      - id: ruff-format                   # format (black-compatible)

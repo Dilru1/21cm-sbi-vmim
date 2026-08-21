@@ -1,0 +1,31 @@
+name: CI
+
+# Fast, cheap checks on every push / PR. Runs on a bare GitHub runner with NO
+# torch, NO GPU, NO cluster data -- so it exercises only the torch-free parts
+# (imports, config, seeding, provenance). Heavier tests are marked + skipped.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install light deps + tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff pytest numpy pyyaml packaging
+      # BLOCKING gate: the torch-free tests must pass.
+      - name: Tests
+        run: pytest -q -m "not needs_torch and not needs_data"
+      # ADVISORY: reports lint issues but does not fail the build yet. As you
+      # clean the code with `make fmt`, flip continue-on-error to false to make
+      # this a hard gate.
+      - name: Lint (advisory)
+        continue-on-error: true
+        run: ruff check .

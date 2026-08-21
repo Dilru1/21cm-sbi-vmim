@@ -1,0 +1,36 @@
+# Tooling config for 21cm-sbi-vmim.
+# This file configures dev tools (ruff, black, pytest). It intentionally does
+# NOT declare the project as an installable package -- the pipeline is run as
+# scripts, not imported as a library, so no build backend is needed.
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+# The research code predates linting; start lenient and tighten over time.
+extend-exclude = ["docs", "logs", "SBC_OUT", "SBC_OUTPUT"]
+
+[tool.ruff.lint]
+# A pragmatic starter set. E/F = pyflakes+pycodestyle, I = import sorting,
+# UP = pyupgrade, B = bugbear. Expand as you get comfortable.
+select = ["E", "F", "I", "UP", "B"]
+ignore = [
+    "E501",   # line length handled by formatter, not enforced hard yet
+    "E402",   # stage scripts intentionally sys.path.insert before imports
+    "B008",   # allow function calls in argparse defaults
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["F401"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+# Mark tests needing torch/GPU/data so CI can skip them on a bare runner.
+markers = [
+    "needs_torch: requires PyTorch to be installed",
+    "needs_data: requires cluster data paths / heavy artifacts",
+]

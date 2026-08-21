@@ -1,0 +1,61 @@
+# ---------------------------------------------------------------------------
+# OPTIONAL Snakemake skeleton for the 4-stage SBI pipeline.
+#
+# This is a STARTER, not a finished workflow. It sketches the DAG
+# (compress -> nle -> mcmc -> eval) so `snakemake` reruns only the stages whose
+# inputs changed. Snakemake is the research-native orchestrator that submits to
+# SLURM (unlike DVC, which has no SLURM integration).
+#
+# Run locally (dry-run to see the plan):   snakemake -n
+# Submit to SLURM (needs the slurm plugin): snakemake --executor slurm -j 20
+#
+# You are NOT required to adopt this. Your existing slurm/*.sbatch +
+# submit_nle_grid.sh already encode this DAG imperatively. Migrate here only
+# when you want automatic "rerun only what changed" behaviour.
+# ---------------------------------------------------------------------------
+
+# A single arm identifier for illustration. In practice you'd expand a grid
+# over configs / seeds / families with an expand() call.
+CONFIG = "configs_seeds/noise/arm_cnn_vmim_jitter_n1.yaml"
+FAMILY = "nsf"
+SCOPE  = "std"
+
+# Because heavy artifacts live on scratch (not in the repo), we use small
+# "sentinel" marker files under .snakemake_marks/ to record stage completion.
+# Swap these for the real scratch paths once you wire in scratch_root.
+MARK = ".snakemake_marks"
+
+
+rule all:
+    input: f"{MARK}/eval.done"
+
+
+rule stage1_compress:
+    input: CONFIG
+    output: touch(f"{MARK}/stage1.done")
+    # resources map to SLURM when using --executor slurm
+    resources: slurm_partition="short", gpus=1, mem_mb=64000, runtime=120
+    shell: "python stage1_compress.py {input} && mkdir -p {MARK}"
+
+
+rule stage2_nle:
+    input: cfg=CONFIG, prev=f"{MARK}/stage1.done"
+    output: touch(f"{MARK}/stage2.done")
+    resources: slurm_partition="short", gpus=1, mem_mb=32000, runtime=120
+    shell: "python stage2_nle.py {input.cfg} -o nle.model=" + FAMILY
+
+
+rule stage3_mcmc:
+    input: cfg=CONFIG, prev=f"{MARK}/stage2.done"
+    output: touch(f"{MARK}/stage3.done")
+    resources: slurm_partition="short", cpus_per_task=4, mem_mb=16000, runtime=180
+    # In reality this is a job array over SBC sims (--task-num/--task-nb).
+    shell: "python stage3_mcmc.py {input.cfg} --task-num 0 --task-nb 1"
+
+
+rule eval:
+    input: cfg=CONFIG, prev=f"{MARK}/stage3.done"
+    output: touch(f"{MARK}/eval.done")
+    shell:
+        'python eval.py --out eval_reports/snakemake '
+        '--item "{cfg}|{fam}|{scope}"'.format(cfg=CONFIG, fam=FAMILY, scope=SCOPE)

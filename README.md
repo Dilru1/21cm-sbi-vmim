@@ -66,8 +66,12 @@ sbi_project/
 ├── slurm/                   # SLURM batch scripts for each stage
 ├── tools/                   # Plotting + diagnostics (training curves, latent space, SBC)
 ├── submit_nle_grid.sh       # Convenience launcher for stage-2 family/scope grids
+├── tests/                   # torch-free pytest suite (imports, config, seeding)
+├── workflow/Snakefile       # optional Snakemake DAG (compress→nle→mcmc→eval)
 ├── docs/COMMANDS.md         # Lab-notebook of exact commands used on the cluster
+├── docs/MLOPS.md            # Phased MLOps plan (tracking, CI, reproducibility)
 ├── requirements.txt         # Python dependencies
+├── pyproject.toml           # ruff / black / pytest config
 └── environment.yml          # Conda environment (GPU)
 ```
 
@@ -143,6 +147,16 @@ Each experiment is one YAML in `configs_seeds/`. Key fields:
 - `mcmc.*` — sampler settings.
 
 ---
+
+## Reproducibility & MLOps
+
+Every run records its provenance (git commit, config hash, SLURM ids) via
+`sbi/tracking.py`, and optionally streams metrics to
+[Weights & Biases](https://wandb.ai) when `wandb` is installed. Code quality is
+kept with `ruff` + `pre-commit`, a torch-free `pytest` suite runs in GitHub
+Actions CI, and common tasks are wrapped in a `Makefile` (`make setup`,
+`make test`, `make fmt`). See **[`docs/MLOPS.md`](docs/MLOPS.md)** for the full,
+phased plan and how to enable each piece.
 
 ## Citing
 
