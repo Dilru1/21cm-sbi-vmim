@@ -1,0 +1,51 @@
+# Build the Jupyter Book and publish it to GitHub Pages on every push to main.
+# One-time setup: repo Settings -> Pages -> Build and deployment -> Source =
+# "GitHub Actions". Then the site appears at
+# https://Dilru1.github.io/21cm-sbi-vmim/
+name: deploy-book
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:      # lets you trigger it manually from the Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Jupyter Book 2
+        run: pip install "jupyter-book>=2"
+      # Notebooks are rendered from saved outputs (not executed) -> no cluster
+      # data needed, so the build is safe on a bare runner.
+      - name: Build HTML
+        run: jupyter book build --html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _build/html
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

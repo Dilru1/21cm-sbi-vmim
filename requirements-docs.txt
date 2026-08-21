@@ -1,0 +1,7 @@
+# Tools for building the documentation site + running the diagnostics notebook.
+# Install with:  pip install -r requirements-docs.txt
+jupyter-book>=2      # the MyST-based doc-site builder (provides `jupyter book`)
+jupyterlab>=4        # to open/run the notebooks
+pandas>=2.0          # metrics table display in diagnostics.ipynb
+# System dependency (not pip): poppler-utils provides `pdftoppm` for inline PDF
+# previews in the eval section. On Debian/Ubuntu: apt-get install poppler-utils

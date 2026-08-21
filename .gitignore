@@ -18,6 +18,10 @@ logs/
 *.err
 slurm-*.out
 
+
+docs/GUIDE.md
+docs/MLOPS.md
+
 # ---- Heavy cosmological data & simulation outputs (keep out of git) ----
 data/
 *.h5
@@ -44,3 +48,5 @@ sum_out/
 !**/metrics.tex
 !nle_training_comparison.png
 !nle_training_comparison_mse.png
+_build/
+node_modules/

@@ -1,0 +1,28 @@
+# Jupyter Book 2 configuration (MyST Document Engine).
+# Build locally:   jupyter book start      (live preview at localhost)
+# Build static:    jupyter book build --html   (output in _build/html)
+# Publishing to GitHub Pages is automated by .github/workflows/deploy-book.yml.
+version: 1
+project:
+  title: 21cm-sbi-vmim
+  description: >-
+    Simulation-based inference of reionization-era astrophysical parameters from
+    the 21 cm signal, comparing VMIM-learned summaries against MSE and fixed
+    summaries under thermal noise and dequantization jitter.
+  authors:
+    - name: Dilru Dehiwalage-Don
+      affiliation: Observatoire de Paris (LERMA)
+  github: https://github.com/Dilru1/21cm-sbi-vmim
+  # Notebooks are NOT executed at build time (they need cluster data). The book
+  # renders each notebook's *saved* outputs, so build works anywhere, incl. CI.
+  # Table of contents. Comment out any line whose file you don't have yet.
+  toc:
+    - file: index.md
+    - file: docs/GUIDE.md
+    - file: docs/MLOPS.md
+    - file: notebooks/diagnostics.ipynb
+    - file: docs/COMMANDS.md
+site:
+  template: book-theme
+  options:
+    logo_text: 21cm-sbi-vmim
