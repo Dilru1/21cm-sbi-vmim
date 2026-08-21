@@ -1,0 +1,17 @@
+# Core numerics
+numpy>=1.24
+scipy>=1.10
+scikit-learn>=1.2
+
+# Deep learning + normalizing flows
+# Install the CUDA build of torch matching your driver: https://pytorch.org
+torch>=2.0
+nflows>=0.14
+
+# Config + utilities
+pyyaml>=6.0
+packaging>=21.0
+
+# Plotting
+matplotlib>=3.7
+cmastro>=0.1   # optional: only used by plotting tools in tools/ and eval.py

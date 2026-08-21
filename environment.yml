@@ -1,0 +1,21 @@
+# Conda environment for 21cm-sbi-vmim (GPU).
+# Mirrors the cluster `torch_gpu` env. Adjust the CUDA/pytorch build for your system.
+name: torch_gpu
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy>=1.24
+  - scipy>=1.10
+  - scikit-learn>=1.2
+  - matplotlib>=3.7
+  - pyyaml>=6.0
+  - packaging>=21.0
+  - pytorch>=2.0
+  - pytorch-cuda=12.1   # match your driver; remove for CPU-only
+  - pip
+  - pip:
+      - nflows>=0.14
+      - cmastro>=0.1

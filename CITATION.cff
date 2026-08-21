@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "21cm-sbi-vmim: Simulation-based inference of the 21 cm signal with VMIM-learned summaries"
+authors:
+  - family-names: "Dehiwalage-Don"
+    given-names: "Dilru"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"   # add if you have one
+    affiliation: "Observatoire de Paris (LERMA/obspm)"
+repository-code: "https://github.com/Dilru1/21cm-sbi-vmim"
+abstract: >-
+  Research code for simulation-based inference of reionization-era
+  astrophysical parameters from the 21 cm signal, comparing VMIM-trained
+  neural compressors against MSE and fixed summaries under varying thermal
+  noise and dequantization jitter, with neural likelihood estimation and
+  simulation-based calibration.
+keywords:
+  - 21 cm cosmology
+  - simulation-based inference
+  - neural likelihood estimation
+  - reionization
+  - VMIM
+license: MIT
+version: "0.1.0"
+date-released: "2026-08-21"
