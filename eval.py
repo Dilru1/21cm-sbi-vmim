@@ -50,6 +50,7 @@ Different items may use different families/scopes, so one report can mix them.
   # empty fields -> take nle.model / nle.standardize from the yaml
   python eval_all.py --item "configs/arm_cnn.yaml||" --out eval_report
 """
+
 import argparse
 import csv
 import glob
@@ -59,8 +60,9 @@ import os
 import re
 import sys
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
@@ -69,23 +71,30 @@ from matplotlib.ticker import AutoMinorLocator, MaxNLocator
 
 # ---- conventions (formerly imported from eval.py; inlined so this file stands alone)
 PATTERN = re.compile(r"_sim(\d+)_(?:row|offset)(\d+)")
-COMMON_PARAMS = [0, 1, 2, 3]                    # Fx, tau, rH/S, Mmin (fesc dropped)
-LABELS = [r"$\log_{10}(F_x)$", r"$\tau$", r"$r_{H/S}$",
-          r"$\log_{10}(M_{\min})$", r"$f_{esc}$"]
+COMMON_PARAMS = [0, 1, 2, 3]  # Fx, tau, rH/S, Mmin (fesc dropped)
+LABELS = [r"$\log_{10}(F_x)$", r"$\tau$", r"$r_{H/S}$", r"$\log_{10}(M_{\min})$", r"$f_{esc}$"]
 PLABELS = [LABELS[j] for j in COMMON_PARAMS]
 PALETTE = ["#0072B2", "#D55E00", "#009E73", "#CC79A7", "#E69F00", "#56B4E9", "#8B4513"]
 
-plt.rcParams.update({
-    "font.family": "serif", "font.size": 9,
-    "mathtext.fontset": "dejavuserif",
-    "axes.labelsize": 10, "axes.linewidth": 0.8,
-    "axes.spines.top": False, "axes.spines.right": False,
-    "xtick.labelsize": 8, "ytick.labelsize": 8,
-    "xtick.direction": "in", "ytick.direction": "in",
-    "legend.frameon": False,
-    "pdf.fonttype": 42, "ps.fonttype": 42,          # TrueType: arXiv-safe
-    "savefig.bbox": "tight",
-})
+plt.rcParams.update(
+    {
+        "font.family": "serif",
+        "font.size": 9,
+        "mathtext.fontset": "dejavuserif",
+        "axes.labelsize": 10,
+        "axes.linewidth": 0.8,
+        "axes.spines.top": False,
+        "axes.spines.right": False,
+        "xtick.labelsize": 8,
+        "ytick.labelsize": 8,
+        "xtick.direction": "in",
+        "ytick.direction": "in",
+        "legend.frameon": False,
+        "pdf.fonttype": 42,
+        "ps.fonttype": 42,  # TrueType: arXiv-safe
+        "savefig.bbox": "tight",
+    }
+)
 
 
 # ============================================================ chain IO
@@ -196,7 +205,8 @@ def eval_arm(arm, burnin_frac, thin, dlogp, nbins, sims_keep, sbc_unfiltered=Fal
     calib = np.mean((rank_hist - 1.0) ** 2, axis=1)
     sqrtdets = np.asarray(sqrtdets)
     return {
-        "name": arm["name"], "used": used,
+        "name": arm["name"],
+        "used": used,
         "sigma": [float(np.median(s)) for s in sigmas],
         "gv": float(np.median(sqrtdets)) if len(sqrtdets) else float("nan"),
         "calib": calib.tolist(),
@@ -205,8 +215,13 @@ def eval_arm(arm, burnin_frac, thin, dlogp, nbins, sims_keep, sbc_unfiltered=Fal
 
 
 # ============================================================ arm discovery
-SCOPE_ALIASES = {"std": "standard_t", "standard": "standard_t", "standard_t": "standard_t",
-                 "raw": "raw_t", "raw_t": "raw_t"}
+SCOPE_ALIASES = {
+    "std": "standard_t",
+    "standard": "standard_t",
+    "standard_t": "standard_t",
+    "raw": "raw_t",
+    "raw_t": "raw_t",
+}
 
 
 def parse_item(spec):
@@ -249,7 +264,8 @@ def arms_from_items(items, all_seeds=False, seeds_filter=None):
     optionally restricts which seeds are included. If no _s<seed> dirs are found
     (e.g. tagging was off), it falls back to the single-arm construction.
     """
-    from sbi import load_config, arm_dirs
+    from sbi import arm_dirs, load_config
+
     try:
         from sbi.seeding import apply_arm_name
     except Exception:
@@ -258,7 +274,7 @@ def arms_from_items(items, all_seeds=False, seeds_filter=None):
     arms = []
     for it in items:
         cfg = load_config(it["config"])
-        raw_arm = cfg["arm_name"]                 # RAW name, before _s<seed> tagging
+        raw_arm = cfg["arm_name"]  # RAW name, before _s<seed> tagging
         nc = cfg.get("nle", {})
         fam = it["family"] or str(nc.get("model", "gmm")).lower()
         if it["scope"] is not None:
@@ -287,26 +303,32 @@ def arms_from_items(items, all_seeds=False, seeds_filter=None):
         if expanded:
             for seed, cdir, armdirname in sorted(expanded):
                 base_lab = it["label"] or f"{armdirname} [{leaf}]"
-                arms.append({
-                    "name": f"{armdirname}[{leaf}]",
-                    "dir": cdir,
-                    "n_params": cfg["n_params"],
-                    "label": f"{base_lab} s{seed}",
-                    "family": fam, "scope": scope, "config": it["config"],
-                })
-            print(f"[all-seeds] {raw_arm} [{leaf}] -> seeds "
-                  f"{sorted(s for s, _, _ in expanded)}")
+                arms.append(
+                    {
+                        "name": f"{armdirname}[{leaf}]",
+                        "dir": cdir,
+                        "n_params": cfg["n_params"],
+                        "label": f"{base_lab} s{seed}",
+                        "family": fam,
+                        "scope": scope,
+                        "config": it["config"],
+                    }
+                )
+            print(f"[all-seeds] {raw_arm} [{leaf}] -> seeds {sorted(s for s, _, _ in expanded)}")
             continue
         elif all_seeds:
-            print(f"[warn] all-seeds: no {raw_arm}_s*/chains/{leaf} found; "
-                  f"falling back to single arm", file=sys.stderr)
+            print(
+                f"[warn] all-seeds: no {raw_arm}_s*/chains/{leaf} found; "
+                f"falling back to single arm",
+                file=sys.stderr,
+            )
 
         # ---- single-arm construction (default, or all-seeds fallback) ----
         if apply_arm_name is not None:
-            apply_arm_name(cfg)          # adds _s<init_seed> exactly as stages 1-3 do
+            apply_arm_name(cfg)  # adds _s<init_seed> exactly as stages 1-3 do
         chains_root = arm_dirs(cfg)["chains"]
         d = chains_root / leaf
-        if not d.is_dir():                       # legacy flat layout fallback
+        if not d.is_dir():  # legacy flat layout fallback
             if chains_root.is_dir() and next(iter(glob.glob(str(chains_root / "*.dat"))), None):
                 print(f"[warn] {leaf} not found; using flat {chains_root}", file=sys.stderr)
                 d = chains_root
@@ -317,21 +339,27 @@ def arms_from_items(items, all_seeds=False, seeds_filter=None):
             print(f"[warn] no .dat in {d} -- arm skipped", file=sys.stderr)
             continue
 
-        arms.append({
-            "name": f"{cfg['arm_name']}[{leaf}]",
-            "dir": str(d),
-            "n_params": cfg["n_params"],
-            "label": it["label"] or f"{cfg['arm_name']} [{leaf}]",
-            "family": fam, "scope": scope, "config": it["config"],
-        })
+        arms.append(
+            {
+                "name": f"{cfg['arm_name']}[{leaf}]",
+                "dir": str(d),
+                "n_params": cfg["n_params"],
+                "label": it["label"] or f"{cfg['arm_name']} [{leaf}]",
+                "family": fam,
+                "scope": scope,
+                "config": it["config"],
+            }
+        )
     return arms
 
 
 def load_arms(args):
     if args.item:
-        arms = arms_from_items([parse_item(x) for x in args.item],
-                               all_seeds=args.all_seeds,
-                               seeds_filter=set(args.seeds) if args.seeds else None)
+        arms = arms_from_items(
+            [parse_item(x) for x in args.item],
+            all_seeds=args.all_seeds,
+            seeds_filter=set(args.seeds) if args.seeds else None,
+        )
     else:
         pool = []
         for jp in args.arms_json:
@@ -347,7 +375,8 @@ def load_arms(args):
     for a in arms:
         if a["dir"] in seen:
             continue
-        seen.add(a["dir"]); out.append(a)
+        seen.add(a["dir"])
+        out.append(a)
     # explicit --labels wins over any per-item label
     for k, a in enumerate(out):
         if args.labels and k < len(args.labels):
@@ -379,12 +408,15 @@ def sbc_reference(nbins, n_used):
 
     return bands, cdf_hist(0.2, 1.0), cdf_hist(0.0, 0.85)
 
+
 # ============================================================ SBC figure (PDF)
 def plot_sbc(report, out_pdf, nbins, mode_txt):
-    from matplotlib.offsetbox import TextArea, HPacker, AnchoredOffsetbox
+    from matplotlib.offsetbox import AnchoredOffsetbox, HPacker, TextArea
+
     # divergent astro palette from cmastro for the arm curves; safe fallback
     try:
         from cmastro import cmaps
+
         _cmap = cmaps["cma:emph"]
     except Exception:
         _cmap = plt.get_cmap("Spectral")
@@ -401,45 +433,82 @@ def plot_sbc(report, out_pdf, nbins, mode_txt):
     #   E[calib | perfect posterior] = (nbins-1)/N        (per-arm N)
     #   percentage = 100 * calib / floor  == reduced chi^2 * 100 (100% = at floor)
     #   Pearson X^2 = N*calib ~ chi^2_(nbins-1);  1-sigma tol on ratio = sqrt(2/(nbins-1))
-    tol_pct   = 100.0 * math.sqrt(2.0 / max(nbins - 1, 1))
+    tol_pct = 100.0 * math.sqrt(2.0 / max(nbins - 1, 1))
     floor_ref = (nbins - 1) / max(n_used, 1)
 
-    fig, axes = plt.subplots(P, 1, figsize=(7.0, 2.35 * P),
-                             constrained_layout=True, squeeze=False)
+    fig, axes = plt.subplots(P, 1, figsize=(7.0, 2.35 * P), constrained_layout=True, squeeze=False)
     axes = axes[:, 0]
 
     for jj in range(P):
         ax = axes[jj]
         # visible confidence shading (== per-bin Poisson 2sigma/1sigma envelope)
-        ax.fill_between([0, 1], bands["low2"], bands["high2"], color="#a6bddb", alpha=0.45, lw=0, zorder=0)
-        ax.fill_between([0, 1], bands["low1"], bands["high1"], color="#3690c0", alpha=0.35, lw=0, zorder=0)
+        ax.fill_between(
+            [0, 1], bands["low2"], bands["high2"], color="#a6bddb", alpha=0.45, lw=0, zorder=0
+        )
+        ax.fill_between(
+            [0, 1], bands["low1"], bands["high1"], color="#3690c0", alpha=0.35, lw=0, zorder=0
+        )
         ax.axhline(1.0, color="0.35", ls="-", lw=0.8, zorder=1)
         # reference deviation curves
-        ax.plot(xval, bias_h,  ls="--", lw=1.2, color="k", zorder=2, label=r"0.2$\sigma$ bias")
-        ax.plot(xval, under_h, ls=":",  lw=1.5, color="k", zorder=2, label=r"0.15$\sigma$ under-conf.")
+        ax.plot(xval, bias_h, ls="--", lw=1.2, color="k", zorder=2, label=r"0.2$\sigma$ bias")
+        ax.plot(
+            xval, under_h, ls=":", lw=1.5, color="k", zorder=2, label=r"0.15$\sigma$ under-conf."
+        )
         # arm rank histograms (labels carry no chi^2 -> percentages go in-panel below)
         for k, r in enumerate(report):
-            ax.plot(xval, np.asarray(r["rank_hist"])[jj], drawstyle="steps-mid",
-                    lw=1.7, color=arm_colors[k], zorder=3, label=r["label"])
+            ax.plot(
+                xval,
+                np.asarray(r["rank_hist"])[jj],
+                drawstyle="steps-mid",
+                lw=1.7,
+                color=arm_colors[k],
+                zorder=3,
+                label=r["label"],
+            )
 
-        ax.set_ylim(0, 2.0); ax.set_xlim(0, 1)
-        ax.set_ylabel("rank freq", fontsize=8.5); ax.tick_params(labelsize=8)
+        ax.set_ylim(0, 2.0)
+        ax.set_xlim(0, 1)
+        ax.set_ylabel("rank freq", fontsize=8.5)
+        ax.tick_params(labelsize=8)
         ax.xaxis.set_minor_locator(AutoMinorLocator())
-        ax.text(0.012, 0.94, PLABELS[jj], transform=ax.transAxes, fontsize=10,
-                fontweight="semibold", va="top", ha="left",
-                bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="0.75", alpha=0.9))
+        ax.text(
+            0.012,
+            0.94,
+            PLABELS[jj],
+            transform=ax.transAxes,
+            fontsize=10,
+            fontweight="semibold",
+            va="top",
+            ha="left",
+            bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="0.75", alpha=0.9),
+        )
 
         # chi^2 AS % OF POISSON FLOOR, one color-matched row, bottom-left (per-arm N)
-        frags = [TextArea(r"$\chi^2/\mathrm{floor}$:",
-                          textprops=dict(color="0.15", fontsize=7.5, fontweight="bold"))]
+        frags = [
+            TextArea(
+                r"$\chi^2/\mathrm{floor}$:",
+                textprops=dict(color="0.15", fontsize=7.5, fontweight="bold"),
+            )
+        ]
         for k, r in enumerate(report):
             floor = (nbins - 1) / max(r["used"], 1)
             pct = 100.0 * r["calib"][jj] / floor if floor > 0 else float("nan")
-            frags.append(TextArea(f"{pct:.0f}%",
-                         textprops=dict(color=arm_colors[k], fontsize=7.5, fontweight="bold")))
+            frags.append(
+                TextArea(
+                    f"{pct:.0f}%",
+                    textprops=dict(color=arm_colors[k], fontsize=7.5, fontweight="bold"),
+                )
+            )
         row = HPacker(children=frags, align="baseline", pad=0, sep=7)
-        box = AnchoredOffsetbox(loc="lower left", child=row, pad=0.3, borderpad=0.5,
-                                frameon=True, bbox_to_anchor=(0.0, 0.0), bbox_transform=ax.transAxes)
+        box = AnchoredOffsetbox(
+            loc="lower left",
+            child=row,
+            pad=0.3,
+            borderpad=0.5,
+            frameon=True,
+            bbox_to_anchor=(0.0, 0.0),
+            bbox_transform=ax.transAxes,
+        )
         box.patch.set(alpha=0.85, edgecolor="0.8", facecolor="white")
         ax.add_artist(box)
 
@@ -447,12 +516,26 @@ def plot_sbc(report, out_pdf, nbins, mode_txt):
 
     # one common legend for the whole figure (top of panel 0): 2 cols -> 3 rows
     h, l = axes[0].get_legend_handles_labels()
-    axes[0].legend(h, l, loc="lower center", bbox_to_anchor=(0.5, 1.01), ncol=2,
-                   fontsize=7.5, columnspacing=1.3, handlelength=1.9, handletextpad=0.5,
-                   borderaxespad=0.15, frameon=True, framealpha=0.92, edgecolor="0.8")
+    axes[0].legend(
+        h,
+        l,
+        loc="lower center",
+        bbox_to_anchor=(0.5, 1.01),
+        ncol=2,
+        fontsize=7.5,
+        columnspacing=1.3,
+        handlelength=1.9,
+        handletextpad=0.5,
+        borderaxespad=0.15,
+        frameon=True,
+        framealpha=0.92,
+        edgecolor="0.8",
+    )
 
-    note = (r"Poisson floor $\chi^2=(n_\mathrm{bins}-1)/N$ = " + f"{floor_ref:.3f}\n"
-            f"100% = perfect posterior  (" + r"$\pm$" + f"{tol_pct:.0f}% at 1" + r"$\sigma$)")
+    note = (
+        r"Poisson floor $\chi^2=(n_\mathrm{bins}-1)/N$ = " + f"{floor_ref:.3f}\n"
+        f"100% = perfect posterior  (" + r"$\pm$" + f"{tol_pct:.0f}% at 1" + r"$\sigma$)"
+    )
     fig.text(0.008, 0.988, note, ha="left", va="top", fontsize=6.2, color="0.4", linespacing=1.35)
     axes[0].set_title(f"{mode_txt},  N={n_used}", fontsize=8, color="0.35", loc="right", pad=2)
 
@@ -460,12 +543,13 @@ def plot_sbc(report, out_pdf, nbins, mode_txt):
         pdf.savefig(fig, bbox_inches="tight")
     plt.close(fig)
     print(f"[sbc] wrote {out_pdf}")
-    
+
 
 # ============================================================ corner figure (PDF)
 def credible_levels(H, fracs=(0.68, 0.95)):
     flat = np.sort(H.ravel())[::-1]
-    csum = np.cumsum(flat); csum /= csum[-1]
+    csum = np.cumsum(flat)
+    csum /= csum[-1]
     out = []
     for f in fracs:
         i = np.searchsorted(csum, f)
@@ -474,8 +558,9 @@ def credible_levels(H, fracs=(0.68, 0.95)):
 
 
 def pick_corner_sim(arms, mode, seed, thin, burnin, explicit, dlogp):
-    maps = [{chain_sim(f): f for f in list_chains(a["dir"]) if chain_sim(f) is not None}
-            for a in arms]
+    maps = [
+        {chain_sim(f): f for f in list_chains(a["dir"]) if chain_sim(f) is not None} for a in arms
+    ]
     shared = set(maps[0])
     for m in maps[1:]:
         shared &= set(m)
@@ -514,7 +599,7 @@ def plot_corner(arms, maps, sim, out_pdf, thin, burnin, bins, smooth, width, dlo
         gaussian_filter = None
 
     arm_samples, truth = [], None
-    for a, m in zip(arms, maps):
+    for a, m in zip(arms, maps, strict=False):
         if sim not in m:
             continue
         ld = load_chain(m[sim], a["n_params"], burnin, thin, dlogp)
@@ -541,31 +626,42 @@ def plot_corner(arms, maps, sim, out_pdf, thin, burnin, bins, smooth, width, dlo
         for c in range(d):
             ax = axes[r][c]
             if c > r:
-                ax.axis("off"); continue
+                ax.axis("off")
+                continue
             jr, jc = COMMON_PARAMS[r], COMMON_PARAMS[c]
             if r == c:
-                for k, (lab, s) in enumerate(arm_samples):
-                    ax.hist(s[:, jr], bins=bins, range=lims[r], density=True,
-                            histtype="step", lw=1.4, color=PALETTE[k % len(PALETTE)])
+                for k, (_lab, s) in enumerate(arm_samples):
+                    ax.hist(
+                        s[:, jr],
+                        bins=bins,
+                        range=lims[r],
+                        density=True,
+                        histtype="step",
+                        lw=1.4,
+                        color=PALETTE[k % len(PALETTE)],
+                    )
                 ax.axvline(truth[jr], color="k", lw=1.0, ls="--")
-                ax.set_xlim(*lims[r]); ax.set_yticks([])
+                ax.set_xlim(*lims[r])
+                ax.set_yticks([])
             else:
-                for k, (lab, s) in enumerate(arm_samples):
-                    H, xe, ye = np.histogram2d(s[:, jc], s[:, jr], bins=bins,
-                                               range=[lims[c], lims[r]])
+                for k, (_lab, s) in enumerate(arm_samples):
+                    H, xe, ye = np.histogram2d(
+                        s[:, jc], s[:, jr], bins=bins, range=[lims[c], lims[r]]
+                    )
                     if gaussian_filter is not None and smooth > 0:
                         H = gaussian_filter(H, smooth)
                     if H.sum() <= 0:
                         continue
                     lv = credible_levels(H)
-                    xc = 0.5 * (xe[1:] + xe[:-1]); yc = 0.5 * (ye[1:] + ye[:-1])
+                    xc = 0.5 * (xe[1:] + xe[:-1])
+                    yc = 0.5 * (ye[1:] + ye[:-1])
                     col = PALETTE[k % len(PALETTE)]
-                    ax.contourf(xc, yc, H.T, levels=lv + [H.max()],
-                                colors=[col, col], alpha=0.18)
+                    ax.contourf(xc, yc, H.T, levels=lv + [H.max()], colors=[col, col], alpha=0.18)
                     ax.contour(xc, yc, H.T, levels=lv, colors=col, linewidths=1.1)
                 ax.axvline(truth[jc], color="k", lw=0.8, ls="--", alpha=0.7)
                 ax.axhline(truth[jr], color="k", lw=0.8, ls="--", alpha=0.7)
-                ax.set_xlim(*lims[c]); ax.set_ylim(*lims[r])
+                ax.set_xlim(*lims[c])
+                ax.set_ylim(*lims[r])
             ax.xaxis.set_major_locator(MaxNLocator(3))
             ax.yaxis.set_major_locator(MaxNLocator(3))
             if r == d - 1:
@@ -577,8 +673,10 @@ def plot_corner(arms, maps, sim, out_pdf, thin, burnin, bins, smooth, width, dlo
             elif c != 0:
                 ax.set_yticklabels([])
 
-    el = [Line2D([0], [0], color=PALETTE[k % len(PALETTE)], lw=2, label=lab)
-          for k, (lab, _) in enumerate(arm_samples)]
+    el = [
+        Line2D([0], [0], color=PALETTE[k % len(PALETTE)], lw=2, label=lab)
+        for k, (lab, _) in enumerate(arm_samples)
+    ]
     el.append(Line2D([0], [0], color="k", lw=1.0, ls="--", label="truth"))
     fig.legend(handles=el, loc="upper right", bbox_to_anchor=(0.98, 0.98), fontsize=9)
     fig.suptitle(f"sim {sim}", y=0.995, fontsize=10)
@@ -592,32 +690,47 @@ def plot_corner(arms, maps, sim, out_pdf, thin, burnin, bins, smooth, width, dlo
 def write_csv(report, path, dlogp, mode_txt):
     with open(path, "w", newline="") as fh:
         w = csv.writer(fh)
-        w.writerow([f"# mode: {mode_txt}"])      # provenance: which chain cut produced these
-        w.writerow(["arm", "n_used", "GV_4x4"]
-                   + [f"sigma_{j}" for j in COMMON_PARAMS]
-                   + [f"calib_{j}" for j in COMMON_PARAMS])
+        w.writerow([f"# mode: {mode_txt}"])  # provenance: which chain cut produced these
+        w.writerow(
+            ["arm", "n_used", "GV_4x4"]
+            + [f"sigma_{j}" for j in COMMON_PARAMS]
+            + [f"calib_{j}" for j in COMMON_PARAMS]
+        )
         for r in report:
-            w.writerow([r["name"], r["used"], f"{r['gv']:.6e}"]
-                       + [f"{s:.6e}" for s in r["sigma"]]
-                       + [f"{c:.4f}" for c in r["calib"]])
+            w.writerow(
+                [r["name"], r["used"], f"{r['gv']:.6e}"]
+                + [f"{s:.6e}" for s in r["sigma"]]
+                + [f"{c:.4f}" for c in r["calib"]]
+            )
     print(f"[table] wrote {path}  ({mode_txt})")
 
 
 def write_tex(report, path):
     with open(path, "w") as fh:
         fh.write("% auto-generated by eval_all.py -- do not edit\n")
-        fh.write("\\begin{tabular}{lr" + "r" * len(COMMON_PARAMS)
-                 + "r" * len(COMMON_PARAMS) + "}\n\\toprule\n")
-        fh.write("Arm & GV & "
-                 + " & ".join(f"$\\sigma_{{{n}}}$" for n in ["Fx", "\\tau", "rHS", "Mmin"])
-                 + " & "
-                 + " & ".join(f"$\\chi^2_{{{n}}}$" for n in ["Fx", "\\tau", "rHS", "Mmin"])
-                 + r" \\" + "\n\\midrule\n")
+        fh.write(
+            "\\begin{tabular}{lr"
+            + "r" * len(COMMON_PARAMS)
+            + "r" * len(COMMON_PARAMS)
+            + "}\n\\toprule\n"
+        )
+        fh.write(
+            "Arm & GV & "
+            + " & ".join(f"$\\sigma_{{{n}}}$" for n in ["Fx", "\\tau", "rHS", "Mmin"])
+            + " & "
+            + " & ".join(f"$\\chi^2_{{{n}}}$" for n in ["Fx", "\\tau", "rHS", "Mmin"])
+            + r" \\"
+            + "\n\\midrule\n"
+        )
         for r in report:
-            fh.write(f"{r['label']} & {r['gv']:.2e} & "
-                     + " & ".join(f"{s:.2e}" for s in r["sigma"]) + " & "
-                     + " & ".join(f"{c:.3f}" for c in r["calib"])
-                     + r" \\" + "\n")
+            fh.write(
+                f"{r['label']} & {r['gv']:.2e} & "
+                + " & ".join(f"{s:.2e}" for s in r["sigma"])
+                + " & "
+                + " & ".join(f"{c:.3f}" for c in r["calib"])
+                + r" \\"
+                + "\n"
+            )
         fh.write("\\bottomrule\n\\end{tabular}\n")
     print(f"[table] wrote {path}")
 
@@ -625,9 +738,11 @@ def write_tex(report, path):
 def print_summary(report):
     print("\n=== GV (median sqrt|Sigma_4x4|) / sigma (median IQR) / chi^2-to-flat ===")
     for r in report:
-        print(f"  {r['label']:26s} N={r['used']:4d} GV={r['gv']:.3e} "
-              f"sigma={[round(s,4) for s in r['sigma']]} "
-              f"chi2={[round(c,3) for c in r['calib']]}")
+        print(
+            f"  {r['label']:26s} N={r['used']:4d} GV={r['gv']:.3e} "
+            f"sigma={[round(s, 4) for s in r['sigma']]} "
+            f"chi2={[round(c, 3) for c in r['calib']]}"
+        )
 
 
 # ============================================================ latent diagnostics
@@ -665,14 +780,19 @@ def latent_tt_colored(t, theta, out_path, name, pnames):
     for ri, (i, j) in enumerate(pairs):
         for ci in range(n_p):
             ax = axes[ri][ci]
-            ax.scatter(ts[:, i], ts[:, j], c=ths[:, ci], cmap="Spectral",
-                       s=3, alpha=0.5, rasterized=True)
-            ax.set_xlabel(rf"$t_{{{i+1}}}$", fontsize=8); ax.set_ylabel(rf"$t_{{{j+1}}}$", fontsize=8)
+            ax.scatter(
+                ts[:, i], ts[:, j], c=ths[:, ci], cmap="Spectral", s=3, alpha=0.5, rasterized=True
+            )
+            ax.set_xlabel(rf"$t_{{{i + 1}}}$", fontsize=8)
+            ax.set_ylabel(rf"$t_{{{j + 1}}}$", fontsize=8)
             if ri == 0:
                 ax.set_title(f"colored by {pnames[ci]}", fontsize=9)
             ax.set_aspect("equal", adjustable="datalim")
-    fig.suptitle(f"{name}: latent t-t colored by parameter (round=MSE-like, banana=VMIM-like)",
-                 y=1.002, fontsize=11)
+    fig.suptitle(
+        f"{name}: latent t-t colored by parameter (round=MSE-like, banana=VMIM-like)",
+        y=1.002,
+        fontsize=11,
+    )
     fig.tight_layout()
     with PdfPages(out_path) as pdf:
         pdf.savefig(fig, bbox_inches="tight")
@@ -687,12 +807,21 @@ def latent_t_theta_corr(t, theta, out_path, name, pnames):
             C[i, j] = abs(np.corrcoef(t[:, i], theta[:, j])[0, 1])
     fig, ax = plt.subplots(figsize=(1.3 * n_p + 3, 0.7 * n_t + 2))
     im = ax.imshow(C, cmap="Reds", vmin=0, vmax=1, aspect="auto")
-    ax.set_xticks(range(n_p)); ax.set_xticklabels(pnames, rotation=30, ha="right")
-    ax.set_yticks(range(n_t)); ax.set_yticklabels([rf"$t_{{{i+1}}}$" for i in range(n_t)])
+    ax.set_xticks(range(n_p))
+    ax.set_xticklabels(pnames, rotation=30, ha="right")
+    ax.set_yticks(range(n_t))
+    ax.set_yticklabels([rf"$t_{{{i + 1}}}$" for i in range(n_t)])
     for i in range(n_t):
         for j in range(n_p):
-            ax.text(j, i, f"{C[i,j]:.2f}", ha="center", va="center",
-                    color="white" if C[i, j] > 0.5 else "black", fontsize=8)
+            ax.text(
+                j,
+                i,
+                f"{C[i, j]:.2f}",
+                ha="center",
+                va="center",
+                color="white" if C[i, j] > 0.5 else "black",
+                fontsize=8,
+            )
     ax.set_title(f"{name}: |corr(t, theta)|")
     fig.colorbar(im, ax=ax, shrink=0.8)
     fig.tight_layout()
@@ -714,7 +843,9 @@ def latent_diagnostics(arm, out_dir):
     # collapse warning: a near-zero-variance t dim carries no information
     flat = np.where(stds < 1e-3)[0]
     flag = f"  [WARN collapsed dims: {flat.tolist()}]" if len(flat) else ""
-    print(f"[latent] {arm['name']}: t.shape={t.shape} per-dim std={np.round(stds,4).tolist()}{flag}")
+    print(
+        f"[latent] {arm['name']}: t.shape={t.shape} per-dim std={np.round(stds, 4).tolist()}{flag}"
+    )
     latent_tt_colored(t, theta, os.path.join(ldir, "tt_colored.pdf"), arm["name"], pnames)
     latent_t_theta_corr(t, theta, os.path.join(ldir, "t_theta_corr.pdf"), arm["name"], pnames)
     print(f"[latent] {arm['name']}: wrote latent diagnostics -> {ldir}")
@@ -723,45 +854,74 @@ def latent_diagnostics(arm, out_dir):
 # ============================================================ driver
 def main():
     ap = argparse.ArgumentParser(
-        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     src = ap.add_mutually_exclusive_group(required=True)
-    src.add_argument("--item", action="append", default=[], metavar="CFG|FAM|SCOPE[|LABEL]",
-                     help="repeatable. e.g. --item 'configs/n1.yaml|nsf|std' "
-                          "--item 'configs/n2.yaml|nsf|std|noise x2'. "
-                          "Empty fields fall back to the yaml's nle.model / "
-                          "nle.standardize.")
+    src.add_argument(
+        "--item",
+        action="append",
+        default=[],
+        metavar="CFG|FAM|SCOPE[|LABEL]",
+        help="repeatable. e.g. --item 'configs/n1.yaml|nsf|std' "
+        "--item 'configs/n2.yaml|nsf|std|noise x2'. "
+        "Empty fields fall back to the yaml's nle.model / "
+        "nle.standardize.",
+    )
     src.add_argument("--arms-json", nargs="+", help="{name,dir,n_params} json(s)")
-    ap.add_argument("--select", nargs="*", default=None,
-                    help="substrings/regexes to keep (e.g. nsf standard_t)")
+    ap.add_argument(
+        "--select", nargs="*", default=None, help="substrings/regexes to keep (e.g. nsf standard_t)"
+    )
     ap.add_argument("--labels", nargs="*", default=None, help="legend labels, in order")
     ap.add_argument("--out", default="eval_report")
     ap.add_argument("--thin", type=int, default=11)
     ap.add_argument("--burnin-frac", type=float, default=0.0)
-    ap.add_argument("--dlogp", type=float, default=10.0,
-                    help="logp>max-dlogp filter for GV/sigma ONLY; SBC is always "
-                         "unfiltered. -1 disables (widths on full chain).")
-    ap.add_argument("--sbc-unfiltered", action="store_true",
-                    help="compute SBC ranks on the FULL chain while widths stay "
-                         "filtered. Default: everything uses the --dlogp cut, "
-                         "matching the [filtered_dlogp10] figures in the report.")
+    ap.add_argument(
+        "--dlogp",
+        type=float,
+        default=10.0,
+        help="logp>max-dlogp filter for GV/sigma ONLY; SBC is always "
+        "unfiltered. -1 disables (widths on full chain).",
+    )
+    ap.add_argument(
+        "--sbc-unfiltered",
+        action="store_true",
+        help="compute SBC ranks on the FULL chain while widths stay "
+        "filtered. Default: everything uses the --dlogp cut, "
+        "matching the [filtered_dlogp10] figures in the report.",
+    )
     ap.add_argument("--nbins", type=int, default=30)
-    ap.add_argument("--no-intersect", action="store_true",
-                    help="evaluate each arm on its own sims (SBC uses more data, "
-                         "but arms are then NOT strictly comparable)")
-    ap.add_argument("--corner-sim", default="median",
-                    help="'median', 'random', an integer sim id, or 'none'")
+    ap.add_argument(
+        "--no-intersect",
+        action="store_true",
+        help="evaluate each arm on its own sims (SBC uses more data, "
+        "but arms are then NOT strictly comparable)",
+    )
+    ap.add_argument(
+        "--corner-sim", default="median", help="'median', 'random', an integer sim id, or 'none'"
+    )
     ap.add_argument("--corner-bins", type=int, default=40)
     ap.add_argument("--corner-smooth", type=float, default=1.0)
     ap.add_argument("--corner-width", type=float, default=6.5)
     ap.add_argument("--seed", type=int, default=0)
-    ap.add_argument("--all-seeds", action="store_true",
-                    help="expand each --item to every {arm}_s<seed> run found on disk")
-    ap.add_argument("--seeds", nargs="*", type=int, default=None,
-                    help="restrict --all-seeds expansion to these seeds (default: all found)")
-    ap.add_argument("--latent", action="store_true",
-                    help="also emit latent-space diagnostics per arm (t-t degeneracy "
-                         "scatter, |corr(t,theta)| heatmap, per-dim collapse check) from "
-                         "the arm's summaries/ dir. Off by default.")
+    ap.add_argument(
+        "--all-seeds",
+        action="store_true",
+        help="expand each --item to every {arm}_s<seed> run found on disk",
+    )
+    ap.add_argument(
+        "--seeds",
+        nargs="*",
+        type=int,
+        default=None,
+        help="restrict --all-seeds expansion to these seeds (default: all found)",
+    )
+    ap.add_argument(
+        "--latent",
+        action="store_true",
+        help="also emit latent-space diagnostics per arm (t-t degeneracy "
+        "scatter, |corr(t,theta)| heatmap, per-dim collapse check) from "
+        "the arm's summaries/ dir. Off by default.",
+    )
     args = ap.parse_args()
 
     arms = load_arms(args)
@@ -785,7 +945,7 @@ def main():
         mode_txt = "unfiltered"
         sbc_tag = "unfiltered"
     elif args.sbc_unfiltered:
-        mode_txt = "SBC unfiltered; widths dlogp<%g" % dlogp
+        mode_txt = f"SBC unfiltered; widths dlogp<{dlogp:g}"
         sbc_tag = "unfiltered"
     else:
         mode_txt = f"filtered dlogp{dlogp:g}"
@@ -794,8 +954,15 @@ def main():
 
     report = []
     for a in arms:
-        r = eval_arm(a, args.burnin_frac, args.thin, dlogp, args.nbins, sims_keep,
-                     sbc_unfiltered=args.sbc_unfiltered)
+        r = eval_arm(
+            a,
+            args.burnin_frac,
+            args.thin,
+            dlogp,
+            args.nbins,
+            sims_keep,
+            sbc_unfiltered=args.sbc_unfiltered,
+        )
         if r is None:
             print(f"[warn] {a['label']}: no usable chains", file=sys.stderr)
             continue
@@ -804,29 +971,42 @@ def main():
     if not report:
         sys.exit("no arm produced usable chains")
 
-    json.dump({"arms": arms, "report": report},
-              open(os.path.join(args.out, "metrics.json"), "w"), indent=2)
+    json.dump(
+        {"arms": arms, "report": report},
+        open(os.path.join(args.out, "metrics.json"), "w"),
+        indent=2,
+    )
     write_csv(report, os.path.join(args.out, "metrics.csv"), dlogp, mode_txt)
     write_tex(report, os.path.join(args.out, "metrics.tex"))
     print_summary(report)
 
     # ---- publication SBC (filtered) ----
-    plot_sbc(report, os.path.join(args.out, f"sbc_{sbc_tag}.pdf"),
-             args.nbins, mode_txt)
+    plot_sbc(report, os.path.join(args.out, f"sbc_{sbc_tag}.pdf"), args.nbins, mode_txt)
 
     # ---- publication overlay corner (arms overlaid on one shared sim) ----
     made_corner = []
     if str(args.corner_sim).lower() != "none":
         try:
-            explicit = int(args.corner_sim); cmode = None
+            explicit = int(args.corner_sim)
+            cmode = None
         except ValueError:
             explicit, cmode = None, args.corner_sim
-        sim, maps = pick_corner_sim(arms, cmode, args.seed, args.thin,
-                                    args.burnin_frac, explicit, dlogp)
+        sim, maps = pick_corner_sim(
+            arms, cmode, args.seed, args.thin, args.burnin_frac, explicit, dlogp
+        )
         cpath = os.path.join(args.out, f"corner_sim{sim}.pdf")
-        plot_corner(arms, maps, sim, cpath,
-                    args.thin, args.burnin_frac, args.corner_bins,
-                    args.corner_smooth, args.corner_width, dlogp)
+        plot_corner(
+            arms,
+            maps,
+            sim,
+            cpath,
+            args.thin,
+            args.burnin_frac,
+            args.corner_bins,
+            args.corner_smooth,
+            args.corner_width,
+            dlogp,
+        )
         made_corner.append(os.path.basename(cpath))
 
     # ---- optional latent-space diagnostics (compressor collapse / degeneracy) ----

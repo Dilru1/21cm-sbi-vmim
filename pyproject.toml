@@ -21,6 +21,9 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["F401"]
+# __init__.py re-exports the package's public API; those imports are used by
+# consumers, not dead code -- so F401 there is a false positive.
+"__init__.py" = ["F401"]
 
 [tool.black]
 line-length = 100

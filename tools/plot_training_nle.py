@@ -35,22 +35,21 @@ import os
 import re
 import sys
 
+import matplotlib
 import numpy as np
 import yaml
-import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
 
 TRANSFORMS = ["raw_t", "standard_t"]
 MODELS = ["gmm", "maf", "nsf"]
-TX_TITLE = {"raw_t": "Raw summaries (raw_t)",
-            "standard_t": "Standardized summaries (standard_t)"}
+TX_TITLE = {"raw_t": "Raw summaries (raw_t)", "standard_t": "Standardized summaries (standard_t)"}
 LOSS_NAMES = ["loss_history.npy", "stage2_nle_loss_history.npy"]
 
 
 def load_yaml(path):
-    with open(path, "r") as f:
+    with open(path) as f:
         return yaml.safe_load(f)
 
 
@@ -88,8 +87,10 @@ def discover_seed_runs(yaml_path):
     scratch_root = cfg.get("scratch_root")
     arm_name = cfg.get("arm_name")
     if not scratch_root or not arm_name:
-        print(f"[ERROR] YAML needs scratch_root and arm_name "
-              f"(got {scratch_root}, {arm_name})", file=sys.stderr)
+        print(
+            f"[ERROR] YAML needs scratch_root and arm_name (got {scratch_root}, {arm_name})",
+            file=sys.stderr,
+        )
         sys.exit(1)
     label = os.path.basename(yaml_path).replace(".yaml", "")
 
@@ -97,8 +98,8 @@ def discover_seed_runs(yaml_path):
     # tagged seed runs: {scratch_root}/{arm_name}_s<INT>/nle
     pattern = os.path.join(scratch_root, arm_name + "_s*", "nle")
     for nle_dir in glob.glob(pattern):
-        parent = os.path.basename(os.path.dirname(nle_dir))     # e.g. n1_jitter_s3
-        m = re.search(r"_s(\d+)$", parent)                      # digits only -> real seed
+        parent = os.path.basename(os.path.dirname(nle_dir))  # e.g. n1_jitter_s3
+        m = re.search(r"_s(\d+)$", parent)  # digits only -> real seed
         if m:
             runs[int(m.group(1))] = nle_dir
     # untagged run (tagging off / legacy): {scratch_root}/{arm_name}/nle
@@ -119,10 +120,19 @@ def main():
     ap = argparse.ArgumentParser(description="NLE loss plotter (per-config, all seeds overlaid)")
     ap.add_argument("configs", nargs="+", help="one or more config YAML paths")
     ap.add_argument("--out", default="nle_training_comparison.png")
-    ap.add_argument("--models", nargs="+", default=MODELS,
-                    help="subset of gmm/maf/nsf to plot (default: all present)")
-    ap.add_argument("--seeds", nargs="+", type=int, default=None,
-                    help="subset of seeds to plot (default: all discovered)")
+    ap.add_argument(
+        "--models",
+        nargs="+",
+        default=MODELS,
+        help="subset of gmm/maf/nsf to plot (default: all present)",
+    )
+    ap.add_argument(
+        "--seeds",
+        nargs="+",
+        type=int,
+        default=None,
+        help="subset of seeds to plot (default: all discovered)",
+    )
     args = ap.parse_args()
     models_wanted = [m for m in MODELS if m in set(args.models)]
 
@@ -149,8 +159,7 @@ def main():
                     all_seeds.add(seed)
                     found[seed] = True
         seeds_ok = sorted([s for s in runs if found.get(s)], key=seed_key)
-        print(f"[{label}] discovered seeds={sorted(runs, key=seed_key)}  "
-              f"with loss data={seeds_ok}")
+        print(f"[{label}] discovered seeds={sorted(runs, key=seed_key)}  with loss data={seeds_ok}")
         per_config.append((label, cell))
         for tx in cell:
             if tx not in active_tx:
@@ -167,8 +176,7 @@ def main():
     seed_color = {s: cmap(i % 10) for i, s in enumerate(seeds_sorted)}
 
     n_rows, n_cols = len(per_config), len(active_tx)
-    fig, axes = plt.subplots(n_rows, n_cols,
-                             figsize=(6.4 * n_cols, 4.0 * n_rows), squeeze=False)
+    fig, axes = plt.subplots(n_rows, n_cols, figsize=(6.4 * n_cols, 4.0 * n_rows), squeeze=False)
 
     for r, (label, cell) in enumerate(per_config):
         for c, tx in enumerate(active_tx):
@@ -185,8 +193,9 @@ def main():
                 for model, arr in sorted(tx_cell[seed].items()):
                     parsed = parse_loss_columns(arr)
                     if parsed is None:
-                        print(f"  [WARN] {label}/{tx}/s{seed}/{model}: "
-                              f"{arr.shape[1]} cols, skipping")
+                        print(
+                            f"  [WARN] {label}/{tx}/s{seed}/{model}: {arr.shape[1]} cols, skipping"
+                        )
                         continue
                     steps, train, val, phase = parsed
                     if len(steps):
@@ -197,24 +206,37 @@ def main():
                     drawn = True
                     if phase is not None and not phase_drawn:
                         for s in np.where(np.diff(phase) != 0)[0]:
-                            ax.axvline(steps[s + 1], color="grey", lw=0.8,
-                                       ls=":", alpha=0.5)
+                            ax.axvline(steps[s + 1], color="grey", lw=0.8, ls=":", alpha=0.5)
                         phase_drawn = True
 
-            ax.set_title(f"{label}\n{TX_TITLE.get(tx, tx)}",
-                         fontsize=10, fontweight="semibold", pad=8)
+            ax.set_title(
+                f"{label}\n{TX_TITLE.get(tx, tx)}", fontsize=10, fontweight="semibold", pad=8
+            )
             ax.set_xlabel("Epoch / chunk step", fontsize=9)
             ax.set_ylabel("NLE loss  (-log q)", fontsize=9)
             ax.grid(True, ls="--", alpha=0.3)
             ax.set_xlim(0, max_step * 1.02)
             if drawn:
-                ax.legend(title="seed  (solid=train, dashed=val)",
-                          fontsize=8, title_fontsize=8, ncol=max(1, len(seeds_sorted) // 4),
-                          loc="upper right", framealpha=0.9)
+                ax.legend(
+                    title="seed  (solid=train, dashed=val)",
+                    fontsize=8,
+                    title_fontsize=8,
+                    ncol=max(1, len(seeds_sorted) // 4),
+                    loc="upper right",
+                    framealpha=0.9,
+                )
             else:
-                ax.text(0.5, 0.5, "no data", ha="center", va="center",
-                        transform=ax.transAxes, color="grey")
-                ax.set_xticks([]); ax.set_yticks([])
+                ax.text(
+                    0.5,
+                    0.5,
+                    "no data",
+                    ha="center",
+                    va="center",
+                    transform=ax.transAxes,
+                    color="grey",
+                )
+                ax.set_xticks([])
+                ax.set_yticks([])
 
     fig.tight_layout()
     out_dir = os.path.dirname(os.path.abspath(args.out))

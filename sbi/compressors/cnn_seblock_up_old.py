@@ -21,7 +21,7 @@ class SEBlock3d(nn.Module):
             nn.Linear(channels, hidden, bias=False),
             nn.ReLU(inplace=True),
             nn.Linear(hidden, channels, bias=False),
-            nn.Sigmoid()
+            nn.Sigmoid(),
         )
 
     def forward(self, x):
@@ -32,6 +32,7 @@ class SEBlock3d(nn.Module):
 
 class ResidualBlock3d(nn.Module):
     """3D residual block with optional downsampling and SE block."""
+
     def __init__(self, ci, co, stride=1):
         super().__init__()
         self.conv1 = nn.Conv3d(ci, co, kernel_size=3, stride=stride, padding=1, bias=False)
@@ -44,7 +45,7 @@ class ResidualBlock3d(nn.Module):
         if stride != 1 or ci != co:
             self.shortcut = nn.Sequential(
                 nn.Conv3d(ci, co, kernel_size=1, stride=stride, bias=False),
-                nn.GroupNorm(min(8, co // 4), co)
+                nn.GroupNorm(min(8, co // 4), co),
             )
 
     def forward(self, x):
@@ -57,7 +58,7 @@ class ResidualBlock3d(nn.Module):
 
 def _pool_mean_std(x):
     """(B, C, D, H, W) -> (B, 2C): per-channel spatial mean and std."""
-    flat = x.flatten(2)                       # (B, C, DHW)
+    flat = x.flatten(2)  # (B, C, DHW)
     return torch.cat([flat.mean(dim=2), flat.std(dim=2)], dim=1)
 
 
@@ -66,18 +67,22 @@ class ResNet3DCompressor(nn.Module):
         super().__init__()
         self.direct = bool(direct)
         if self.direct and t_dim != n_params:
-            raise ValueError(f"direct regression needs t_dim==n_params, got t_dim={t_dim}, n_params={n_params}")
+            raise ValueError(
+                f"direct regression needs t_dim==n_params, got t_dim={t_dim}, n_params={n_params}"
+            )
 
         # full dense stem (not depthwise-separable), stride 1
         self.stem = nn.Sequential(
             nn.Conv3d(3, 32, kernel_size=3, stride=1, padding=1, bias=False),
             nn.GroupNorm(4, 32),
-            nn.LeakyReLU(0.1)
+            nn.LeakyReLU(0.1),
         )
 
         # stride 1 early to keep small scales
-        self.layer1 = ResidualBlock3d(32,  32, stride=1)   # ONE block, narrow, full res — texture only
-        self.layer2 = ResidualBlock3d(32,  64, stride=1)   # downsample immediately after
+        self.layer1 = ResidualBlock3d(
+            32, 32, stride=1
+        )  # ONE block, narrow, full res — texture only
+        self.layer2 = ResidualBlock3d(32, 64, stride=1)  # downsample immediately after
         self.layer3 = ResidualBlock3d(64, 128, stride=2)
         self.layer4 = ResidualBlock3d(128, 256, stride=2)
         self.layer5 = ResidualBlock3d(256, 512, stride=2)
@@ -86,15 +91,31 @@ class ResNet3DCompressor(nn.Module):
         combined_features_dim = 2 * (64 + 128 + 256 + 512)
 
         self.fc_summary = nn.Sequential(
-            nn.Linear(combined_features_dim, 256), nn.LayerNorm(256), nn.LeakyReLU(0.1), nn.Dropout(0.05),
-            nn.Linear(256, 128), nn.LayerNorm(128), nn.LeakyReLU(0.1), nn.Dropout(0.05),
-            nn.Linear(128, t_dim)
+            nn.Linear(combined_features_dim, 256),
+            nn.LayerNorm(256),
+            nn.LeakyReLU(0.1),
+            nn.Dropout(0.05),
+            nn.Linear(256, 128),
+            nn.LayerNorm(128),
+            nn.LeakyReLU(0.1),
+            nn.Dropout(0.05),
+            nn.Linear(128, t_dim),
         )
 
-        self.fc_aux = None if self.direct else nn.Sequential(
-            nn.Linear(combined_features_dim, 256), nn.LayerNorm(256), nn.LeakyReLU(0.1), nn.Dropout(0.2),
-            nn.Linear(256, 128), nn.LayerNorm(128), nn.LeakyReLU(0.1), nn.Dropout(0.2),
-            nn.Linear(128, n_params)
+        self.fc_aux = (
+            None
+            if self.direct
+            else nn.Sequential(
+                nn.Linear(combined_features_dim, 256),
+                nn.LayerNorm(256),
+                nn.LeakyReLU(0.1),
+                nn.Dropout(0.2),
+                nn.Linear(256, 128),
+                nn.LayerNorm(128),
+                nn.LeakyReLU(0.1),
+                nn.Dropout(0.2),
+                nn.Linear(128, n_params),
+            )
         )
 
     def forward(self, x):
@@ -105,8 +126,9 @@ class ResNet3DCompressor(nn.Module):
         x4 = self.layer4(x3)
         x5 = self.layer5(x4)
 
-        f = torch.cat([_pool_mean_std(x2), _pool_mean_std(x3),
-                       _pool_mean_std(x4), _pool_mean_std(x5)], dim=1)
+        f = torch.cat(
+            [_pool_mean_std(x2), _pool_mean_std(x3), _pool_mean_std(x4), _pool_mean_std(x5)], dim=1
+        )
 
         t = self.fc_summary(f)
         if self.direct:

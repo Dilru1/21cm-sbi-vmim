@@ -19,6 +19,7 @@ LOCAL np.random.default_rng(seed) objects, so they are immune to whatever the
 global RNG state is. That is why set_all_seeds() can be called before the split
 without disturbing it.
 """
+
 import os
 import random
 
@@ -99,6 +100,7 @@ def make_generator(seed):
     on a fresh process but drifts if anything upstream consumes randomness.
     """
     import torch
+
     g = torch.Generator()
     g.manual_seed(int(seed))
     return g
@@ -114,8 +116,9 @@ def seed_worker(worker_id):
     draws from every worker. Passing this as worker_init_fn fixes that.
     """
     import torch
-    base = torch.initial_seed() % (2 ** 32)
-    np.random.seed((base + worker_id) % (2 ** 32))
+
+    base = torch.initial_seed() % (2**32)
+    np.random.seed((base + worker_id) % (2**32))
     random.seed(base + worker_id)
 
 

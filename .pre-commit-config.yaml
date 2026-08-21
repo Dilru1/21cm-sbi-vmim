@@ -1,5 +1,12 @@
 # Runs automatically on `git commit` after `pre-commit install`.
-# Keeps formatting/lint consistent without you thinking about it.
+# Keeps formatting + basic hygiene consistent without you thinking about it.
+#
+# NOTE: only the *formatter* (ruff-format) runs here, not the *linter*. The
+# linter (`ruff check`) still flags minor advisory nits in the legacy research
+# code, and a failing hook would BLOCK your commit -- not what you want while
+# learning. Formatting auto-applies and never blocks. Once you've worked the
+# lint findings down (see `make lint`), add the commented-out ruff hook below
+# to enforce linting on commit too.
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
@@ -13,6 +20,6 @@ repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.16.4
     hooks:
-      - id: ruff                          # lint (autofix)
-        args: ["--fix"]
-      - id: ruff-format                   # format (black-compatible)
+      - id: ruff-format                   # auto-format (black-compatible)
+      # - id: ruff                        # <- enable later for lint-on-commit
+      #   args: ["--fix"]

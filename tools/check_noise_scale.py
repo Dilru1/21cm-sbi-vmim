@@ -28,6 +28,7 @@ Four independent checks, cheapest first:
                       every normalisation constant and noise scale in the export
                       path is provably the one the network was trained with.
 """
+
 import argparse
 import os
 import sys
@@ -37,7 +38,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from sbi import load_config, arm_dirs
+from sbi import arm_dirs, load_config
 
 OK, BAD, WARN = "\033[92mPASS\033[0m", "\033[91mFAIL\033[0m", "\033[93mWARN\033[0m"
 
@@ -98,8 +99,10 @@ def main():
     sims = np.asarray(sims)
     pool = int(nids[:, 0].max()) + 1
     tot = int(d["total_nnoise"])
-    print(f"   rows={len(sims):,}  distinct sims={len(np.unique(sims)):,}  "
-          f"pool(observed)={pool}  total_nnoise={tot}")
+    print(
+        f"   rows={len(sims):,}  distinct sims={len(np.unique(sims)):,}  "
+        f"pool(observed)={pool}  total_nnoise={tot}"
+    )
 
     # do two different sims get the same noise index at the same rep position?
     u = np.unique(sims)[:2]
@@ -108,10 +111,14 @@ def main():
         b = nids[sims == u[1]][:, 0]
         m = min(len(a), len(b))
         collide = np.array_equal(a[:m], b[:m])
-        print(f"   sim {u[0]} and sim {u[1]} share the identical noise sequence: {collide}"
-              f"   [{BAD if collide else OK}]")
+        print(
+            f"   sim {u[0]} and sim {u[1]} share the identical noise sequence: {collide}"
+            f"   [{BAD if collide else OK}]"
+        )
         if collide:
-            print(f"   -> sim_id * total_nnoise % pool == 0 because {tot} % {pool} == {tot % pool}.")
+            print(
+                f"   -> sim_id * total_nnoise % pool == 0 because {tot} % {pool} == {tot % pool}."
+            )
             print("      Every simulation is paired with the SAME noise cube at a given rep.")
             print("      Not a bias (each sim still sees all noise reps) but rows are")
             print("      correlated across sims, which inflates the effective sample size")
@@ -132,8 +139,10 @@ def main():
     meas = float((sig[:8] + ns_cfg * noi[:8]).std()) / float((sig[:8] + 1.0 * noi[:8]).std())
     good = abs(pred - meas) / pred < 0.05
     print(f"   signal var={sv:.4g}  noise var={nv:.4g}")
-    print(f"   std ratio (ns={ns_cfg} vs ns=1): predicted={pred:.4f} measured={meas:.4f}"
-          f"   [{OK if good else BAD}]")
+    print(
+        f"   std ratio (ns={ns_cfg} vs ns=1): predicted={pred:.4f} measured={meas:.4f}"
+        f"   [{OK if good else BAD}]"
+    )
     ok &= good
 
     # ---- 4. round trip -------------------------------------------------------
@@ -143,23 +152,28 @@ def main():
 
     print(f"\n4. round trip: recompute t for {args.n_rows} exported rows")
     import torch
+
     from sbi.cubes import get_stats, get_stats_global
 
     mc = c.get("model", "seblock").lower()
     if mc == "conv4d":
         from sbi.compressors.cnn_grn4d_up import Conv4DCompressor as C
+
         means, stds = get_stats_global(d["s_paths"], d["n_paths"], sim_ids_all, ns_cfg)
     else:
         from sbi.compressors.cnn_seblock_up import ResNet3DCompressor as C
+
         means, stds = get_stats(d["s_paths"], d["n_paths"], sim_ids_all, ns_cfg)
 
     dev = torch.device("cpu")
-    net = C(t_dim=cfg["t_dim"], n_params=cfg["n_params"],
-            direct=bool(c.get("direct_regression", False))).to(dev)
+    net = C(
+        t_dim=cfg["t_dim"], n_params=cfg["n_params"], direct=bool(c.get("direct_regression", False))
+    ).to(dev)
     ck = dirs["nle"] / "learned_compressor_bestprobe.pt"
     if not ck.exists():
         ck = dirs["nle"] / "learned_compressor.pt"
-    net.load_state_dict(torch.load(ck, map_location=dev)); net.eval()
+    net.load_state_dict(torch.load(ck, map_location=dev))
+    net.eval()
     print(f"   checkpoint: {ck.name}")
 
     t_stored = np.load(os.path.join(sd, "t.npy"), mmap_mode="r")

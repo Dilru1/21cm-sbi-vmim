@@ -3,16 +3,23 @@ Mirrors the SummaryCompressor used in the user's modular main.py: a dense
 stack with optional residual blocks, plus an aux head so the summary keeps
 parameter info during warmup.
 """
-import torch
+
 import torch.nn as nn
-import torch.nn.functional as F
 
 _ACT = {"leaky_relu": lambda: nn.LeakyReLU(0.1), "relu": nn.ReLU, "tanh": nn.Tanh}
 
 
 class SummaryCompressor(nn.Module):
-    def __init__(self, n_input, t_dim=8, dense_layers=(256, 256, 128, 64),
-                 dropout=0.0, activation="leaky_relu", use_resnet=False, n_params=4):
+    def __init__(
+        self,
+        n_input,
+        t_dim=8,
+        dense_layers=(256, 256, 128, 64),
+        dropout=0.0,
+        activation="leaky_relu",
+        use_resnet=False,
+        n_params=4,
+    ):
         super().__init__()
         self.use_resnet = use_resnet
         act = _ACT[activation]

@@ -7,11 +7,16 @@ will be wrong).
 Usage:
     python grid_check.py /data/ddehiwalage-don/data/astro_params_masked_from_original.npy
 """
+
 import sys
+
 import numpy as np
 
-PATH = sys.argv[1] if len(sys.argv) > 1 else \
-    "/data/ddehiwalage-don/data/astro_params_masked_from_original.npy"
+PATH = (
+    sys.argv[1]
+    if len(sys.argv) > 1
+    else "/data/ddehiwalage-don/data/astro_params_masked_from_original.npy"
+)
 
 NAMES = ["fX (idx0)", "tau (idx1)", "rHS (idx2)", "Mmin (idx3)", "fesc (idx4, NOT inferred)"]
 
@@ -20,19 +25,19 @@ def normalize_column(raw, idx):
     """EXACT mirror of CubeDataset's params_norm transform per column."""
     if idx == 0:
         v = np.log10(raw / 0.00192)
-        return (v - (-1.)) / (1. - (-1.))
+        return (v - (-1.0)) / (1.0 - (-1.0))
     if idx == 1:
         v = np.log10(raw)
         return (v - np.log10(738.9)) / (np.log10(10504.7) - np.log10(738.9))
     if idx == 2:
-        return raw.copy()   # already in [0,1], no transform
+        return raw.copy()  # already in [0,1], no transform
     if idx == 3:
         # NOTE: CubeDataset applies NO log10 here -- it assumes the raw
         # column is ALREADY log10(Mmin) (range ~[8, 9.6] matches
         # log10([1e8, 4e9])). If your raw file instead stores LINEAR Mmin,
         # this diagnostic (and CubeDataset itself) would be silently wrong
         # -- sanity check raw.min()/raw.max() below before trusting this.
-        return (raw - 8.) / (9.6 - 8.)
+        return (raw - 8.0) / (9.6 - 8.0)
     if idx == 4:
         return (raw - 0.05) / (0.5 - 0.05)
     raise ValueError(idx)
@@ -93,8 +98,10 @@ def main():
             print(f"  grid: {np.round(grid, 5)}")
         if grid.shape[0] > 1:
             spacing = np.diff(grid)
-            print(f"  spacing (normalized): min={spacing.min():.5f} "
-                  f"max={spacing.max():.5f} mean={spacing.mean():.5f}")
+            print(
+                f"  spacing (normalized): min={spacing.min():.5f} "
+                f"max={spacing.max():.5f} mean={spacing.mean():.5f}"
+            )
             half = spacing.min() / 2.0
             print(f"  suggested dequant half (this param): {half:.5f}")
             suggestions[idx] = half

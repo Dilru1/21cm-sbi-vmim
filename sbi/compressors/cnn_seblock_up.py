@@ -22,8 +22,8 @@ import torch.nn.functional as F
 
 # Fixed schedule that reproduces the historical architecture when no knobs are
 # passed. channels[0] is the stem output; block i maps channels[i]->channels[i+1].
-DEFAULT_CHANNELS = [32, 32, 64, 128, 256, 512]   # stem32; blocks 32,64,128,256,512
-DEFAULT_STRIDES  = [1, 1, 2, 2, 2]               # two stride-1 (full-res texture) then stride-2
+DEFAULT_CHANNELS = [32, 32, 64, 128, 256, 512]  # stem32; blocks 32,64,128,256,512
+DEFAULT_STRIDES = [1, 1, 2, 2, 2]  # two stride-1 (full-res texture) then stride-2
 
 
 def _gn_groups(channels, target):
@@ -45,7 +45,7 @@ class SEBlock3d(nn.Module):
             nn.Linear(channels, hidden, bias=False),
             nn.ReLU(inplace=True),
             nn.Linear(hidden, channels, bias=False),
-            nn.Sigmoid()
+            nn.Sigmoid(),
         )
 
     def forward(self, x):
@@ -56,6 +56,7 @@ class SEBlock3d(nn.Module):
 
 class ResidualBlock3d(nn.Module):
     """3D residual block with optional downsampling and SE block."""
+
     def __init__(self, ci, co, stride=1, reduction=8):
         super().__init__()
         self.conv1 = nn.Conv3d(ci, co, kernel_size=3, stride=stride, padding=1, bias=False)
@@ -68,7 +69,7 @@ class ResidualBlock3d(nn.Module):
         if stride != 1 or ci != co:
             self.shortcut = nn.Sequential(
                 nn.Conv3d(ci, co, kernel_size=1, stride=stride, bias=False),
-                nn.GroupNorm(min(8, co // 4), co)
+                nn.GroupNorm(min(8, co // 4), co),
             )
 
     def forward(self, x):
@@ -81,7 +82,7 @@ class ResidualBlock3d(nn.Module):
 
 def _pool_mean_std(x):
     """(B, C, D, H, W) -> (B, 2C): per-channel spatial mean and std."""
-    flat = x.flatten(2)                       # (B, C, DHW)
+    flat = x.flatten(2)  # (B, C, DHW)
     return torch.cat([flat.mean(dim=2), flat.std(dim=2)], dim=1)
 
 
@@ -119,13 +120,24 @@ class ResNet3DCompressor(nn.Module):
       # half width          (~4.2M params):
       ResNet3DCompressor(t_dim=4, n_params=4, width_mult=0.5)
     """
-    def __init__(self, t_dim=8, n_params=4, direct=False,
-                 channels=None, strides=None, readout_from=None,
-                 width_mult=1.0, se_reduction=8):
+
+    def __init__(
+        self,
+        t_dim=8,
+        n_params=4,
+        direct=False,
+        channels=None,
+        strides=None,
+        readout_from=None,
+        width_mult=1.0,
+        se_reduction=8,
+    ):
         super().__init__()
         self.direct = bool(direct)
         if self.direct and t_dim != n_params:
-            raise ValueError(f"direct regression needs t_dim==n_params, got t_dim={t_dim}, n_params={n_params}")
+            raise ValueError(
+                f"direct regression needs t_dim==n_params, got t_dim={t_dim}, n_params={n_params}"
+            )
 
         # ---- resolve the channel/stride schedule ----
         if channels is None:
@@ -137,8 +149,11 @@ class ResNet3DCompressor(nn.Module):
             raise ValueError(f"channels must have >=2 entries (stem + >=1 block), got {channels}")
 
         if strides is None:
-            strides = list(DEFAULT_STRIDES) if n_blocks == len(DEFAULT_STRIDES) \
-                      else [1] + [2] * (n_blocks - 1)
+            strides = (
+                list(DEFAULT_STRIDES)
+                if n_blocks == len(DEFAULT_STRIDES)
+                else [1] + [2] * (n_blocks - 1)
+            )
         else:
             strides = [int(s) for s in strides]
         if len(strides) != n_blocks:
@@ -146,7 +161,7 @@ class ResNet3DCompressor(nn.Module):
 
         # ---- resolve which stages feed the readout ----
         if readout_from is None:
-            readout_stages = list(range(2, n_blocks + 1))   # skip stage 1 (matches old net)
+            readout_stages = list(range(2, n_blocks + 1))  # skip stage 1 (matches old net)
         else:
             readout_stages = [int(s) for s in readout_from]
         for s in readout_stages:
@@ -162,7 +177,7 @@ class ResNet3DCompressor(nn.Module):
         self.stem = nn.Sequential(
             nn.Conv3d(3, c0, kernel_size=3, stride=1, padding=1, bias=False),
             nn.GroupNorm(_gn_groups(c0, 4), c0),
-            nn.LeakyReLU(0.1)
+            nn.LeakyReLU(0.1),
         )
 
         # ---- residual stages, registered as layer1..layerN so that the DEFAULT
@@ -171,7 +186,7 @@ class ResNet3DCompressor(nn.Module):
         prev = c0
         for i in range(n_blocks):
             blk = ResidualBlock3d(prev, channels[i + 1], stride=strides[i], reduction=se_reduction)
-            setattr(self, f"layer{i + 1}", blk)     # -> state_dict keys layer1.*, layer2.*, ...
+            setattr(self, f"layer{i + 1}", blk)  # -> state_dict keys layer1.*, layer2.*, ...
             self._stage_blocks.append(blk)
             prev = channels[i + 1]
 
@@ -179,15 +194,31 @@ class ResNet3DCompressor(nn.Module):
         combined_features_dim = 2 * sum(channels[s] for s in readout_stages)
 
         self.fc_summary = nn.Sequential(
-            nn.Linear(combined_features_dim, 256), nn.LayerNorm(256), nn.LeakyReLU(0.1), nn.Dropout(0.05),
-            nn.Linear(256, 128), nn.LayerNorm(128), nn.LeakyReLU(0.1), nn.Dropout(0.05),
-            nn.Linear(128, t_dim)
+            nn.Linear(combined_features_dim, 256),
+            nn.LayerNorm(256),
+            nn.LeakyReLU(0.1),
+            nn.Dropout(0.05),
+            nn.Linear(256, 128),
+            nn.LayerNorm(128),
+            nn.LeakyReLU(0.1),
+            nn.Dropout(0.05),
+            nn.Linear(128, t_dim),
         )
 
-        self.fc_aux = None if self.direct else nn.Sequential(
-            nn.Linear(combined_features_dim, 256), nn.LayerNorm(256), nn.LeakyReLU(0.1), nn.Dropout(0.2),
-            nn.Linear(256, 128), nn.LayerNorm(128), nn.LeakyReLU(0.1), nn.Dropout(0.2),
-            nn.Linear(128, n_params)
+        self.fc_aux = (
+            None
+            if self.direct
+            else nn.Sequential(
+                nn.Linear(combined_features_dim, 256),
+                nn.LayerNorm(256),
+                nn.LeakyReLU(0.1),
+                nn.Dropout(0.2),
+                nn.Linear(256, 128),
+                nn.LayerNorm(128),
+                nn.LeakyReLU(0.1),
+                nn.Dropout(0.2),
+                nn.Linear(128, n_params),
+            )
         )
 
     def forward(self, x):
@@ -195,7 +226,7 @@ class ResNet3DCompressor(nn.Module):
         outs = []
         for blk in self._stage_blocks:
             x = blk(x)
-            outs.append(x)                      # outs[i] == stage (i+1) output
+            outs.append(x)  # outs[i] == stage (i+1) output
 
         f = torch.cat([_pool_mean_std(outs[s - 1]) for s in self.readout_stages], dim=1)
 

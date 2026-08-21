@@ -17,13 +17,16 @@ USAGE:
       --configs 'configs/vmim_config/**/*.yaml' \
       --names Fx tau rHS Mmin --out-dir sweep_plots
 """
+
 import argparse
 import glob as globmod
 import os
 import re
 import sys
-import numpy as np
+
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -66,8 +69,15 @@ def load_run(cfg_path):
         loss = np.load(loss_p)
         if loss.ndim == 1:
             loss = loss[None, :]
-    return {"cfg": cfg_path, "head": head, "head_raw": head_raw,
-            "label": sub_label(cfg_path), "arm": arm, "rf": rf, "loss": loss}
+    return {
+        "cfg": cfg_path,
+        "head": head,
+        "head_raw": head_raw,
+        "label": sub_label(cfg_path),
+        "arm": arm,
+        "rf": rf,
+        "loss": loss,
+    }
 
 
 def per_head_figure(head, runs, names, out_dir):
@@ -90,8 +100,11 @@ def per_head_figure(head, runs, names, out_dir):
             ax.plot(a[:, 0], a[:, p + 1], "-o", ms=2.5, color=cmap(ri % 10), label=r["label"])
         ax.axhline(0, color="k", lw=0.6, alpha=0.4)
         ax.axhline(1, color="grey", lw=0.5, ls="--", alpha=0.4)
-        ax.set_title(f"{names[p]}  RF-R\u00b2"); ax.set_xlabel("epoch")
-        ax.set_ylabel("RF R\u00b2"); ax.set_ylim(-0.3, 1.02); ax.grid(alpha=0.25)
+        ax.set_title(f"{names[p]}  RF-R\u00b2")
+        ax.set_xlabel("epoch")
+        ax.set_ylabel("RF R\u00b2")
+        ax.set_ylim(-0.3, 1.02)
+        ax.grid(alpha=0.25)
         if p == 0:
             ax.legend(fontsize=6, loc="lower right")
     for k in range(n_params, ncol):
@@ -102,22 +115,38 @@ def per_head_figure(head, runs, names, out_dir):
         ax = axes[1][ri]
         L = r["loss"]
         if L is None:
-            ax.text(0.5, 0.5, "no loss_history", ha="center", va="center",
-                    transform=ax.transAxes, fontsize=8, color="grey")
-            ax.set_title(r["label"], fontsize=7); ax.axis("off"); continue
+            ax.text(
+                0.5,
+                0.5,
+                "no loss_history",
+                ha="center",
+                va="center",
+                transform=ax.transAxes,
+                fontsize=8,
+                color="grey",
+            )
+            ax.set_title(r["label"], fontsize=7)
+            ax.axis("off")
+            continue
         ep = L[:, 0]
         ax.plot(ep, L[:, 1], "-", color=cmap(ri % 10), label="train")
         ax.plot(ep, L[:, 2], "--", color=cmap(ri % 10), alpha=0.7, label="val")
-        if L.shape[1] > 3:                       # mark aux->VMIM phase switches
+        if L.shape[1] > 3:  # mark aux->VMIM phase switches
             for s in np.where(np.diff(L[:, 3]) != 0)[0]:
                 ax.axvline(ep[s + 1], color="grey", lw=0.8, ls=":", alpha=0.6)
-        ax.set_title(r["label"], fontsize=7); ax.set_xlabel("epoch")
-        ax.set_ylabel("loss"); ax.grid(alpha=0.25); ax.legend(fontsize=6)
+        ax.set_title(r["label"], fontsize=7)
+        ax.set_xlabel("epoch")
+        ax.set_ylabel("loss")
+        ax.grid(alpha=0.25)
+        ax.legend(fontsize=6)
     for k in range(n_arms, ncol):
         axes[1][k].axis("off")
 
-    fig.suptitle(f"head = {head}   (top: RF-R\u00b2 per param, arms overlaid | "
-                 f"bottom: raw loss per sub-arm)", y=1.005)
+    fig.suptitle(
+        f"head = {head}   (top: RF-R\u00b2 per param, arms overlaid | "
+        f"bottom: raw loss per sub-arm)",
+        y=1.005,
+    )
     fig.tight_layout()
     out = os.path.join(out_dir, f"sweep_{head}.png")
     fig.savefig(out, dpi=130, bbox_inches="tight")
@@ -135,21 +164,26 @@ def global_figure(all_runs, names, out_dir, metric="last", weak="rHS"):
         s = col[-1] if metric == "last" else col.max()
         scored.append((r["head"], r["label"], float(s)))
     if not scored:
-        print("[skip] global: no scored runs", file=sys.stderr); return
+        print("[skip] global: no scored runs", file=sys.stderr)
+        return
 
     heads = sorted({h for h, _, _ in scored})
     cmap = plt.get_cmap("tab10")
     fig, ax = plt.subplots(figsize=(max(8, len(scored) * 0.5), 5))
-    x = 0; xticks = []; xlabels = []
+    x = 0
+    xticks = []
+    xlabels = []
     for hi, h in enumerate(heads):
         grp = sorted([s for s in scored if s[0] == h], key=lambda z: z[2], reverse=True)
-        for (_, lbl, s) in grp:
+        for _, lbl, s in grp:
             ax.bar(x, s, color=cmap(hi % 10))
-            xticks.append(x); xlabels.append(f"{h}:{lbl}")
+            xticks.append(x)
+            xlabels.append(f"{h}:{lbl}")
             x += 1
-        x += 0.6                                  # gap between heads
+        x += 0.6  # gap between heads
     ax.axhline(0, color="k", lw=0.7)
-    ax.set_xticks(xticks); ax.set_xticklabels(xlabels, rotation=90, fontsize=6)
+    ax.set_xticks(xticks)
+    ax.set_xticklabels(xlabels, rotation=90, fontsize=6)
     ax.set_ylabel(f"{weak} RF-R\u00b2 ({metric})")
     ax.set_title(f"Global comparison: {weak} recovery by run, grouped by head")
     ax.grid(axis="y", alpha=0.25)

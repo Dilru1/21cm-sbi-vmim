@@ -14,13 +14,15 @@ Usage:
                  writes into e.g. chains/standard_t_nsf/ rather than chains/ .
                  Leave blank to look directly in chains/.
 """
+
 import argparse
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 try:
-    from sbi import load_config, arm_dirs
+    from sbi import arm_dirs, load_config
+
     HAVE_SBI = True
 except Exception:
     HAVE_SBI = False
@@ -29,7 +31,7 @@ except Exception:
 def chains_dir_for(cfg_path, chain_subdir):
     """Resolve the chains dir for a config the same way the pipeline does."""
     cfg = load_config(cfg_path)
-    dirs = arm_dirs(cfg)                      # creates {scratch_root}/{arm_name}/chains
+    dirs = arm_dirs(cfg)  # creates {scratch_root}/{arm_name}/chains
     cdir = Path(dirs["chains"])
     if chain_subdir:
         cdir = cdir / chain_subdir
@@ -40,8 +42,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("configs", nargs="+")
     ap.add_argument("--expected", type=int, default=908)
-    ap.add_argument("--chain-subdir", default="",
-                    help="extra nesting under chains/ (e.g. standard_t_nsf)")
+    ap.add_argument(
+        "--chain-subdir", default="", help="extra nesting under chains/ (e.g. standard_t_nsf)"
+    )
     args = ap.parse_args()
 
     if not HAVE_SBI:

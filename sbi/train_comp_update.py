@@ -32,6 +32,7 @@ yaml knobs read from the compressor block (all optional, defaults shown):
     probe_patience:   6        # probe events, counted ONLY once pure VMIM
     grad_clip:        1.0
 """
+
 import os
 from contextlib import nullcontext
 
@@ -48,14 +49,23 @@ def make_amp_tools(device):
     tv = version.parse(torch.__version__.split("+")[0])
     if use_amp and tv >= version.parse("2.0"):
         scaler = torch.amp.GradScaler("cuda", enabled=True)
-        ctx = lambda: torch.amp.autocast("cuda", enabled=True)
+
+        def ctx():
+            return torch.amp.autocast("cuda", enabled=True)
     elif use_amp:
         scaler = torch.cuda.amp.GradScaler(enabled=True)
-        ctx = lambda: torch.cuda.amp.autocast(enabled=True)
+
+        def ctx():
+            return torch.cuda.amp.autocast(enabled=True)
     else:
         scaler = None
-        ctx = lambda: nullcontext()
-    noamp = (lambda: torch.autocast(device.type, enabled=False)) if use_amp else (lambda: nullcontext())
+
+        def ctx():
+            return nullcontext()
+
+    noamp = (
+        (lambda: torch.autocast(device.type, enabled=False)) if use_amp else (lambda: nullcontext())
+    )
     return use_amp, scaler, ctx, noamp
 
 
@@ -110,7 +120,8 @@ def probe_sigma(compressor, head, loader, device, n_params=4, max_batches=40):
     Only available for GMM heads (conditional_sigma method)."""
     if not hasattr(head, "conditional_sigma"):
         return None
-    compressor.eval(); head.eval()
+    compressor.eval()
+    head.eval()
     raw = compressor.module if isinstance(compressor, nn.DataParallel) else compressor
     sig = []
     for b, (data, _, *_) in enumerate(loader):
@@ -120,8 +131,12 @@ def probe_sigma(compressor, head, loader, device, n_params=4, max_batches=40):
         t = (out[0] if isinstance(out, tuple) else out).float()
         sig.append(head.conditional_sigma(t).cpu().numpy())
     s = np.concatenate(sig).mean(0)
-    print("[q sigma] " + " | ".join(f"t{p}:{s[p]:.3f}" for p in range(len(s)))
-          + "   (prior sigma ~0.29; floor = head.sigma_floor)", flush=True)
+    print(
+        "[q sigma] "
+        + " | ".join(f"t{p}:{s[p]:.3f}" for p in range(len(s)))
+        + "   (prior sigma ~0.29; floor = head.sigma_floor)",
+        flush=True,
+    )
     return s.tolist()
 
 
@@ -129,25 +144,28 @@ def probe_sigma(compressor, head, loader, device, n_params=4, max_batches=40):
 def run_training(compressor, head, train_loader, val_loader, device, nle_dir, c, n_params):
     raw = compressor.module if isinstance(compressor, nn.DataParallel) else compressor
 
-    aux_only    = bool(c.get("aux_only",         True))
-    anneal      = bool(c.get("aux_anneal",       False))
-    warmup      = int(c.get("warmup_epochs",     0))
-    anneal_eps  = int(c.get("aux_anneal_epochs", warmup))
-    lam_aux     = float(c.get("lam_aux",         1.0))
-    lr          = float(c.get("lr",              1e-3))
-    head_mult   = float(c.get("head_lr_mult",    5.0))
-    epochs      = int(c.get("epochs",            60))
-    probe_every = int(c.get("probe_every",       10))
-    probe_pat   = int(c.get("probe_patience",    6))
-    plateau_pat = int(c.get("plateau_patience",  15))
-    max_norm    = float(c.get("grad_clip",       1.0))
+    aux_only = bool(c.get("aux_only", True))
+    anneal = bool(c.get("aux_anneal", False))
+    warmup = int(c.get("warmup_epochs", 0))
+    anneal_eps = int(c.get("aux_anneal_epochs", warmup))
+    lam_aux = float(c.get("lam_aux", 1.0))
+    lr = float(c.get("lr", 1e-3))
+    head_mult = float(c.get("head_lr_mult", 5.0))
+    epochs = int(c.get("epochs", 60))
+    probe_every = int(c.get("probe_every", 10))
+    probe_pat = int(c.get("probe_patience", 6))
+    plateau_pat = int(c.get("plateau_patience", 15))
+    max_norm = float(c.get("grad_clip", 1.0))
 
     if aux_only:
         print("[MODE] aux_only: pure MSE regression, no VMIM.", flush=True)
     elif warmup > 0 and not anneal:
         print(f"[MODE] hard switch: MSE for {warmup} epochs, then pure VMIM.", flush=True)
     elif anneal:
-        print(f"[MODE] anneal: MSE+VMIM, MSE ramps down over epochs {warmup}-{warmup+anneal_eps}.", flush=True)
+        print(
+            f"[MODE] anneal: MSE+VMIM, MSE ramps down over epochs {warmup}-{warmup + anneal_eps}.",
+            flush=True,
+        )
     else:
         print("[MODE] pure VMIM from epoch 0.", flush=True)
 
@@ -161,8 +179,9 @@ def run_training(compressor, head, train_loader, val_loader, device, nle_dir, c,
 
     def fresh_scheduler():
         return optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer, mode="min", factor=0.5,
-            patience=plateau_pat, min_lr=lr * 0.01)
+            optimizer, mode="min", factor=0.5, patience=plateau_pat, min_lr=lr * 0.01
+        )
+
     scheduler = fresh_scheduler()
 
     use_amp, scaler, autocast_ctx, noamp_ctx = make_amp_tools(device)
@@ -184,8 +203,11 @@ def run_training(compressor, head, train_loader, val_loader, device, nle_dir, c,
 
         phase = 0 if (aux_coef > 0.0 or aux_only) else 1
         if prev_phase is not None and phase != prev_phase:
-            print(f"[PHASE] objective changed at epoch {epoch+1}: "
-                  "resetting best_val, LR scheduler, and probe-stop counter.", flush=True)
+            print(
+                f"[PHASE] objective changed at epoch {epoch + 1}: "
+                "resetting best_val, LR scheduler, and probe-stop counter.",
+                flush=True,
+            )
             best_val = float("inf")
             scheduler = fresh_scheduler()
         prev_phase = phase
@@ -193,8 +215,11 @@ def run_training(compressor, head, train_loader, val_loader, device, nle_dir, c,
         is_pure_vmim = (not aux_only) and (aux_coef == 0.0) and vmim_on
         if is_pure_vmim and not was_pure_vmim:
             # just entered the pure-VMIM regime this epoch: arm the counter fresh
-            print(f"[PHASE] pure VMIM begins at epoch {epoch+1}: "
-                  "arming probe-based early stopping from here.", flush=True)
+            print(
+                f"[PHASE] pure VMIM begins at epoch {epoch + 1}: "
+                "arming probe-based early stopping from here.",
+                flush=True,
+            )
             probes_since_best = 0
             best_probe = -1e9
         was_pure_vmim = is_pure_vmim
@@ -217,19 +242,23 @@ def run_training(compressor, head, train_loader, val_loader, device, nle_dir, c,
                     loss = loss + aux_coef * criterion(pred[:, :n_params], target[:, :n_params])
                 if vmim_on and head is not None:
                     with noamp_ctx():
-                        loss = loss + (-head.log_prob(t.float(), target[:, :n_params].float()).mean())
+                        loss = loss + (
+                            -head.log_prob(t.float(), target[:, :n_params].float()).mean()
+                        )
             if not torch.is_tensor(loss) or not torch.isfinite(loss):
                 continue
             if use_amp and scaler is not None:
                 scaler.scale(loss).backward()
                 scaler.unscale_(optimizer)
                 torch.nn.utils.clip_grad_norm_(all_params, max_norm)
-                scaler.step(optimizer); scaler.update()
+                scaler.step(optimizer)
+                scaler.update()
             else:
                 loss.backward()
                 torch.nn.utils.clip_grad_norm_(all_params, max_norm)
                 optimizer.step()
-            train_sum += loss.item(); n_train += 1
+            train_sum += loss.item()
+            n_train += 1
         avg_train = train_sum / max(n_train, 1)
 
         # -- val ----------------------------------------------------------------
@@ -254,15 +283,19 @@ def run_training(compressor, head, train_loader, val_loader, device, nle_dir, c,
                         else:
                             l = criterion(t[:, :n_params], target[:, :n_params])
                 if torch.isfinite(l):
-                    val_sum += l.item(); n_val += 1
+                    val_sum += l.item()
+                    n_val += 1
         avg_val = val_sum / max(n_val, 1)
         scheduler.step(avg_val)
         cur_lr = optimizer.param_groups[0]["lr"]
 
         loss_log.append([epoch + 1, avg_train, avg_val, phase])
         np.save(os.path.join(nle_dir, "loss_history.npy"), np.array(loss_log))
-        print(f"Epoch {epoch+1:03d} [{tag}] LR:{cur_lr:.2e} | "
-              f"train {avg_train:.6f} | val {avg_val:.6f}", flush=True)
+        print(
+            f"Epoch {epoch + 1:03d} [{tag}] LR:{cur_lr:.2e} | "
+            f"train {avg_train:.6f} | val {avg_val:.6f}",
+            flush=True,
+        )
 
         # -- probes: RF-R2 + per-parameter q sigma -----------------------------
         if (epoch + 1) % probe_every == 0:
@@ -282,20 +315,25 @@ def run_training(compressor, head, train_loader, val_loader, device, nle_dir, c,
             if mean_r2 > best_probe + 1e-4:
                 best_probe = mean_r2
                 probes_since_best = 0
-                #torch.save(raw.state_dict(),
+                # torch.save(raw.state_dict(),
                 #           os.path.join(nle_dir, "learned_compressor_bestprobe.pt"))
                 if head is not None:
-                    torch.save(head.state_dict(),
-                               os.path.join(nle_dir, "best_vmim_head.pt"))
-                print(f"  saved best-by-probe (mean R2 {mean_r2:.3f}, "
-                      f"{'pure-VMIM' if is_pure_vmim else tag}).", flush=True)
+                    torch.save(head.state_dict(), os.path.join(nle_dir, "best_vmim_head.pt"))
+                print(
+                    f"  saved best-by-probe (mean R2 {mean_r2:.3f}, "
+                    f"{'pure-VMIM' if is_pure_vmim else tag}).",
+                    flush=True,
+                )
             elif is_pure_vmim:
                 # BUGFIX 6: only counts staleness -- and can only trigger a
                 # stop -- once we're actually in the pure-VMIM regime.
                 probes_since_best += 1
                 if probes_since_best >= probe_pat:
-                    print(f"Early stopping at epoch {epoch+1}: mean probe R2 "
-                          f"stale for {probe_pat} probes IN PURE-VMIM PHASE.", flush=True)
+                    print(
+                        f"Early stopping at epoch {epoch + 1}: mean probe R2 "
+                        f"stale for {probe_pat} probes IN PURE-VMIM PHASE.",
+                        flush=True,
+                    )
                     break
             # else: aux_only or still in warmup/anneal -- probe logged, but
             # staleness is never counted and can never trigger a stop here.
@@ -306,5 +344,5 @@ def run_training(compressor, head, train_loader, val_loader, device, nle_dir, c,
             print("  saved best-by-loss.", flush=True)
 
     np.save(os.path.join(nle_dir, "loss_history.npy"), np.array(loss_log))
-    torch.save(raw.state_dict(), os.path.join(nle_dir, "learned_compressor.pt")) 
+    torch.save(raw.state_dict(), os.path.join(nle_dir, "learned_compressor.pt"))
     return best_val

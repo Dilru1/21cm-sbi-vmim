@@ -2,26 +2,34 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 class Conv4d(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size, stride, padding):
         super().__init__()
-        if isinstance(kernel_size, int): kernel_size = (kernel_size,)*4
-        if isinstance(stride, int): stride = (stride,)*4
-        if isinstance(padding, int): padding = (padding,)*4
+        if isinstance(kernel_size, int):
+            kernel_size = (kernel_size,) * 4
+        if isinstance(stride, int):
+            stride = (stride,) * 4
+        if isinstance(padding, int):
+            padding = (padding,) * 4
 
         self.kz, self.kd, self.kh, self.kw = kernel_size
         self.sz, self.sd, self.sh, self.sw = stride
         self.pz, self.pd, self.ph, self.pw = padding
 
-        self.spatial_convs = nn.ModuleList([
-            nn.Conv3d(
-                in_channels, out_channels,
-                kernel_size=(self.kd, self.kh, self.kw),
-                stride=(self.sd, self.sh, self.sw),
-                padding=(self.pd, self.ph, self.pw),
-                bias=False
-            ) for _ in range(self.kz)
-        ])
+        self.spatial_convs = nn.ModuleList(
+            [
+                nn.Conv3d(
+                    in_channels,
+                    out_channels,
+                    kernel_size=(self.kd, self.kh, self.kw),
+                    stride=(self.sd, self.sh, self.sw),
+                    padding=(self.pd, self.ph, self.pw),
+                    bias=False,
+                )
+                for _ in range(self.kz)
+            ]
+        )
         self.bias = nn.Parameter(torch.zeros(out_channels))
 
     def forward(self, x):
@@ -70,11 +78,12 @@ class GRN4d(nn.Module):
 
 class ResidualBlock4d(nn.Module):
     """A clean 4D residual block using GroupNorm and GRN scaling."""
+
     def __init__(self, ci, co, stride=1):
         super().__init__()
         # Map tuple-based multi-spatial stride dimensions dynamically
         s_param = (1, stride, stride, stride) if isinstance(stride, int) else stride
-        
+
         self.conv1 = Conv4d(ci, co, kernel_size=3, stride=s_param, padding=1)
         self.gn1 = GroupNorm4d(min(8, co // 4), co)
         self.grn = GRN4d(co)
@@ -82,10 +91,14 @@ class ResidualBlock4d(nn.Module):
         self.gn2 = GroupNorm4d(min(8, co // 4), co)
 
         self.shortcut = nn.Sequential()
-        if ci != co or (isinstance(stride, int) and stride != 1) or (isinstance(stride, tuple) and any(s > 1 for s in stride)):
+        if (
+            ci != co
+            or (isinstance(stride, int) and stride != 1)
+            or (isinstance(stride, tuple) and any(s > 1 for s in stride))
+        ):
             self.shortcut = nn.Sequential(
                 Conv4d(ci, co, kernel_size=1, stride=s_param, padding=0),
-                GroupNorm4d(min(8, co // 4), co)
+                GroupNorm4d(min(8, co // 4), co),
             )
 
     def forward(self, x):
@@ -100,13 +113,16 @@ class Conv4DCompressor(nn.Module):
         super().__init__()
         self.direct = bool(direct)
         if self.direct and t_dim != n_params:
-            raise ValueError(f"direct regression needs t_dim==n_params, got t_dim={t_dim}, n_params={n_params}")
+            raise ValueError(
+                f"direct regression needs t_dim==n_params, got t_dim={t_dim}, n_params={n_params}"
+            )
 
         # Stem handling 1 channel input [B, C=1, Z=3, D=32, H=32, W=32]
         self.stem = nn.Sequential(
             Conv4d(in_channels=1, out_channels=32, kernel_size=3, stride=1, padding=1),
             GroupNorm4d(4, 32),
-            nn.LeakyReLU(0.1))
+            nn.LeakyReLU(0.1),
+        )
 
         # SUGGESTION 3: Set stride=1 on the early blocks to retain small-scale geometry
         self.layer1 = ResidualBlock4d(32, 32, stride=1)
@@ -120,35 +136,51 @@ class Conv4DCompressor(nn.Module):
 
         # SUGGESTION 4: Summary branch dropout dropped to stabilize VMIM heads
         self.fc_summary = nn.Sequential(
-            nn.Linear(combined_features_dim, 256), nn.LayerNorm(256), nn.LeakyReLU(0.1), nn.Dropout(0.05),
-            nn.Linear(256, 128), nn.LayerNorm(128), nn.LeakyReLU(0.1), nn.Dropout(0.05),
-            nn.Linear(128, t_dim)
+            nn.Linear(combined_features_dim, 256),
+            nn.LayerNorm(256),
+            nn.LeakyReLU(0.1),
+            nn.Dropout(0.05),
+            nn.Linear(256, 128),
+            nn.LayerNorm(128),
+            nn.LeakyReLU(0.1),
+            nn.Dropout(0.05),
+            nn.Linear(128, t_dim),
         )
-        
-        self.fc_aux = None if self.direct else nn.Sequential(
-            nn.Linear(combined_features_dim, 256), nn.LayerNorm(256), nn.LeakyReLU(0.1), nn.Dropout(0.2),
-            nn.Linear(256, 128), nn.LayerNorm(128), nn.LeakyReLU(0.1), nn.Dropout(0.2),
-            nn.Linear(128, n_params)
+
+        self.fc_aux = (
+            None
+            if self.direct
+            else nn.Sequential(
+                nn.Linear(combined_features_dim, 256),
+                nn.LayerNorm(256),
+                nn.LeakyReLU(0.1),
+                nn.Dropout(0.2),
+                nn.Linear(256, 128),
+                nn.LayerNorm(128),
+                nn.LeakyReLU(0.1),
+                nn.Dropout(0.2),
+                nn.Linear(128, n_params),
+            )
         )
 
     def forward(self, x):
         x = self.stem(x)
-        
+
         x1 = self.layer1(x)
         x2 = self.layer2(x1)
         x3 = self.layer3(x2)
         x4 = self.layer4(x3)
         x5 = self.layer5(x4)
-        
+
         # 4D global pooling across Z, D, H, W (dims 2, 3, 4, 5)
         pool2 = torch.mean(x2, dim=(2, 3, 4, 5))
         pool3 = torch.mean(x3, dim=(2, 3, 4, 5))
         pool4 = torch.mean(x4, dim=(2, 3, 4, 5))
         pool5 = torch.mean(x5, dim=(2, 3, 4, 5))
-        
+
         # SUGGESTION 3: Concatenation ensures micro-textures have a clean gradients bypass path
         f = torch.cat([pool2, pool3, pool4, pool5], dim=1)
-        
+
         t = self.fc_summary(f)
         if self.direct:
             return t, t

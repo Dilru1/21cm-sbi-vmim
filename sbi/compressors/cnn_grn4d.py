@@ -2,14 +2,16 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-# https://github.com/ZhengyuLiang24/Conv4d-PyTorch/blob/main/Conv4d.py 
+# https://github.com/ZhengyuLiang24/Conv4d-PyTorch/blob/main/Conv4d.py
 # https://medium.com/thedeephub/papers-explained-94-convnext-v2-2ecdabf2081c
+
 
 class Conv4d(nn.Module):
     """
     Input:  [B, Cin, Z, D, H, W]
     Output: [B, Cout, Zout, Dout, Hout, Wout]
     """
+
     def __init__(self, in_channels, out_channels, kernel_size, stride, padding):
         super().__init__()
 
@@ -24,17 +26,19 @@ class Conv4d(nn.Module):
         self.sz, self.sd, self.sh, self.sw = stride
         self.pz, self.pd, self.ph, self.pw = padding
 
-        self.spatial_convs = nn.ModuleList([
-            nn.Conv3d(
-                in_channels,
-                out_channels,
-                kernel_size=(self.kd, self.kh, self.kw),
-                stride=(self.sd, self.sh, self.sw),
-                padding=(self.pd, self.ph, self.pw),
-                bias=False
-            )
-            for _ in range(self.kz)
-        ])
+        self.spatial_convs = nn.ModuleList(
+            [
+                nn.Conv3d(
+                    in_channels,
+                    out_channels,
+                    kernel_size=(self.kd, self.kh, self.kw),
+                    stride=(self.sd, self.sh, self.sw),
+                    padding=(self.pd, self.ph, self.pw),
+                    bias=False,
+                )
+                for _ in range(self.kz)
+            ]
+        )
         self.bias = nn.Parameter(torch.zeros(out_channels))
 
     def forward(self, x):
@@ -68,6 +72,7 @@ class GroupNorm4d(nn.Module):
     Standard GroupNorm fails on 6D tensors [B, C, Z, D, H, W].
     This reshaping layer temporarily collapses Z and D into the batch dim.
     """
+
     def __init__(self, num_groups, num_channels):
         super().__init__()
         self.gn = nn.GroupNorm(num_groups, num_channels)
@@ -77,13 +82,14 @@ class GroupNorm4d(nn.Module):
         # Collapse spatial depth frames into the batch context
         x = x.permute(0, 2, 3, 1, 4, 5).contiguous().view(B * Z * D, C, H, W)
         x = self.gn(x)
-        # Restore original tensor dimensionality 
+        # Restore original tensor dimensionality
         x = x.view(B, Z, D, C, H, W).permute(0, 3, 1, 2, 4, 5).contiguous()
         return x
 
 
 class GRN4d(nn.Module):
     """Global Response Normalization over 4D structures."""
+
     def __init__(self, channels):
         super().__init__()
         self.gamma = nn.Parameter(torch.zeros(1, channels, 1, 1, 1, 1))
@@ -96,19 +102,23 @@ class GRN4d(nn.Module):
 
 
 # ── Drop-In 4D Compressor ───────────────────────────────────────────────────
-#Conv4DCompressor
+# Conv4DCompressor
 class ResNet3DCompressor(nn.Module):
     def __init__(self, t_dim=8, n_params=4, direct=False):
         super().__init__()
         self.direct = bool(direct)
-        
+
         if self.direct and t_dim != n_params:
-            raise ValueError(f"direct regression needs t_dim==n_params, got t_dim={t_dim}, n_params={n_params}")
+            raise ValueError(
+                f"direct regression needs t_dim==n_params, got t_dim={t_dim}, n_params={n_params}"
+            )
 
         # Assuming input structure contains a single channel [B, 1, Z, D, H, W]
         # Modify in_channels=3 if your raw cubes use 3-channel input paths.
-        #self.conv1 = Conv4d(in_channels=3, out_channels=32, kernel_size=3, stride=(1, 2, 2, 2), padding=1)
-        self.conv1 = Conv4d(in_channels=1, out_channels=32, kernel_size=3, stride=(1, 2, 2, 2), padding=1)
+        # self.conv1 = Conv4d(in_channels=3, out_channels=32, kernel_size=3, stride=(1, 2, 2, 2), padding=1)
+        self.conv1 = Conv4d(
+            in_channels=1, out_channels=32, kernel_size=3, stride=(1, 2, 2, 2), padding=1
+        )
         self.gn1 = GroupNorm4d(4, 32)
         self.grn1 = GRN4d(32)
 
@@ -129,15 +139,31 @@ class ResNet3DCompressor(nn.Module):
 
         # ── Multi-Head Architectures identical to original baseline ─────────
         self.fc_summary = nn.Sequential(
-            nn.Linear(512, 256), nn.LayerNorm(256), nn.LeakyReLU(0.1), nn.Dropout(0.2),
-            nn.Linear(256, 128), nn.LayerNorm(128), nn.LeakyReLU(0.1), nn.Dropout(0.2),
-            nn.Linear(128, t_dim)
+            nn.Linear(512, 256),
+            nn.LayerNorm(256),
+            nn.LeakyReLU(0.1),
+            nn.Dropout(0.2),
+            nn.Linear(256, 128),
+            nn.LayerNorm(128),
+            nn.LeakyReLU(0.1),
+            nn.Dropout(0.2),
+            nn.Linear(128, t_dim),
         )
-        
-        self.fc_aux = None if self.direct else nn.Sequential(
-            nn.Linear(512, 256), nn.LayerNorm(256), nn.LeakyReLU(0.1), nn.Dropout(0.2),
-            nn.Linear(256, 128), nn.LayerNorm(128), nn.LeakyReLU(0.1), nn.Dropout(0.2),
-            nn.Linear(128, n_params)
+
+        self.fc_aux = (
+            None
+            if self.direct
+            else nn.Sequential(
+                nn.Linear(512, 256),
+                nn.LayerNorm(256),
+                nn.LeakyReLU(0.1),
+                nn.Dropout(0.2),
+                nn.Linear(256, 128),
+                nn.LayerNorm(128),
+                nn.LeakyReLU(0.1),
+                nn.Dropout(0.2),
+                nn.Linear(128, n_params),
+            )
         )
 
     def forward(self, x):

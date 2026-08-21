@@ -36,14 +36,15 @@ The two filenames written/read are the ones the configs point at:
   astro_params_masked_from_original.npy
   original_sim_ids_masked_from_original.npy
 """
+
 import argparse
 import json
-import os
 from pathlib import Path
+
 import numpy as np
 
 NB_SIMU_TOTAL = 9827
-VOXELS = 32 ** 3
+VOXELS = 32**3
 PARAMS_NAME = "astro_params_masked_from_original.npy"
 SIMIDS_NAME = "original_sim_ids_masked_from_original.npy"
 
@@ -72,14 +73,14 @@ def availability_mask(clean_paths, n_total, manual_bad):
         if clean.shape[0] < n_total:
             raise ValueError(f"{path}: only {clean.shape[0]} cubes, need {n_total}")
         clean = clean[:n_total]
-        nonzero = np.any(clean != 0.0, axis=1)          # original: count_nonzero(...)>0
+        nonzero = np.any(clean != 0.0, axis=1)  # original: count_nonzero(...)>0
         per_z[path] = int(nonzero.sum())
         avail &= nonzero
         del clean
     forced = 0
     if manual_bad is not None:
         lo, hi = manual_bad
-        forced = int(avail[lo:hi].sum())               # how many we are turning off
+        forced = int(avail[lo:hi].sum())  # how many we are turning off
         avail[lo:hi] = False
     return avail, per_z, forced
 
@@ -98,10 +99,11 @@ def build(args):
     manual = None if args.no_manual_flag else (args.manual_bad_lo, args.manual_bad_hi)
     avail, per_z, forced = availability_mask(clean_paths, n_total, manual)
 
-    sim_ids = np.where(avail)[0].astype(np.int64)             # original indices, ascending
-    astro = params_full[sim_ids].astype(np.float64)           # aligned raw params
+    sim_ids = np.where(avail)[0].astype(np.int64)  # original indices, ascending
+    astro = params_full[sim_ids].astype(np.float64)  # aligned raw params
 
-    out = Path(args.out_dir); out.mkdir(parents=True, exist_ok=True)
+    out = Path(args.out_dir)
+    out.mkdir(parents=True, exist_ok=True)
     np.save(out / SIMIDS_NAME, sim_ids)
     np.save(out / PARAMS_NAME, astro)
 
@@ -120,14 +122,18 @@ def build(args):
     }
     print(json.dumps(report, indent=2))
     # Quick sanity hints
-    seq = labels[:1] == ["0"] or labels[:1] == ["1"]
+    labels[:1] == ["0"] or labels[:1] == ["1"]
     if not _labels_monotone(labels):
-        print("[WARN] param.dat first column is NOT a clean 0,1,2,... sequence; "
-              "the file-order==sim-order assumption from the original code relies on "
-              "this. Inspect label_col_first5/last5 above.")
+        print(
+            "[WARN] param.dat first column is NOT a clean 0,1,2,... sequence; "
+            "the file-order==sim-order assumption from the original code relies on "
+            "this. Inspect label_col_first5/last5 above."
+        )
     if abs(int(avail.sum()) - 9120) > 50:
-        print(f"[NOTE] available={int(avail.sum())}, you expected ~9120. "
-              "If far off, check manual_bad range and that all three clean files are present.")
+        print(
+            f"[NOTE] available={int(avail.sum())}, you expected ~9120. "
+            "If far off, check manual_bad range and that all three clean files are present."
+        )
     return report
 
 
@@ -141,10 +147,12 @@ def _labels_monotone(labels):
 
 def verify(args):
     out = Path(args.out_dir)
-    sip = out / SIMIDS_NAME; pap = out / PARAMS_NAME
+    sip = out / SIMIDS_NAME
+    pap = out / PARAMS_NAME
     if not sip.exists() or not pap.exists():
         raise FileNotFoundError(f"missing {sip} or {pap}; run `build` first")
-    sim_ids = np.load(sip); astro = np.load(pap)
+    sim_ids = np.load(sip)
+    astro = np.load(pap)
     ok = True
 
     def check(name, cond):
@@ -169,42 +177,62 @@ def verify(args):
         params_full, labels = read_params(args.param_file, args.nb_astro_param, args.col_offset)
         if astro.shape[0] and sim_ids.max() < params_full.shape[0]:
             recon = params_full[sim_ids]
-            check("astro rows == param.dat[sim_ids] (alignment)",
-                  np.allclose(recon, astro, atol=1e-6, rtol=0))
+            check(
+                "astro rows == param.dat[sim_ids] (alignment)",
+                np.allclose(recon, astro, atol=1e-6, rtol=0),
+            )
         # rebuild the mask and compare the kept set exactly
         clean_paths = [args.clean_glob.format(z=z) for z in args.redshifts]
         if all(Path(p).exists() for p in clean_paths):
             manual = None if args.no_manual_flag else (args.manual_bad_lo, args.manual_bad_hi)
-            avail, _, _ = availability_mask(clean_paths, min(params_full.shape[0], NB_SIMU_TOTAL), manual)
-            check("sim_ids == recomputed availability mask",
-                  np.array_equal(sim_ids, np.where(avail)[0]))
+            avail, _, _ = availability_mask(
+                clean_paths, min(params_full.shape[0], NB_SIMU_TOTAL), manual
+            )
+            check(
+                "sim_ids == recomputed availability mask",
+                np.array_equal(sim_ids, np.where(avail)[0]),
+            )
         else:
             print("  [skip] clean cubes not all present; skipped mask re-derivation")
     else:
         print("  [skip] param.dat not present; skipped content cross-check")
 
-    print(f"\nOverall: {'ALL PASS' if ok else 'FAILURES PRESENT'}  "
-          f"(n_available={len(sim_ids)}, astro={astro.shape})")
+    print(
+        f"\nOverall: {'ALL PASS' if ok else 'FAILURES PRESENT'}  "
+        f"(n_available={len(sim_ids)}, astro={astro.shape})"
+    )
     return ok
 
 
 def main():
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     sub = ap.add_subparsers(dest="cmd", required=True)
     for name in ("build", "verify"):
         s = sub.add_parser(name)
         s.add_argument("--param-file", required=True)
-        s.add_argument("--clean-glob", required=True,
-                       help='template with {z}, e.g. ".../clean_cubes_z={z}.dat"')
+        s.add_argument(
+            "--clean-glob",
+            required=True,
+            help='template with {z}, e.g. ".../clean_cubes_z={z}.dat"',
+        )
         s.add_argument("--redshifts", nargs="+", required=True)
         s.add_argument("--out-dir", required=True)
         s.add_argument("--nb-astro-param", type=int, default=5)
-        s.add_argument("--col-offset", type=int, default=1,
-                       help="first param column in param.dat (orig code used 1; col 0 is the label)")
+        s.add_argument(
+            "--col-offset",
+            type=int,
+            default=1,
+            help="first param column in param.dat (orig code used 1; col 0 is the label)",
+        )
         s.add_argument("--manual-bad-lo", type=int, default=480)
         s.add_argument("--manual-bad-hi", type=int, default=500)
-        s.add_argument("--no-manual-flag", action="store_true",
-                       help="do NOT force [480:500) off (only if your data already excludes them)")
+        s.add_argument(
+            "--no-manual-flag",
+            action="store_true",
+            help="do NOT force [480:500) off (only if your data already excludes them)",
+        )
     args = ap.parse_args()
     (build if args.cmd == "build" else verify)(args)
 
