@@ -1,0 +1,17 @@
+# Normalize line endings
+* text=auto eol=lf
+
+# Shell / SLURM scripts stay LF
+*.sh   text eol=lf
+*.sbatch text eol=lf
+
+# Treat notebooks and binaries sensibly
+*.ipynb text
+*.png  binary
+*.pdf  binary
+*.npy  binary
+*.pt   binary
+*.h5   binary
+
+# Collapse noisy generated files in PR diffs
+docs/COMMANDS.md linguist-documentation

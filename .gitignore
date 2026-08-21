@@ -1,16 +1,46 @@
-# Python & VS Code caches
+# ---- Python ----
 __pycache__/
+*.py[cod]
+*.egg-info/
 .ipynb_checkpoints/
-.vscode/
+.pytest_cache/
+.venv/
+venv/
 
-# Heavy cosmological data & simulation outputs (Keep out of Git!)
+# ---- Editors / OS ----
+.vscode/
+.idea/
+.DS_Store
+
+# ---- Cluster job logs (churn every run; keep out of git) ----
+logs/
+*.out
+*.err
+slurm-*.out
+
+# ---- Heavy cosmological data & simulation outputs (keep out of git) ----
 data/
 *.h5
 *.fits
 *.npy
+*.npz
 *.pt
 *.ckpt
+*.dat
 
-# Allow small, specific output formats if needed (e.g., summary metrics or plots)
-!outputs/metrics.json
-!outputs/plots/*.png
+# ---- Generated analysis outputs ----
+# (large report trees written to scratch or regenerated from code)
+eval_reports/
+new_plots/
+noise_ana/
+sum_out/
+
+# ---- Allow small, curated outputs that ARE useful to track ----
+# (negations must come after the broad rules above)
+!SBC_OUT/**
+!SBC_OUTPUT/**
+!**/metrics.json
+!**/metrics.csv
+!**/metrics.tex
+!nle_training_comparison.png
+!nle_training_comparison_mse.png
