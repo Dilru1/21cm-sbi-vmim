@@ -1,0 +1,16 @@
+# Python & VS Code caches
+__pycache__/
+.ipynb_checkpoints/
+.vscode/
+
+# Heavy cosmological data & simulation outputs (Keep out of Git!)
+data/
+*.h5
+*.fits
+*.npy
+*.pt
+*.ckpt
+
+# Allow small, specific output formats if needed (e.g., summary metrics or plots)
+!outputs/metrics.json
+!outputs/plots/*.png
