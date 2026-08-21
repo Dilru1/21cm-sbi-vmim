@@ -1,0 +1,2 @@
+[seed] global seed=42 deterministic=True
+Stage2 arm=cnn_vmim_/n1/seed_s1 families=['nsf'] rows=9,120,000 t_dim=4 n_params=4 device=cpu split_seed=42 init_seed=42 seed_subdir=False

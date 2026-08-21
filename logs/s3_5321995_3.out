@@ -1,0 +1,914 @@
+[stage3] arm=cnn_vmim_/n1/seed_s4  nle=/gscratch/ddehiwalage-don/sbi_master/cnn_vmim_/n1/seed_s4/nle
+[NLE] scope=standard_t family=nsf loaded from /gscratch/ddehiwalage-don/sbi_master/cnn_vmim_/n1/seed_s4/nle/standard_t/nsf
+targets this task: 151 | family=standard_t_nsf | chains -> /gscratch/ddehiwalage-don/sbi_master/cnn_vmim_/n1/seed_s4/chains/standard_t_nsf
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1927_row1538092_noise804_983_1162
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim205_row191377_noise8817_8996_9175
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2997_row2592272_noise9560_9739_90
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim824_row773495_noise8771_8950_9129
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1196_row1014470_noise7282_7461_7640
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1928_row1539060_noise1772_1951_2130
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim675_row626742_noise7438_7617_7796
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2558_row2157102_noise2822_3001_3180
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2594_row2193586_noise9822_173_352
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1274_row1092800_noise6988_7167_7346
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1760_row1513581_noise1369_1548_1727
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1459_row1241341_noise4797_4976_5155
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim337_row323716_noise3564_3743_3922
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1509_row1286162_noise5478_5657_5836
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1934_row1545991_noise8703_8882_9061
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim130_row121085_noise2321_2500_2679
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1443_row1225894_noise9006_9185_9364
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim182_row173671_noise5767_5946_6125
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim909_row858255_noise5079_5258_5437
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2590_row2189721_noise5957_6136_6315
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2932_row2527883_noise4139_4318_4497
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim106_row105726_noise8446_8625_8804
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1987_row1598007_noise1751_1930_2109
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2822_row2417017_noise1381_1560_1739
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1431_row1213516_noise6456_6635_6814
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim825_row774748_noise196_375_554
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1777_row1529357_noise8317_8496_8675
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2445_row2044687_noise8343_8522_8701
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim843_row792327_noise7947_8126_8305
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2619_row2218389_noise5141_5320_5499
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim416_row394718_noise3942_4121_4300
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim265_row251403_noise47_226_405
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1449_row1231636_noise4920_5099_5278
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim748_row697937_noise2009_2188_2367
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2635_row2234654_noise1750_1929_2108
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2935_row2530502_noise6758_6937_7116
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1436_row1218646_noise1758_1937_2116
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim889_row838448_noise4928_5107_5286
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim988_row937570_noise5770_5949_6128
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2353_row1953251_noise4359_4538_4717
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim417_row395572_noise4796_4975_5154
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2012_row1623166_noise7254_7433_7612
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1753_row1506390_noise4006_4185_4364
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim722_row671426_noise4982_5161_5340
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2049_row1659255_noise5031_5210_5389
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim832_row781107_noise6555_6734_6913
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1730_row1483105_noise377_556_735
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim964_row913340_noise1196_1375_1554
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim3019_row2614420_noise2224_2403_2582
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim993_row942205_noise577_756_935
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2991_row2586914_noise4202_4381_4560
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2073_row1683333_noise9453_9632_9811
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim670_row621697_noise2393_2572_2751
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2869_row2464627_noise9679_30_209
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1345_row1154721_noise9113_9292_9471
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim796_row745695_noise627_806_985
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim3073_row2668451_noise7115_7294_7473
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2077_row1687884_noise4176_4355_4534
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim410_row388612_noise7664_7843_8022
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2612_row2211759_noise8339_8518_8697
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim751_row700080_noise4152_4331_4510
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim3020_row2615747_noise3551_3730_3909
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim248_row234566_noise2866_3045_3224
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2828_row2423819_noise8183_8362_8541
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1972_row1583816_noise7216_7395_7574
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim805_row754344_noise9276_9455_9634
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim735_row684548_noise8276_8455_8634
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim967_row916844_noise4700_4879_5058
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2074_row1684466_noise758_937_1116
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim213_row199026_noise6638_6817_6996
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim430_row408512_noise7908_8087_8266
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim451_row429325_noise9065_9244_9423
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim740_row689534_noise3434_3613_3792
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim109_row108773_noise1665_1844_2023
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2481_row2080689_noise5033_5212_5391
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1526_row1303826_noise3486_3665_3844
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1964_row1575538_noise8766_8945_9124
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim687_row638391_noise9259_9438_9617
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2071_row1681096_noise7216_7395_7574
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2438_row2037615_noise1271_1450_1629
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1208_row1026506_noise9490_9669_20
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2829_row2424290_noise8654_8833_9012
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim94_row93497_noise6045_6224_6403
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1222_row1040544_noise3872_4051_4230
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim250_row236772_noise5072_5251_5430
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1228_row1046609_noise109_288_467
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim644_row597705_noise5885_6064_6243
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1736_row1489213_noise6485_6664_6843
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim718_row667648_noise1204_1383_1562
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2938_row2533327_noise9583_9762_113
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim206_row192393_noise5_184_363
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1201_row1019064_noise2048_2227_2406
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2065_row1675503_noise1623_1802_1981
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim3008_row2603041_noise673_852_1031
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2929_row2524008_noise264_443_622
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1264_row1082552_noise6568_6747_6926
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim141_row132604_noise4012_4191_4370
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1363_row1171602_noise7338_7517_7696
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim874_row823884_noise192_371_550
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1514_row1291098_noise586_765_944
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1225_row1043665_noise6993_7172_7351
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim3001_row2596732_noise4192_4371_4550
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim3062_row2657615_noise6107_6286_6465
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim723_row672957_noise6513_6692_6871
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2827_row2422923_noise7287_7466_7645
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1759_row1512199_noise9815_166_345
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim3010_row2605183_noise2815_2994_3173
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2950_row2545858_noise2458_2637_2816
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim986_row935479_noise3679_3858_4037
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim818_row767722_noise2998_3177_3356
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2083_row1693875_noise339_518_697
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim111_row110018_noise2910_3089_3268
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2979_row2574938_noise2054_2233_2412
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2005_row1616667_noise755_934_1113
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim766_row715217_noise9461_9640_9819
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1310_row1119233_noise3109_3288_3467
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1774_row1526726_noise5686_5865_6044
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim3070_row2665465_noise4129_4308_4487
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2431_row2030034_noise3518_3697_3876
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1508_row1285384_noise4700_4879_5058
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim412_row390509_noise9561_9740_91
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1744_row1497801_noise5245_5424_5603
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2833_row2428675_noise3211_3390_3569
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2475_row2074980_noise9152_9331_9510
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim963_row912058_noise9742_93_272
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1778_row1530769_noise9729_80_259
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim3058_row2653107_noise1599_1778_1957
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2056_row1666927_noise2875_3054_3233
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2378_row1977125_noise9577_9756_107
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2434_row2033235_noise6719_6898_7077
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2002_row1613016_noise6932_7111_7290
+skip SBC_CHAINS_cnn_vmim__n1_seed_s4_sim128_row119344_noise580_759_938
+  step 0/1999 best -22.828
+  step 50/1999 best -3.369
+  step 100/1999 best 1.782
+  step 150/1999 best 6.027
+  step 200/1999 best 11.294
+  step 250/1999 best 12.398
+  step 300/1999 best 15.033
+  step 350/1999 best 15.857
+  step 400/1999 best 15.852
+  step 450/1999 best 15.977
+  step 500/1999 best 15.851
+  step 550/1999 best 15.942
+  step 600/1999 best 15.712
+  step 650/1999 best 15.947
+  step 700/1999 best 15.831
+  step 750/1999 best 16.141
+  step 800/1999 best 15.837
+  step 850/1999 best 16.115
+  step 900/1999 best 15.922
+  step 950/1999 best 16.053
+  step 1000/1999 best 15.986
+  step 1050/1999 best 16.117
+  step 1100/1999 best 16.014
+  step 1150/1999 best 16.096
+  step 1200/1999 best 16.183
+  step 1250/1999 best 16.021
+  step 1300/1999 best 15.986
+  step 1350/1999 best 16.025
+  step 1400/1999 best 16.205
+  step 1450/1999 best 15.909
+  step 1500/1999 best 15.766
+  step 1550/1999 best 15.985
+  step 1600/1999 best 15.902
+  step 1650/1999 best 16.006
+  step 1700/1999 best 15.697
+  step 1750/1999 best 15.881
+  step 1800/1999 best 15.733
+  step 1850/1999 best 15.993
+  step 1900/1999 best 15.897
+  step 1950/1999 best 16.099
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim916_row865093_noise2089_2268_2447 (240000, 4) acc=0.152
+  step 0/1999 best -26.128
+  step 50/1999 best -5.068
+  step 100/1999 best 6.830
+  step 150/1999 best 7.079
+  step 200/1999 best 11.296
+  step 250/1999 best 16.139
+  step 300/1999 best 16.584
+  step 350/1999 best 16.589
+  step 400/1999 best 16.571
+  step 450/1999 best 16.534
+  step 500/1999 best 16.584
+  step 550/1999 best 16.492
+  step 600/1999 best 16.690
+  step 650/1999 best 16.457
+  step 700/1999 best 16.440
+  step 750/1999 best 16.565
+  step 800/1999 best 16.625
+  step 850/1999 best 16.609
+  step 900/1999 best 16.563
+  step 950/1999 best 16.548
+  step 1000/1999 best 16.509
+  step 1050/1999 best 16.566
+  step 1100/1999 best 16.368
+  step 1150/1999 best 16.536
+  step 1200/1999 best 16.592
+  step 1250/1999 best 16.586
+  step 1300/1999 best 16.622
+  step 1350/1999 best 16.570
+  step 1400/1999 best 16.534
+  step 1450/1999 best 16.552
+  step 1500/1999 best 16.502
+  step 1550/1999 best 16.662
+  step 1600/1999 best 16.590
+  step 1650/1999 best 16.650
+  step 1700/1999 best 16.643
+  step 1750/1999 best 16.635
+  step 1800/1999 best 16.369
+  step 1850/1999 best 16.503
+  step 1900/1999 best 16.438
+  step 1950/1999 best 16.662
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim291_row277060_noise6048_6227_6406 (240000, 4) acc=0.176
+  step 0/1999 best -20.931
+  step 50/1999 best 11.784
+  step 100/1999 best 12.114
+  step 150/1999 best 13.902
+  step 200/1999 best 14.640
+  step 250/1999 best 15.462
+  step 300/1999 best 15.683
+  step 350/1999 best 16.120
+  step 400/1999 best 16.096
+  step 450/1999 best 16.211
+  step 500/1999 best 16.372
+  step 550/1999 best 16.148
+  step 600/1999 best 16.337
+  step 650/1999 best 16.098
+  step 700/1999 best 15.985
+  step 750/1999 best 16.154
+  step 800/1999 best 16.375
+  step 850/1999 best 16.260
+  step 900/1999 best 16.002
+  step 950/1999 best 16.140
+  step 1000/1999 best 16.285
+  step 1050/1999 best 16.270
+  step 1100/1999 best 16.236
+  step 1150/1999 best 16.038
+  step 1200/1999 best 16.260
+  step 1250/1999 best 16.106
+  step 1300/1999 best 16.352
+  step 1350/1999 best 16.178
+  step 1400/1999 best 16.161
+  step 1450/1999 best 16.291
+  step 1500/1999 best 16.086
+  step 1550/1999 best 16.119
+  step 1600/1999 best 16.220
+  step 1650/1999 best 16.301
+  step 1700/1999 best 16.238
+  step 1750/1999 best 16.344
+  step 1800/1999 best 16.283
+  step 1850/1999 best 16.260
+  step 1900/1999 best 16.345
+  step 1950/1999 best 16.270
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim349_row335086_noise5106_5285_5464 (240000, 4) acc=0.261
+  step 0/1999 best -16.447
+  step 50/1999 best 3.073
+  step 100/1999 best 9.079
+  step 150/1999 best 10.187
+  step 200/1999 best 12.641
+  step 250/1999 best 12.641
+  step 300/1999 best 13.744
+  step 350/1999 best 15.647
+  step 400/1999 best 16.469
+  step 450/1999 best 17.164
+  step 500/1999 best 16.801
+  step 550/1999 best 17.062
+  step 600/1999 best 17.071
+  step 650/1999 best 17.172
+  step 700/1999 best 17.226
+  step 750/1999 best 17.035
+  step 800/1999 best 17.306
+  step 850/1999 best 17.300
+  step 900/1999 best 17.155
+  step 950/1999 best 17.224
+  step 1000/1999 best 17.217
+  step 1050/1999 best 17.208
+  step 1100/1999 best 17.231
+  step 1150/1999 best 16.997
+  step 1200/1999 best 17.170
+  step 1250/1999 best 17.264
+  step 1300/1999 best 17.113
+  step 1350/1999 best 16.905
+  step 1400/1999 best 16.871
+  step 1450/1999 best 16.881
+  step 1500/1999 best 17.119
+  step 1550/1999 best 17.329
+  step 1600/1999 best 17.245
+  step 1650/1999 best 17.094
+  step 1700/1999 best 17.249
+  step 1750/1999 best 16.797
+  step 1800/1999 best 17.369
+  step 1850/1999 best 17.109
+  step 1900/1999 best 17.364
+  step 1950/1999 best 17.171
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1354_row1163542_noise8106_8285_8464 (240000, 4) acc=0.138
+  step 0/1999 best -11.496
+  step 50/1999 best -5.696
+  step 100/1999 best -1.570
+  step 150/1999 best 1.528
+  step 200/1999 best 10.084
+  step 250/1999 best 10.082
+  step 300/1999 best 10.070
+  step 350/1999 best 11.511
+  step 400/1999 best 11.511
+  step 450/1999 best 11.511
+  step 500/1999 best 12.769
+  step 550/1999 best 11.745
+  step 600/1999 best 11.745
+  step 650/1999 best 14.039
+  step 700/1999 best 14.039
+  step 750/1999 best 14.314
+  step 800/1999 best 12.955
+  step 850/1999 best 13.213
+  step 900/1999 best 14.186
+  step 950/1999 best 14.186
+  step 1000/1999 best 15.083
+  step 1050/1999 best 14.816
+  step 1100/1999 best 15.252
+  step 1150/1999 best 15.277
+  step 1200/1999 best 15.073
+  step 1250/1999 best 14.632
+  step 1300/1999 best 14.888
+  step 1350/1999 best 14.968
+  step 1400/1999 best 15.216
+  step 1450/1999 best 14.871
+  step 1500/1999 best 15.146
+  step 1550/1999 best 15.307
+  step 1600/1999 best 15.095
+  step 1650/1999 best 15.238
+  step 1700/1999 best 14.859
+  step 1750/1999 best 14.807
+  step 1800/1999 best 15.196
+  step 1850/1999 best 15.332
+  step 1900/1999 best 14.990
+  step 1950/1999 best 15.136
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim651_row604866_noise3218_3397_3576 (240000, 4) acc=0.198
+  step 0/1999 best -21.233
+  step 50/1999 best -1.825
+  step 100/1999 best 1.205
+  step 150/1999 best 2.194
+  step 200/1999 best 12.458
+  step 250/1999 best 12.447
+  step 300/1999 best 14.385
+  step 350/1999 best 16.802
+  step 400/1999 best 16.925
+  step 450/1999 best 16.860
+  step 500/1999 best 16.546
+  step 550/1999 best 17.096
+  step 600/1999 best 17.010
+  step 650/1999 best 17.106
+  step 700/1999 best 17.078
+  step 750/1999 best 17.077
+  step 800/1999 best 17.036
+  step 850/1999 best 17.008
+  step 900/1999 best 17.009
+  step 950/1999 best 17.021
+  step 1000/1999 best 17.068
+  step 1050/1999 best 17.070
+  step 1100/1999 best 16.958
+  step 1150/1999 best 16.874
+  step 1200/1999 best 16.977
+  step 1250/1999 best 17.062
+  step 1300/1999 best 17.101
+  step 1350/1999 best 17.050
+  step 1400/1999 best 17.082
+  step 1450/1999 best 16.735
+  step 1500/1999 best 17.011
+  step 1550/1999 best 16.962
+  step 1600/1999 best 17.153
+  step 1650/1999 best 17.043
+  step 1700/1999 best 16.913
+  step 1750/1999 best 17.035
+  step 1800/1999 best 17.035
+  step 1850/1999 best 17.011
+  step 1900/1999 best 17.065
+  step 1950/1999 best 17.128
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim292_row278511_noise7499_7678_7857 (240000, 4) acc=0.143
+  step 0/1999 best -22.194
+  step 50/1999 best 5.691
+  step 100/1999 best 10.879
+  step 150/1999 best 13.936
+  step 200/1999 best 14.830
+  step 250/1999 best 15.495
+  step 300/1999 best 15.520
+  step 350/1999 best 15.509
+  step 400/1999 best 15.522
+  step 450/1999 best 15.546
+  step 500/1999 best 15.603
+  step 550/1999 best 15.497
+  step 600/1999 best 15.438
+  step 650/1999 best 15.547
+  step 700/1999 best 15.272
+  step 750/1999 best 15.538
+  step 800/1999 best 15.554
+  step 850/1999 best 15.544
+  step 900/1999 best 15.359
+  step 950/1999 best 15.428
+  step 1000/1999 best 15.417
+  step 1050/1999 best 15.556
+  step 1100/1999 best 15.492
+  step 1150/1999 best 15.478
+  step 1200/1999 best 15.586
+  step 1250/1999 best 15.373
+  step 1300/1999 best 15.507
+  step 1350/1999 best 15.541
+  step 1400/1999 best 15.549
+  step 1450/1999 best 15.540
+  step 1500/1999 best 15.359
+  step 1550/1999 best 15.511
+  step 1600/1999 best 15.476
+  step 1650/1999 best 15.450
+  step 1700/1999 best 15.510
+  step 1750/1999 best 15.491
+  step 1800/1999 best 15.470
+  step 1850/1999 best 15.611
+  step 1900/1999 best 15.509
+  step 1950/1999 best 15.310
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim811_row760905_noise6009_6188_6367 (240000, 4) acc=0.201
+  step 0/1999 best -17.912
+  step 50/1999 best 3.469
+  step 100/1999 best 11.106
+  step 150/1999 best 14.012
+  step 200/1999 best 13.840
+  step 250/1999 best 13.944
+  step 300/1999 best 14.268
+  step 350/1999 best 14.359
+  step 400/1999 best 14.082
+  step 450/1999 best 14.093
+  step 500/1999 best 14.205
+  step 550/1999 best 14.199
+  step 600/1999 best 14.144
+  step 650/1999 best 14.304
+  step 700/1999 best 14.161
+  step 750/1999 best 14.190
+  step 800/1999 best 14.152
+  step 850/1999 best 14.251
+  step 900/1999 best 14.190
+  step 950/1999 best 14.219
+  step 1000/1999 best 14.258
+  step 1050/1999 best 14.259
+  step 1100/1999 best 14.186
+  step 1150/1999 best 14.241
+  step 1200/1999 best 14.224
+  step 1250/1999 best 14.342
+  step 1300/1999 best 14.284
+  step 1350/1999 best 14.225
+  step 1400/1999 best 14.209
+  step 1450/1999 best 14.268
+  step 1500/1999 best 14.193
+  step 1550/1999 best 14.077
+  step 1600/1999 best 14.316
+  step 1650/1999 best 14.359
+  step 1700/1999 best 14.187
+  step 1750/1999 best 14.253
+  step 1800/1999 best 14.297
+  step 1850/1999 best 14.160
+  step 1900/1999 best 14.263
+  step 1950/1999 best 14.336
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim218_row204767_noise2551_2730_2909 (240000, 4) acc=0.272
+  step 0/1999 best -20.097
+  step 50/1999 best 8.960
+  step 100/1999 best 13.159
+  step 150/1999 best 13.075
+  step 200/1999 best 12.988
+  step 250/1999 best 13.217
+  step 300/1999 best 13.485
+  step 350/1999 best 13.472
+  step 400/1999 best 13.555
+  step 450/1999 best 13.591
+  step 500/1999 best 13.371
+  step 550/1999 best 13.576
+  step 600/1999 best 13.540
+  step 650/1999 best 13.605
+  step 700/1999 best 13.481
+  step 750/1999 best 13.567
+  step 800/1999 best 13.612
+  step 850/1999 best 13.608
+  step 900/1999 best 13.632
+  step 950/1999 best 13.695
+  step 1000/1999 best 13.693
+  step 1050/1999 best 13.595
+  step 1100/1999 best 13.584
+  step 1150/1999 best 13.593
+  step 1200/1999 best 13.543
+  step 1250/1999 best 13.650
+  step 1300/1999 best 13.560
+  step 1350/1999 best 13.706
+  step 1400/1999 best 13.513
+  step 1450/1999 best 13.489
+  step 1500/1999 best 13.580
+  step 1550/1999 best 13.683
+  step 1600/1999 best 13.529
+  step 1650/1999 best 13.664
+  step 1700/1999 best 13.616
+  step 1750/1999 best 13.582
+  step 1800/1999 best 13.621
+  step 1850/1999 best 13.530
+  step 1900/1999 best 13.677
+  step 1950/1999 best 13.519
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2383_row1982702_noise5326_5505_5684 (240000, 4) acc=0.275
+  step 0/1999 best -22.479
+  step 50/1999 best 6.331
+  step 100/1999 best 8.167
+  step 150/1999 best 12.159
+  step 200/1999 best 13.527
+  step 250/1999 best 14.034
+  step 300/1999 best 14.074
+  step 350/1999 best 13.922
+  step 400/1999 best 14.094
+  step 450/1999 best 14.096
+  step 500/1999 best 13.965
+  step 550/1999 best 13.969
+  step 600/1999 best 14.054
+  step 650/1999 best 13.992
+  step 700/1999 best 14.055
+  step 750/1999 best 14.082
+  step 800/1999 best 14.087
+  step 850/1999 best 14.110
+  step 900/1999 best 13.842
+  step 950/1999 best 14.068
+  step 1000/1999 best 14.032
+  step 1050/1999 best 14.185
+  step 1100/1999 best 14.047
+  step 1150/1999 best 14.059
+  step 1200/1999 best 14.066
+  step 1250/1999 best 14.070
+  step 1300/1999 best 14.167
+  step 1350/1999 best 14.134
+  step 1400/1999 best 13.953
+  step 1450/1999 best 14.080
+  step 1500/1999 best 14.119
+  step 1550/1999 best 14.167
+  step 1600/1999 best 14.138
+  step 1650/1999 best 14.153
+  step 1700/1999 best 13.956
+  step 1750/1999 best 14.229
+  step 1800/1999 best 14.161
+  step 1850/1999 best 14.007
+  step 1900/1999 best 14.219
+  step 1950/1999 best 14.050
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2469_row2068548_noise2720_2899_3078 (240000, 4) acc=0.181
+  step 0/1999 best -20.062
+  step 50/1999 best -1.762
+  step 100/1999 best -1.762
+  step 150/1999 best -1.860
+  step 200/1999 best 3.547
+  step 250/1999 best 7.864
+  step 300/1999 best 9.894
+  step 350/1999 best 14.297
+  step 400/1999 best 14.283
+  step 450/1999 best 13.851
+  step 500/1999 best 14.950
+  step 550/1999 best 14.632
+  step 600/1999 best 14.205
+  step 650/1999 best 15.305
+  step 700/1999 best 15.607
+  step 750/1999 best 15.604
+  step 800/1999 best 14.885
+  step 850/1999 best 15.741
+  step 900/1999 best 15.578
+  step 950/1999 best 15.546
+  step 1000/1999 best 15.564
+  step 1050/1999 best 15.383
+  step 1100/1999 best 15.684
+  step 1150/1999 best 15.612
+  step 1200/1999 best 15.446
+  step 1250/1999 best 15.666
+  step 1300/1999 best 15.773
+  step 1350/1999 best 15.674
+  step 1400/1999 best 15.683
+  step 1450/1999 best 15.601
+  step 1500/1999 best 15.719
+  step 1550/1999 best 15.568
+  step 1600/1999 best 15.762
+  step 1650/1999 best 15.698
+  step 1700/1999 best 15.771
+  step 1750/1999 best 15.695
+  step 1800/1999 best 15.635
+  step 1850/1999 best 15.646
+  step 1900/1999 best 15.663
+  step 1950/1999 best 15.662
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1729_row1482839_noise111_290_469 (240000, 4) acc=0.187
+  step 0/1999 best -11.367
+  step 50/1999 best 0.011
+  step 100/1999 best 8.893
+  step 150/1999 best 9.013
+  step 200/1999 best 13.789
+  step 250/1999 best 13.796
+  step 300/1999 best 14.115
+  step 350/1999 best 14.295
+  step 400/1999 best 14.241
+  step 450/1999 best 14.207
+  step 500/1999 best 14.160
+  step 550/1999 best 14.323
+  step 600/1999 best 14.267
+  step 650/1999 best 14.162
+  step 700/1999 best 14.059
+  step 750/1999 best 14.360
+  step 800/1999 best 14.198
+  step 850/1999 best 14.255
+  step 900/1999 best 14.285
+  step 950/1999 best 14.138
+  step 1000/1999 best 14.313
+  step 1050/1999 best 14.327
+  step 1100/1999 best 14.374
+  step 1150/1999 best 14.180
+  step 1200/1999 best 14.175
+  step 1250/1999 best 14.235
+  step 1300/1999 best 14.348
+  step 1350/1999 best 14.300
+  step 1400/1999 best 14.216
+  step 1450/1999 best 14.241
+  step 1500/1999 best 14.272
+  step 1550/1999 best 14.162
+  step 1600/1999 best 14.223
+  step 1650/1999 best 14.385
+  step 1700/1999 best 14.317
+  step 1750/1999 best 14.210
+  step 1800/1999 best 14.325
+  step 1850/1999 best 14.256
+  step 1900/1999 best 14.299
+  step 1950/1999 best 14.134
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim1219_row1037992_noise1320_1499_1678 (240000, 4) acc=0.302
+  step 0/1999 best -19.200
+  step 50/1999 best 0.484
+  step 100/1999 best 12.658
+  step 150/1999 best 12.082
+  step 200/1999 best 13.217
+  step 250/1999 best 13.151
+  step 300/1999 best 13.490
+  step 350/1999 best 13.531
+  step 400/1999 best 13.417
+  step 450/1999 best 13.566
+  step 500/1999 best 13.593
+  step 550/1999 best 13.518
+  step 600/1999 best 13.392
+  step 650/1999 best 13.574
+  step 700/1999 best 13.551
+  step 750/1999 best 13.571
+  step 800/1999 best 13.380
+  step 850/1999 best 13.500
+  step 900/1999 best 13.476
+  step 950/1999 best 13.318
+  step 1000/1999 best 13.613
+  step 1050/1999 best 13.649
+  step 1100/1999 best 13.467
+  step 1150/1999 best 13.400
+  step 1200/1999 best 13.595
+  step 1250/1999 best 13.453
+  step 1300/1999 best 13.483
+  step 1350/1999 best 13.418
+  step 1400/1999 best 13.566
+  step 1450/1999 best 13.488
+  step 1500/1999 best 13.590
+  step 1550/1999 best 13.501
+  step 1600/1999 best 13.610
+  step 1650/1999 best 13.589
+  step 1700/1999 best 13.545
+  step 1750/1999 best 13.568
+  step 1800/1999 best 13.573
+  step 1850/1999 best 13.620
+  step 1900/1999 best 13.587
+  step 1950/1999 best 13.485
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2547_row2146020_noise1568_1747_1926 (240000, 4) acc=0.199
+  step 0/1999 best -15.925
+  step 50/1999 best -4.626
+  step 100/1999 best 2.580
+  step 150/1999 best 9.662
+  step 200/1999 best 9.861
+  step 250/1999 best 10.879
+  step 300/1999 best 11.112
+  step 350/1999 best 11.860
+  step 400/1999 best 12.538
+  step 450/1999 best 12.572
+  step 500/1999 best 12.157
+  step 550/1999 best 11.935
+  step 600/1999 best 12.180
+  step 650/1999 best 12.473
+  step 700/1999 best 12.422
+  step 750/1999 best 12.607
+  step 800/1999 best 12.501
+  step 850/1999 best 12.749
+  step 900/1999 best 12.749
+  step 950/1999 best 12.583
+  step 1000/1999 best 12.583
+  step 1050/1999 best 12.499
+  step 1100/1999 best 12.499
+  step 1150/1999 best 12.762
+  step 1200/1999 best 12.686
+  step 1250/1999 best 12.658
+  step 1300/1999 best 12.259
+  step 1350/1999 best 12.291
+  step 1400/1999 best 12.588
+  step 1450/1999 best 12.572
+  step 1500/1999 best 12.429
+  step 1550/1999 best 12.327
+  step 1600/1999 best 12.337
+  step 1650/1999 best 12.378
+  step 1700/1999 best 12.710
+  step 1750/1999 best 12.710
+  step 1800/1999 best 12.267
+  step 1850/1999 best 12.205
+  step 1900/1999 best 12.205
+  step 1950/1999 best 12.255
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim2937_row2532660_noise8916_9095_9274 (240000, 4) acc=0.348
+  step 0/1999 best -16.987
+  step 50/1999 best -7.001
+  step 100/1999 best -4.681
+  step 150/1999 best -4.190
+  step 200/1999 best -4.224
+  step 250/1999 best -4.009
+  step 300/1999 best -3.162
+  step 350/1999 best -1.965
+  step 400/1999 best 1.429
+  step 450/1999 best 3.711
+  step 500/1999 best 4.707
+  step 550/1999 best 4.696
+  step 600/1999 best 9.579
+  step 650/1999 best 10.291
+  step 700/1999 best 10.833
+  step 750/1999 best 10.833
+  step 800/1999 best 12.047
+  step 850/1999 best 12.047
+  step 900/1999 best 10.914
+  step 950/1999 best 10.915
+  step 1000/1999 best 11.374
+  step 1050/1999 best 11.350
+  step 1100/1999 best 11.839
+  step 1150/1999 best 11.383
+  step 1200/1999 best 12.208
+  step 1250/1999 best 12.138
+  step 1300/1999 best 12.203
+  step 1350/1999 best 12.203
+  step 1400/1999 best 11.856
+  step 1450/1999 best 12.029
+  step 1500/1999 best 12.029
+  step 1550/1999 best 12.029
+  step 1600/1999 best 11.708
+  step 1650/1999 best 11.414
+  step 1700/1999 best 12.131
+  step 1750/1999 best 11.892
+  step 1800/1999 best 12.322
+  step 1850/1999 best 12.545
+  step 1900/1999 best 12.148
+  step 1950/1999 best 11.979
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim3028_row2623351_noise1327_1506_1685 (240000, 4) acc=0.342
+  step 0/1999 best -14.287
+  step 50/1999 best 9.179
+  step 100/1999 best 11.980
+  step 150/1999 best 15.214
+  step 200/1999 best 15.076
+  step 250/1999 best 15.488
+  step 300/1999 best 15.629
+  step 350/1999 best 15.768
+  step 400/1999 best 15.797
+  step 450/1999 best 15.744
+  step 500/1999 best 15.801
+  step 550/1999 best 15.917
+  step 600/1999 best 15.849
+  step 650/1999 best 15.636
+  step 700/1999 best 15.713
+  step 750/1999 best 15.838
+  step 800/1999 best 15.812
+  step 850/1999 best 15.870
+  step 900/1999 best 15.890
+  step 950/1999 best 15.852
+  step 1000/1999 best 15.872
+  step 1050/1999 best 15.805
+  step 1100/1999 best 15.868
+  step 1150/1999 best 15.778
+  step 1200/1999 best 15.646
+  step 1250/1999 best 15.901
+  step 1300/1999 best 15.740
+  step 1350/1999 best 15.730
+  step 1400/1999 best 15.990
+  step 1450/1999 best 15.788
+  step 1500/1999 best 15.880
+  step 1550/1999 best 15.919
+  step 1600/1999 best 15.890
+  step 1650/1999 best 15.880
+  step 1700/1999 best 15.935
+  step 1750/1999 best 15.738
+  step 1800/1999 best 15.749
+  step 1850/1999 best 15.833
+  step 1900/1999 best 15.904
+  step 1950/1999 best 15.937
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim290_row276977_noise5965_6144_6323 (240000, 4) acc=0.252
+  step 0/1999 best -21.276
+  step 50/1999 best 4.023
+  step 100/1999 best 10.194
+  step 150/1999 best 14.833
+  step 200/1999 best 13.752
+  step 250/1999 best 16.188
+  step 300/1999 best 16.096
+  step 350/1999 best 16.713
+  step 400/1999 best 16.590
+  step 450/1999 best 16.786
+  step 500/1999 best 16.695
+  step 550/1999 best 16.683
+  step 600/1999 best 16.664
+  step 650/1999 best 16.757
+  step 700/1999 best 16.779
+  step 750/1999 best 16.547
+  step 800/1999 best 16.662
+  step 850/1999 best 16.829
+  step 900/1999 best 16.702
+  step 950/1999 best 16.805
+  step 1000/1999 best 16.638
+  step 1050/1999 best 16.643
+  step 1100/1999 best 16.791
+  step 1150/1999 best 16.746
+  step 1200/1999 best 16.626
+  step 1250/1999 best 16.622
+  step 1300/1999 best 16.812
+  step 1350/1999 best 16.778
+  step 1400/1999 best 16.688
+  step 1450/1999 best 16.637
+  step 1500/1999 best 16.605
+  step 1550/1999 best 16.700
+  step 1600/1999 best 16.790
+  step 1650/1999 best 16.746
+  step 1700/1999 best 16.728
+  step 1750/1999 best 16.689
+  step 1800/1999 best 16.733
+  step 1850/1999 best 16.579
+  step 1900/1999 best 16.754
+  step 1950/1999 best 16.794
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim356_row342758_noise2950_3129_3308 (240000, 4) acc=0.228
+  step 0/1999 best -19.620
+  step 50/1999 best -2.449
+  step 100/1999 best 3.983
+  step 150/1999 best 6.735
+  step 200/1999 best 12.611
+  step 250/1999 best 15.031
+  step 300/1999 best 13.993
+  step 350/1999 best 15.003
+  step 400/1999 best 15.032
+  step 450/1999 best 15.074
+  step 500/1999 best 15.014
+  step 550/1999 best 14.795
+  step 600/1999 best 15.057
+  step 650/1999 best 15.179
+  step 700/1999 best 15.113
+  step 750/1999 best 15.188
+  step 800/1999 best 14.843
+  step 850/1999 best 15.111
+  step 900/1999 best 15.078
+  step 950/1999 best 15.195
+  step 1000/1999 best 15.139
+  step 1050/1999 best 15.163
+  step 1100/1999 best 15.013
+  step 1150/1999 best 15.032
+  step 1200/1999 best 14.939
+  step 1250/1999 best 15.005
+  step 1300/1999 best 15.142
+  step 1350/1999 best 15.000
+  step 1400/1999 best 15.215
+  step 1450/1999 best 15.044
+  step 1500/1999 best 14.987
+  step 1550/1999 best 15.190
+  step 1600/1999 best 15.205
+  step 1650/1999 best 15.124
+  step 1700/1999 best 15.063
+  step 1750/1999 best 15.036
+  step 1800/1999 best 15.146
+  step 1850/1999 best 14.921
+  step 1900/1999 best 15.201
+  step 1950/1999 best 15.166
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim361_row347922_noise8114_8293_8472 (240000, 4) acc=0.208
+  step 0/1999 best -24.485
+  step 50/1999 best -3.564
+  step 100/1999 best -0.101
+  step 150/1999 best 9.871
+  step 200/1999 best 11.404
+  step 250/1999 best 12.404
+  step 300/1999 best 12.404
+  step 350/1999 best 13.959
+  step 400/1999 best 14.168
+  step 450/1999 best 14.566
+  step 500/1999 best 13.654
+  step 550/1999 best 15.419
+  step 600/1999 best 15.025
+  step 650/1999 best 15.289
+  step 700/1999 best 15.188
+  step 750/1999 best 15.112
+  step 800/1999 best 15.423
+  step 850/1999 best 14.993
+  step 900/1999 best 15.297
+  step 950/1999 best 15.024
+  step 1000/1999 best 15.052
+  step 1050/1999 best 15.371
+  step 1100/1999 best 15.315
+  step 1150/1999 best 15.327
+  step 1200/1999 best 15.120
+  step 1250/1999 best 15.416
+  step 1300/1999 best 15.285
+  step 1350/1999 best 15.179
+  step 1400/1999 best 15.348
+  step 1450/1999 best 15.306
+  step 1500/1999 best 15.475
+  step 1550/1999 best 15.401
+  step 1600/1999 best 15.389
+  step 1650/1999 best 15.223
+  step 1700/1999 best 15.473
+  step 1750/1999 best 15.451
+  step 1800/1999 best 15.216
+  step 1850/1999 best 15.491
+  step 1900/1999 best 15.473
+  step 1950/1999 best 15.480
+saved SBC_CHAINS_cnn_vmim__n1_seed_s4_sim136_row127809_noise9045_9224_9403 (240000, 4) acc=0.117

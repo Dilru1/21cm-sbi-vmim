@@ -1,0 +1,59 @@
+arm_name: mlp_new/pdf_ps
+arm_type: mlp
+scratch_root: /gscratch/ddehiwalage-don/sbi_runs
+n_params: 4
+t_dim: 8
+
+data:
+  summaries_npz: /obs/ddehiwalage-don/21cm/3D_CNN_1/compressor/comp_pdf_ps/baseline_pdf_ps_Nnoise1000.npz
+
+compressor:
+  vmim_head: gmm_old
+  n_mix_head: 4
+  hidden_head: 64
+  epochs: 80
+  batch_size: 32
+  save_batch_size: 8192
+  dropout: 0.0
+  dense_layers: [256, 256, 128, 64]
+  warmup_epochs: 10
+
+  # ---- sigma floor: IDENTICAL scalar to exp1 ----
+  sigma_floor: 1.0e-2       # scalar, same as exp1 -- isolating the dequant effect only
+
+  # ---- CHANGED: full 4-parameter dequant, from grid_check.py output ----
+  dequant:
+    2: {half: 0.1000}    # rHS,   6 grid points 
+    3: {half: 0.0813}    # Mmin,  7 grid points
+
+  head_lr_mult: 5.0          # identical to exp1
+  plateau_patience: 15       # identical to exp1
+  probe_patience: 50         # identical to exp1
+
+
+# NLE + MCMC blocks inherit identical defaults (param_style semelin etc.)
+# IDENTICAL NLE/MCMC across ALL arms (incl. the MSE arm!) for a fair GV/SBC
+nle:
+  model: gmm            # scalar placeholder; the launcher overrides per job with -o nle.model=...
+  # NO `standardize:` key -- the launcher's --raw-t flag controls it per job
+  nsplit: 10
+  batch_size: 32      # <-- was 4, that's a typo; MUST fix or stage2 runs for days
+  lr_phase1: 2.0e-4
+  lr_phase2: 2.0e-5
+  num_workers: 2
+  val_frac: 0.1
+  seed: 42
+
+
+  n_mix: 2
+  param_style: softplus
+  diag_floor: 1.0e-4
+  hidden: 64
+  n_layers: 4
+  num_bins: 8
+  tail_bound: 5.0
+
+
+mcmc:
+  wedge_tau_idx: 1
+  wedge_mmin_idx: 3

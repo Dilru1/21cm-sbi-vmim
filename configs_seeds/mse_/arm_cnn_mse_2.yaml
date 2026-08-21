@@ -1,0 +1,92 @@
+# ==============================================================================
+# CONTROL ARM: CNN compressor trained with PURE MSE (aux objective only).
+#
+# This is the baseline against which the VMIM arm (arm_cnn_vmim_1.yaml) is
+# judged -- essentially the Zhao et al. (2022) compressor: a 3D CNN regressed
+# onto the parameters, whose output t is then handed to the identical
+# downstream NLE/MCMC/SBC machinery.
+#
+# THE line that makes this an MSE arm is `aux_only: true`. With it, the
+# trainer prints
+#     [MODE] aux_only: pure MSE regression, no VMIM.
+# and takes only the MSE branch every epoch (loss = MSE(fc_aux, theta)); the
+# VMIM head is never given a gradient. Verify that line appears in the log.
+#
+# NOTE on dequantisation: it is deliberately ABSENT here. Jitter exists to
+# close an exploit available only to a continuous conditional density (mass
+# piling on the marginal's grid atoms). MSE has no such exploit -- its target
+# is a point and its loss is bounded -- so jittering the regression target
+# would only inject label noise and weaken the baseline. Even if a `dequant:`
+# block were present it would be inert, since ThetaPreprocessor is invoked
+# exclusively inside the VMIM head's log_prob, which this arm never calls.
+#
+# Everything else (architecture, t_dim, seed, lr, epochs, augment, NLE, MCMC)
+# is IDENTICAL to arm_cnn_vmim_1.yaml, so the two arms differ in the training
+# objective and nothing else.
+# ==============================================================================
+arm_name: cnn_mse_up/n2
+arm_type: cnn
+scratch_root: /gscratch/ddehiwalage-don/sbi_runs
+n_params: 4
+t_dim: 4
+
+data:
+  s_paths:
+    - /data/ddehiwalage-don/data/dtb_data/clean_cubes_z=8.18.dat
+    - /data/ddehiwalage-don/data/dtb_data/clean_cubes_z=10.32.dat
+    - /data/ddehiwalage-don/data/dtb_data/clean_cubes_z=12.06.dat
+  n_paths:
+    - /data/ddehiwalage-don/data/dtb_data/noise_cubes_100h_z=8.18.dat
+    - /data/ddehiwalage-don/data/dtb_data/noise_cubes_100h_z=10.32.dat
+    - /data/ddehiwalage-don/data/dtb_data/noise_cubes_100h_z=12.06.dat
+  params_path: /data/ddehiwalage-don/data/astro_params_masked_from_original.npy
+  sim_ids_path: /data/ddehiwalage-don/data/original_sim_ids_masked_from_original.npy
+  total_nnoise: 1000
+
+compressor:
+  model: seblock            # same 3D residual multi-scale CNN as the VMIM arm
+  init_norm: true           # cube standardization ON, identical train & export
+
+  # ---- objective: PURE MSE ----------------------------------------------
+  aux_only: true            # <<< the only line that distinguishes this arm
+  lam_aux: 1.0              #
+
+
+  epochs: 200
+  batch_size: 16
+  save_batch_size: 8192
+  lr: 2.0e-4
+  seed: 43                  # same seed -> isolates the objective, not RNG
+  val_frac: 0.1
+  noise_scale: 2.0 ###
+  augment: true
+  probe_every: 5
+  plateau_patience: 15
+
+  probe_every: 5
+
+# IDENTICAL NLE/MCMC across ALL arms (incl. the MSE arm!) for a fair GV/SBC
+nle:
+  model: gmm            # scalar placeholder; the launcher overrides per job with -o nle.model=...
+  # NO `standardize:` key -- the launcher's --raw-t flag controls it per job
+  nsplit: 10
+  batch_size: 4  #batch size 4 for gmm but 32 for nsf overisde at .sh file      
+  lr_phase1: 2.0e-4
+  lr_phase2: 2.0e-5
+  num_workers: 2
+  val_frac: 0.1
+  seed: 42
+
+
+  n_mix: 2
+  param_style: softplus
+  diag_floor: 1.0e-4
+  hidden: 64
+  n_layers: 4
+  num_bins: 8
+  tail_bound: 5.0
+
+
+mcmc:
+  wedge_tau_idx: 1
+  wedge_mmin_idx: 3

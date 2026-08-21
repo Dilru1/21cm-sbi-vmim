@@ -1,0 +1,90 @@
+arm_name: cnn_vmim_/n2_jitter/seed
+arm_type: cnn
+scratch_root: /gscratch/ddehiwalage-don/sbi_master
+n_params: 4
+t_dim: 4
+
+
+data:
+  s_paths:
+    - /data/ddehiwalage-don/data/dtb_data/clean_cubes_z=8.18.dat
+    - /data/ddehiwalage-don/data/dtb_data/clean_cubes_z=10.32.dat
+    - /data/ddehiwalage-don/data/dtb_data/clean_cubes_z=12.06.dat
+  n_paths:
+    - /data/ddehiwalage-don/data/dtb_data/noise_cubes_100h_z=8.18.dat
+    - /data/ddehiwalage-don/data/dtb_data/noise_cubes_100h_z=10.32.dat
+    - /data/ddehiwalage-don/data/dtb_data/noise_cubes_100h_z=12.06.dat
+  params_path: /data/ddehiwalage-don/data/astro_params_masked_from_original.npy
+  sim_ids_path: /data/ddehiwalage-don/data/original_sim_ids_masked_from_original.npy
+  total_nnoise: 1000
+
+compressor:
+  model: seblock            # 3D residual multi-scale CNN (cnn_up.py)
+  init_norm: true           # cube standardization ON, identical train & export
+
+  # ---- objective: pure VMIM, GMM-2 head (IDENTICAL to exp1) ----
+  vmim_head: gmm_old
+  n_mix_head: 2
+  hidden_head: 64
+  aux_only: false
+  aux_anneal: false
+  warmup_epochs: 0          # pure VMIM from epoch 0, same as exp1
+  noise_scale: 3.0
+
+
+  head_lr_mult: 5.0          # identical to exp1
+  plateau_patience: 15       # identical to exp1
+  probe_patience: 15          # identical to exp1
+
+  sigma_floor: 1.0e-2 
+
+  dequant:
+    2: {half: 0.1}   
+
+
+
+
+  epochs: 200
+  batch_size: 16
+  save_batch_size: 256
+  lr: 2.0e-4
+  val_frac: 0.1
+  augment: true
+  probe_every: 5
+  #seeding_new
+  split_seed: 42
+  init_seed: 0
+  tag_arm_with_seed: true
+
+
+
+
+# IDENTICAL NLE/MCMC across ALL arms (incl. the MSE arm!) for a fair GV/SBC
+nle:
+  model: gmm            # scalar placeholder; the launcher overrides per job with -o nle.model=...
+  # NO `standardize:` key -- the launcher's --raw-t flag controls it per job
+  nsplit: 10
+  batch_size: 32      
+  lr_phase1: 2.0e-4
+  lr_phase2: 2.0e-5
+  num_workers: 2
+  val_frac: 0.1
+  seed: 42
+
+
+  n_mix: 2
+  param_style: softplus
+  diag_floor: 1.0e-4
+  hidden: 64
+  n_layers: 4
+  num_bins: 8
+  tail_bound: 5.0
+
+
+mcmc:
+  wedge_tau_idx: 1
+  wedge_mmin_idx: 3
+
+
+
+

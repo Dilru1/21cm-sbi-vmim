@@ -1,0 +1,754 @@
+node=tycho91  gpus=0
+[seed] global seed=4 deterministic=True
+Stage1 arm=cnn_vmim_/n4/seed_s4 split_seed=42 init_seed=4
+--> usable cores=4  num_workers=3
+sigma floor for each parm: tensor([0., 0., 0., 0.]) jitter for each parm {}
+[MODE] pure VMIM from epoch 0.
+[PHASE] pure VMIM begins at epoch 1: arming probe-based early stopping from here.
+Epoch 001 [VMIM] LR:2.00e-04 | train -1.064091 | val -2.444617
+  saved best-by-loss.
+Epoch 002 [VMIM] LR:2.00e-04 | train -2.531654 | val -3.076378
+  saved best-by-loss.
+Epoch 003 [VMIM] LR:2.00e-04 | train -2.904563 | val -3.017009
+Epoch 004 [VMIM] LR:2.00e-04 | train -3.168899 | val -3.110750
+  saved best-by-loss.
+Epoch 005 [VMIM] LR:2.00e-04 | train -3.224180 | val -3.674397
+[RF R2]  t0:0.934 | t1:0.037 | t2:-0.008 | t3:0.652
+[q sigma] t0:0.085 | t1:0.228 | t2:0.353 | t3:0.187   (prior sigma ~0.29; floor = head.sigma_floor)
+  saved best-by-probe (mean R2 0.404, pure-VMIM).
+  saved best-by-loss.
+Epoch 006 [VMIM] LR:2.00e-04 | train -3.455181 | val -3.999568
+  saved best-by-loss.
+Epoch 007 [VMIM] LR:2.00e-04 | train -3.458737 | val -3.749476
+Epoch 008 [VMIM] LR:2.00e-04 | train -3.590572 | val -3.392784
+Epoch 009 [VMIM] LR:2.00e-04 | train -3.644879 | val -3.526395
+Epoch 010 [VMIM] LR:2.00e-04 | train -3.738354 | val -4.154870
+[RF R2]  t0:0.938 | t1:0.049 | t2:-0.005 | t3:0.665
+[q sigma] t0:0.085 | t1:0.221 | t2:0.327 | t3:0.164   (prior sigma ~0.29; floor = head.sigma_floor)
+  saved best-by-probe (mean R2 0.412, pure-VMIM).
+  saved best-by-loss.
+Epoch 011 [VMIM] LR:2.00e-04 | train -3.827851 | val -3.962016
+Epoch 012 [VMIM] LR:2.00e-04 | train -3.946324 | val -4.066904
+Epoch 013 [VMIM] LR:2.00e-04 | train -3.894445 | val -4.512737
+  saved best-by-loss.
+Epoch 014 [VMIM] LR:2.00e-04 | train -3.983551 | val -4.013641
+Epoch 015 [VMIM] LR:2.00e-04 | train -4.133938 | val -4.308208
+[RF R2]  t0:0.935 | t1:0.340 | t2:0.012 | t3:0.751
+[q sigma] t0:0.080 | t1:0.218 | t2:0.339 | t3:0.164   (prior sigma ~0.29; floor = head.sigma_floor)
+  saved best-by-probe (mean R2 0.509, pure-VMIM).
+Epoch 016 [VMIM] LR:2.00e-04 | train -4.205838 | val -4.777012
+  saved best-by-loss.
+Epoch 017 [VMIM] LR:2.00e-04 | train -4.325046 | val -4.678619
+Epoch 018 [VMIM] LR:2.00e-04 | train -4.501886 | val -4.908677
+  saved best-by-loss.
+Epoch 019 [VMIM] LR:2.00e-04 | train -4.758472 | val -4.618762
+Epoch 020 [VMIM] LR:2.00e-04 | train -4.856742 | val -5.618941
+[RF R2]  t0:0.933 | t1:0.895 | t2:-0.017 | t3:0.914
+[q sigma] t0:0.084 | t1:0.100 | t2:0.337 | t3:0.090   (prior sigma ~0.29; floor = head.sigma_floor)
+  saved best-by-probe (mean R2 0.681, pure-VMIM).
+  saved best-by-loss.
+Epoch 021 [VMIM] LR:2.00e-04 | train -5.049519 | val -5.483050
+Epoch 022 [VMIM] LR:2.00e-04 | train -5.286948 | val -5.902794
+  saved best-by-loss.
+Epoch 023 [VMIM] LR:2.00e-04 | train -5.325970 | val -5.430918
+Epoch 024 [VMIM] LR:2.00e-04 | train -5.495019 | val -6.073376
+  saved best-by-loss.
+Epoch 025 [VMIM] LR:2.00e-04 | train -5.501491 | val -5.940256
+[RF R2]  t0:0.936 | t1:0.909 | t2:-0.023 | t3:0.937
+[q sigma] t0:0.081 | t1:0.083 | t2:0.374 | t3:0.076   (prior sigma ~0.29; floor = head.sigma_floor)
+  saved best-by-probe (mean R2 0.690, pure-VMIM).
+Epoch 026 [VMIM] LR:2.00e-04 | train -5.636674 | val -6.403173
+  saved best-by-loss.
+Epoch 027 [VMIM] LR:2.00e-04 | train -5.650907 | val -5.860027
+Epoch 028 [VMIM] LR:2.00e-04 | train -5.665992 | val -6.041245
+Epoch 029 [VMIM] LR:2.00e-04 | train -5.763048 | val -6.447495
+  saved best-by-loss.
+Epoch 030 [VMIM] LR:2.00e-04 | train -5.738803 | val -6.285073
+[RF R2]  t0:0.937 | t1:0.923 | t2:-0.020 | t3:0.936
+[q sigma] t0:0.073 | t1:0.072 | t2:0.351 | t3:0.066   (prior sigma ~0.29; floor = head.sigma_floor)
+  saved best-by-probe (mean R2 0.694, pure-VMIM).
+Epoch 031 [VMIM] LR:2.00e-04 | train -5.853781 | val -6.280064
+Epoch 032 [VMIM] LR:2.00e-04 | train -5.922436 | val -6.028105
+Epoch 033 [VMIM] LR:2.00e-04 | train -5.884409 | val -6.399387
+Epoch 034 [VMIM] LR:2.00e-04 | train -5.914111 | val -6.325012
+Epoch 035 [VMIM] LR:2.00e-04 | train -6.029125 | val -6.571856
+[RF R2]  t0:0.927 | t1:0.937 | t2:0.007 | t3:0.946
+[q sigma] t0:0.089 | t1:0.059 | t2:0.369 | t3:0.062   (prior sigma ~0.29; floor = head.sigma_floor)
+  saved best-by-probe (mean R2 0.704, pure-VMIM).
+  saved best-by-loss.
+Epoch 036 [VMIM] LR:2.00e-04 | train -5.950153 | val -6.294486
+Epoch 037 [VMIM] LR:2.00e-04 | train -6.035088 | val -6.432935
+Epoch 038 [VMIM] LR:2.00e-04 | train -6.031835 | val -6.341243
+Epoch 039 [VMIM] LR:2.00e-04 | train -6.083280 | val -6.641953
+  saved best-by-loss.
+Epoch 040 [VMIM] LR:2.00e-04 | train -6.123241 | val -6.361918
+[RF R2]  t0:0.928 | t1:0.935 | t2:-0.022 | t3:0.947
+[q sigma] t0:0.079 | t1:0.056 | t2:0.349 | t3:0.051   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 041 [VMIM] LR:2.00e-04 | train -6.128636 | val -6.080657
+Epoch 042 [VMIM] LR:2.00e-04 | train -6.167927 | val -6.550650
+Epoch 043 [VMIM] LR:2.00e-04 | train -6.157004 | val -6.019789
+Epoch 044 [VMIM] LR:2.00e-04 | train -6.202368 | val -6.940264
+  saved best-by-loss.
+Epoch 045 [VMIM] LR:2.00e-04 | train -6.331097 | val -6.407700
+[RF R2]  t0:0.918 | t1:0.937 | t2:-0.011 | t3:0.938
+[q sigma] t0:0.092 | t1:0.060 | t2:0.359 | t3:0.054   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 046 [VMIM] LR:2.00e-04 | train -6.213065 | val -6.329552
+Epoch 047 [VMIM] LR:2.00e-04 | train -6.297366 | val -6.202514
+Epoch 048 [VMIM] LR:2.00e-04 | train -6.227812 | val -6.778148
+Epoch 049 [VMIM] LR:2.00e-04 | train -6.309366 | val -7.077717
+  saved best-by-loss.
+Epoch 050 [VMIM] LR:2.00e-04 | train -6.406521 | val -6.463686
+[RF R2]  t0:0.921 | t1:0.927 | t2:-0.034 | t3:0.943
+[q sigma] t0:0.081 | t1:0.048 | t2:0.369 | t3:0.047   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 051 [VMIM] LR:2.00e-04 | train -6.346123 | val -6.661348
+Epoch 052 [VMIM] LR:2.00e-04 | train -6.513264 | val -6.640288
+Epoch 053 [VMIM] LR:2.00e-04 | train -6.429663 | val -6.315464
+Epoch 054 [VMIM] LR:2.00e-04 | train -6.407981 | val -6.490526
+Epoch 055 [VMIM] LR:2.00e-04 | train -6.447300 | val -7.151324
+[RF R2]  t0:0.920 | t1:0.927 | t2:-0.013 | t3:0.943
+[q sigma] t0:0.079 | t1:0.045 | t2:0.340 | t3:0.048   (prior sigma ~0.29; floor = head.sigma_floor)
+  saved best-by-loss.
+Epoch 056 [VMIM] LR:2.00e-04 | train -6.472619 | val -6.473006
+Epoch 057 [VMIM] LR:2.00e-04 | train -6.495933 | val -6.963663
+Epoch 058 [VMIM] LR:2.00e-04 | train -6.546888 | val -6.784165
+Epoch 059 [VMIM] LR:2.00e-04 | train -6.454663 | val -7.018913
+Epoch 060 [VMIM] LR:2.00e-04 | train -6.576323 | val -7.340029
+[RF R2]  t0:0.922 | t1:0.927 | t2:0.011 | t3:0.951
+[q sigma] t0:0.076 | t1:0.046 | t2:0.351 | t3:0.044   (prior sigma ~0.29; floor = head.sigma_floor)
+  saved best-by-loss.
+Epoch 061 [VMIM] LR:2.00e-04 | train -6.468050 | val -6.170826
+Epoch 062 [VMIM] LR:2.00e-04 | train -6.631846 | val -6.757902
+Epoch 063 [VMIM] LR:2.00e-04 | train -6.634499 | val -7.160461
+Epoch 064 [VMIM] LR:2.00e-04 | train -6.697309 | val -7.289827
+Epoch 065 [VMIM] LR:2.00e-04 | train -6.652191 | val -7.035187
+[RF R2]  t0:0.928 | t1:0.942 | t2:0.026 | t3:0.949
+[q sigma] t0:0.079 | t1:0.046 | t2:0.367 | t3:0.047   (prior sigma ~0.29; floor = head.sigma_floor)
+  saved best-by-probe (mean R2 0.711, pure-VMIM).
+Epoch 066 [VMIM] LR:2.00e-04 | train -6.782043 | val -7.303709
+Epoch 067 [VMIM] LR:2.00e-04 | train -6.667608 | val -6.548549
+Epoch 068 [VMIM] LR:2.00e-04 | train -6.751951 | val -7.293071
+Epoch 069 [VMIM] LR:2.00e-04 | train -6.715862 | val -5.949778
+Epoch 070 [VMIM] LR:2.00e-04 | train -6.751313 | val -6.389504
+[RF R2]  t0:0.921 | t1:0.934 | t2:-0.005 | t3:0.954
+[q sigma] t0:0.075 | t1:0.044 | t2:0.323 | t3:0.041   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 071 [VMIM] LR:2.00e-04 | train -6.713392 | val -7.109614
+Epoch 072 [VMIM] LR:2.00e-04 | train -6.759095 | val -7.228486
+Epoch 073 [VMIM] LR:2.00e-04 | train -6.863785 | val -7.322479
+Epoch 074 [VMIM] LR:2.00e-04 | train -6.792571 | val -7.320631
+Epoch 075 [VMIM] LR:2.00e-04 | train -6.893165 | val -7.063040
+[RF R2]  t0:0.934 | t1:0.938 | t2:0.013 | t3:0.958
+[q sigma] t0:0.079 | t1:0.044 | t2:0.321 | t3:0.043   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 076 [VMIM] LR:2.00e-04 | train -6.778101 | val -7.144138
+Epoch 077 [VMIM] LR:2.00e-04 | train -6.764422 | val -6.949218
+Epoch 078 [VMIM] LR:2.00e-04 | train -6.859401 | val -6.905781
+Epoch 079 [VMIM] LR:2.00e-04 | train -6.792419 | val -7.522143
+  saved best-by-loss.
+Epoch 080 [VMIM] LR:2.00e-04 | train -6.924217 | val -7.540851
+[RF R2]  t0:0.929 | t1:0.942 | t2:0.012 | t3:0.956
+[q sigma] t0:0.078 | t1:0.043 | t2:0.353 | t3:0.044   (prior sigma ~0.29; floor = head.sigma_floor)
+  saved best-by-loss.
+Epoch 081 [VMIM] LR:2.00e-04 | train -6.898533 | val -7.003793
+Epoch 082 [VMIM] LR:2.00e-04 | train -6.994271 | val -7.917151
+  saved best-by-loss.
+Epoch 083 [VMIM] LR:2.00e-04 | train -6.947704 | val -7.219361
+Epoch 084 [VMIM] LR:2.00e-04 | train -6.868579 | val -7.363741
+Epoch 085 [VMIM] LR:2.00e-04 | train -6.907764 | val -7.067855
+[RF R2]  t0:0.929 | t1:0.933 | t2:-0.045 | t3:0.952
+[q sigma] t0:0.072 | t1:0.044 | t2:0.327 | t3:0.042   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 086 [VMIM] LR:2.00e-04 | train -7.025479 | val -7.129811
+Epoch 087 [VMIM] LR:2.00e-04 | train -6.974714 | val -7.389970
+Epoch 088 [VMIM] LR:2.00e-04 | train -7.023876 | val -7.216841
+Epoch 089 [VMIM] LR:2.00e-04 | train -6.943598 | val -7.408669
+Epoch 090 [VMIM] LR:2.00e-04 | train -6.957947 | val -7.594791
+[RF R2]  t0:0.932 | t1:0.944 | t2:-0.010 | t3:0.958
+[q sigma] t0:0.078 | t1:0.042 | t2:0.367 | t3:0.049   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 091 [VMIM] LR:2.00e-04 | train -7.069453 | val -7.699546
+Epoch 092 [VMIM] LR:2.00e-04 | train -7.105232 | val -6.688854
+Epoch 093 [VMIM] LR:2.00e-04 | train -7.000280 | val -7.886048
+Epoch 094 [VMIM] LR:2.00e-04 | train -7.111420 | val -7.206551
+Epoch 095 [VMIM] LR:2.00e-04 | train -7.131534 | val -7.115004
+[RF R2]  t0:0.934 | t1:0.943 | t2:-0.030 | t3:0.948
+[q sigma] t0:0.075 | t1:0.039 | t2:0.343 | t3:0.039   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 096 [VMIM] LR:2.00e-04 | train -7.035196 | val -7.322399
+Epoch 097 [VMIM] LR:2.00e-04 | train -7.068412 | val -7.777577
+Epoch 098 [VMIM] LR:2.00e-04 | train -6.912523 | val -7.282796
+Epoch 099 [VMIM] LR:2.00e-04 | train -7.167328 | val -7.794269
+Epoch 100 [VMIM] LR:2.00e-04 | train -7.229750 | val -7.726336
+[RF R2]  t0:0.935 | t1:0.927 | t2:-0.027 | t3:0.958
+[q sigma] t0:0.075 | t1:0.035 | t2:0.355 | t3:0.041   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 101 [VMIM] LR:2.00e-04 | train -7.177428 | val -7.649214
+Epoch 102 [VMIM] LR:2.00e-04 | train -7.125015 | val -7.450097
+Epoch 103 [VMIM] LR:2.00e-04 | train -7.184443 | val -7.522072
+Epoch 104 [VMIM] LR:2.00e-04 | train -7.248076 | val -7.356924
+Epoch 105 [VMIM] LR:2.00e-04 | train -7.046265 | val -7.777039
+[RF R2]  t0:0.938 | t1:0.933 | t2:-0.012 | t3:0.953
+[q sigma] t0:0.078 | t1:0.049 | t2:0.356 | t3:0.049   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 106 [VMIM] LR:2.00e-04 | train -7.022128 | val -7.781599
+Epoch 107 [VMIM] LR:2.00e-04 | train -7.269113 | val -7.916989
+Epoch 108 [VMIM] LR:2.00e-04 | train -7.186043 | val -7.806320
+Epoch 109 [VMIM] LR:2.00e-04 | train -7.278890 | val -7.809780
+Epoch 110 [VMIM] LR:2.00e-04 | train -7.227047 | val -7.851859
+[RF R2]  t0:0.930 | t1:0.931 | t2:-0.043 | t3:0.953
+[q sigma] t0:0.074 | t1:0.043 | t2:0.342 | t3:0.046   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 111 [VMIM] LR:2.00e-04 | train -7.309722 | val -8.023616
+  saved best-by-loss.
+Epoch 112 [VMIM] LR:2.00e-04 | train -7.302504 | val -7.897796
+Epoch 113 [VMIM] LR:2.00e-04 | train -7.347541 | val -8.018180
+Epoch 114 [VMIM] LR:2.00e-04 | train -7.209724 | val -8.109202
+  saved best-by-loss.
+Epoch 115 [VMIM] LR:2.00e-04 | train -7.351071 | val -7.683718
+[RF R2]  t0:0.931 | t1:0.945 | t2:-0.133 | t3:0.948
+[q sigma] t0:0.071 | t1:0.039 | t2:0.338 | t3:0.032   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 116 [VMIM] LR:2.00e-04 | train -7.283601 | val -7.716410
+Epoch 117 [VMIM] LR:2.00e-04 | train -7.288025 | val -7.724298
+Epoch 118 [VMIM] LR:2.00e-04 | train -7.257578 | val -7.766240
+Epoch 119 [VMIM] LR:2.00e-04 | train -7.437115 | val -7.601763
+Epoch 120 [VMIM] LR:2.00e-04 | train -7.299752 | val -7.506571
+[RF R2]  t0:0.934 | t1:0.929 | t2:-0.019 | t3:0.944
+[q sigma] t0:0.080 | t1:0.039 | t2:0.355 | t3:0.039   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 121 [VMIM] LR:2.00e-04 | train -7.467703 | val -8.099011
+Epoch 122 [VMIM] LR:2.00e-04 | train -7.414537 | val -7.492288
+Epoch 123 [VMIM] LR:2.00e-04 | train -7.376077 | val -7.754922
+Epoch 124 [VMIM] LR:2.00e-04 | train -7.431215 | val -8.013480
+Epoch 125 [VMIM] LR:2.00e-04 | train -7.413997 | val -7.961130
+[RF R2]  t0:0.937 | t1:0.936 | t2:-0.060 | t3:0.949
+[q sigma] t0:0.070 | t1:0.037 | t2:0.344 | t3:0.041   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 126 [VMIM] LR:2.00e-04 | train -7.485093 | val -8.066669
+Epoch 127 [VMIM] LR:2.00e-04 | train -7.450044 | val -7.640078
+Epoch 128 [VMIM] LR:2.00e-04 | train -7.405857 | val -8.171393
+  saved best-by-loss.
+Epoch 129 [VMIM] LR:2.00e-04 | train -7.540165 | val -8.102339
+Epoch 130 [VMIM] LR:2.00e-04 | train -7.508891 | val -7.256090
+[RF R2]  t0:0.932 | t1:0.926 | t2:-0.068 | t3:0.946
+[q sigma] t0:0.076 | t1:0.034 | t2:0.389 | t3:0.038   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 131 [VMIM] LR:2.00e-04 | train -7.535886 | val -8.238440
+  saved best-by-loss.
+Epoch 132 [VMIM] LR:2.00e-04 | train -7.372568 | val -7.944480
+Epoch 133 [VMIM] LR:2.00e-04 | train -7.621946 | val -7.935169
+Epoch 134 [VMIM] LR:2.00e-04 | train -7.519730 | val -7.964120
+Epoch 135 [VMIM] LR:2.00e-04 | train -7.486551 | val -8.266989
+[RF R2]  t0:0.935 | t1:0.934 | t2:-0.065 | t3:0.949
+[q sigma] t0:0.066 | t1:0.034 | t2:0.343 | t3:0.034   (prior sigma ~0.29; floor = head.sigma_floor)
+  saved best-by-loss.
+Epoch 136 [VMIM] LR:2.00e-04 | train -7.575663 | val -6.998523
+Epoch 137 [VMIM] LR:2.00e-04 | train -7.536220 | val -7.913886
+Epoch 138 [VMIM] LR:2.00e-04 | train -7.687782 | val -7.797977
+Epoch 139 [VMIM] LR:2.00e-04 | train -7.706405 | val -8.301333
+  saved best-by-loss.
+Epoch 140 [VMIM] LR:2.00e-04 | train -7.609194 | val -7.762112
+[RF R2]  t0:0.938 | t1:0.931 | t2:-0.065 | t3:0.956
+[q sigma] t0:0.067 | t1:0.035 | t2:0.355 | t3:0.038   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 141 [VMIM] LR:2.00e-04 | train -7.734010 | val -8.330309
+  saved best-by-loss.
+Epoch 142 [VMIM] LR:2.00e-04 | train -7.679399 | val -7.432166
+Epoch 143 [VMIM] LR:2.00e-04 | train -7.425203 | val -8.426771
+  saved best-by-loss.
+Epoch 144 [VMIM] LR:2.00e-04 | train -7.793583 | val -8.586232
+  saved best-by-loss.
+Epoch 145 [VMIM] LR:2.00e-04 | train -7.718099 | val -8.099168
+[RF R2]  t0:0.935 | t1:0.931 | t2:-0.056 | t3:0.922
+[q sigma] t0:0.062 | t1:0.031 | t2:0.331 | t3:0.030   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 146 [VMIM] LR:2.00e-04 | train -7.768010 | val -8.279225
+Epoch 147 [VMIM] LR:2.00e-04 | train -7.602417 | val -8.661230
+  saved best-by-loss.
+Epoch 148 [VMIM] LR:2.00e-04 | train -7.737483 | val -7.703223
+Epoch 149 [VMIM] LR:2.00e-04 | train -7.691175 | val -7.823123
+Epoch 150 [VMIM] LR:2.00e-04 | train -7.779049 | val -8.275766
+[RF R2]  t0:0.937 | t1:0.946 | t2:-0.034 | t3:0.944
+[q sigma] t0:0.070 | t1:0.032 | t2:0.359 | t3:0.035   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 151 [VMIM] LR:2.00e-04 | train -7.735413 | val -8.328227
+Epoch 152 [VMIM] LR:2.00e-04 | train -7.776654 | val -8.117828
+Epoch 153 [VMIM] LR:2.00e-04 | train -7.931366 | val -8.052813
+Epoch 154 [VMIM] LR:2.00e-04 | train -7.703427 | val -8.220676
+Epoch 155 [VMIM] LR:2.00e-04 | train -7.810297 | val -8.628674
+[RF R2]  t0:0.943 | t1:0.948 | t2:-0.044 | t3:0.956
+[q sigma] t0:0.067 | t1:0.029 | t2:0.369 | t3:0.033   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 156 [VMIM] LR:2.00e-04 | train -7.787341 | val -7.938664
+Epoch 157 [VMIM] LR:2.00e-04 | train -7.806770 | val -7.673258
+Epoch 158 [VMIM] LR:2.00e-04 | train -7.968544 | val -8.412939
+Epoch 159 [VMIM] LR:2.00e-04 | train -7.666321 | val -8.179201
+Epoch 160 [VMIM] LR:2.00e-04 | train -7.917851 | val -8.038335
+[RF R2]  t0:0.943 | t1:0.924 | t2:-0.030 | t3:0.943
+[q sigma] t0:0.061 | t1:0.031 | t2:0.345 | t3:0.035   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 161 [VMIM] LR:2.00e-04 | train -7.911925 | val -8.715169
+  saved best-by-loss.
+Epoch 162 [VMIM] LR:2.00e-04 | train -7.688187 | val -8.140861
+Epoch 163 [VMIM] LR:2.00e-04 | train -7.947109 | val -8.750349
+  saved best-by-loss.
+Epoch 164 [VMIM] LR:2.00e-04 | train -7.966423 | val -8.380665
+Epoch 165 [VMIM] LR:2.00e-04 | train -8.013163 | val -8.399251
+[RF R2]  t0:0.943 | t1:0.927 | t2:-0.048 | t3:0.951
+[q sigma] t0:0.058 | t1:0.035 | t2:0.329 | t3:0.033   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 166 [VMIM] LR:2.00e-04 | train -8.051235 | val -8.154083
+Epoch 167 [VMIM] LR:2.00e-04 | train -8.036564 | val -7.639895
+Epoch 168 [VMIM] LR:2.00e-04 | train -7.925120 | val -8.387853
+Epoch 169 [VMIM] LR:2.00e-04 | train -7.927513 | val -7.772666
+Epoch 170 [VMIM] LR:2.00e-04 | train -7.781240 | val -8.479752
+[RF R2]  t0:0.945 | t1:0.924 | t2:-0.096 | t3:0.947
+[q sigma] t0:0.062 | t1:0.038 | t2:0.354 | t3:0.041   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 171 [VMIM] LR:2.00e-04 | train -7.968292 | val -8.332732
+Epoch 172 [VMIM] LR:2.00e-04 | train -8.160840 | val -8.411999
+Epoch 173 [VMIM] LR:2.00e-04 | train -8.093221 | val -8.466694
+Epoch 174 [VMIM] LR:2.00e-04 | train -7.772237 | val -8.313904
+Epoch 175 [VMIM] LR:2.00e-04 | train -8.012625 | val -8.085401
+[RF R2]  t0:0.943 | t1:0.922 | t2:-0.030 | t3:0.944
+[q sigma] t0:0.063 | t1:0.033 | t2:0.364 | t3:0.038   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 176 [VMIM] LR:2.00e-04 | train -8.094401 | val -8.706448
+Epoch 177 [VMIM] LR:2.00e-04 | train -8.071224 | val -8.787592
+  saved best-by-loss.
+Epoch 178 [VMIM] LR:2.00e-04 | train -8.118342 | val -8.334208
+Epoch 179 [VMIM] LR:2.00e-04 | train -7.973462 | val -8.235546
+Epoch 180 [VMIM] LR:2.00e-04 | train -8.110305 | val -8.674441
+[RF R2]  t0:0.945 | t1:0.907 | t2:-0.087 | t3:0.937
+[q sigma] t0:0.059 | t1:0.034 | t2:0.333 | t3:0.032   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 181 [VMIM] LR:2.00e-04 | train -7.892278 | val -8.252060
+Epoch 182 [VMIM] LR:2.00e-04 | train -8.040841 | val -9.023164
+  saved best-by-loss.
+Epoch 183 [VMIM] LR:2.00e-04 | train -7.919101 | val -8.436660
+Epoch 184 [VMIM] LR:2.00e-04 | train -8.036085 | val -8.679577
+Epoch 185 [VMIM] LR:2.00e-04 | train -7.991399 | val -8.605973
+[RF R2]  t0:0.942 | t1:0.939 | t2:-0.127 | t3:0.944
+[q sigma] t0:0.061 | t1:0.031 | t2:0.354 | t3:0.035   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 186 [VMIM] LR:2.00e-04 | train -8.212111 | val -8.510136
+Epoch 187 [VMIM] LR:2.00e-04 | train -8.238290 | val -8.404295
+Epoch 188 [VMIM] LR:2.00e-04 | train -7.806343 | val -8.272241
+Epoch 189 [VMIM] LR:2.00e-04 | train -7.921960 | val -8.371910
+Epoch 190 [VMIM] LR:2.00e-04 | train -8.092732 | val -7.456889
+[RF R2]  t0:0.946 | t1:0.932 | t2:-0.133 | t3:0.957
+[q sigma] t0:0.063 | t1:0.044 | t2:0.362 | t3:0.043   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 191 [VMIM] LR:2.00e-04 | train -8.109822 | val -8.131417
+Epoch 192 [VMIM] LR:2.00e-04 | train -7.794475 | val -8.527137
+Epoch 193 [VMIM] LR:2.00e-04 | train -7.930037 | val -9.062502
+  saved best-by-loss.
+Epoch 194 [VMIM] LR:2.00e-04 | train -7.984880 | val -7.664677
+Epoch 195 [VMIM] LR:2.00e-04 | train -7.904909 | val -8.830685
+[RF R2]  t0:0.940 | t1:0.919 | t2:-0.092 | t3:0.938
+[q sigma] t0:0.060 | t1:0.039 | t2:0.337 | t3:0.036   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 196 [VMIM] LR:2.00e-04 | train -8.297894 | val -8.781968
+Epoch 197 [VMIM] LR:2.00e-04 | train -8.048822 | val -7.820399
+Epoch 198 [VMIM] LR:2.00e-04 | train -8.107619 | val -8.611400
+Epoch 199 [VMIM] LR:2.00e-04 | train -8.316442 | val -8.882029
+Epoch 200 [VMIM] LR:2.00e-04 | train -8.124270 | val -8.815314
+[RF R2]  t0:0.946 | t1:0.948 | t2:-0.068 | t3:0.957
+[q sigma] t0:0.058 | t1:0.033 | t2:0.351 | t3:0.033   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 201 [VMIM] LR:2.00e-04 | train -7.767888 | val -8.593569
+Epoch 202 [VMIM] LR:2.00e-04 | train -7.896730 | val -8.122206
+Epoch 203 [VMIM] LR:2.00e-04 | train -7.833096 | val -8.141873
+Epoch 204 [VMIM] LR:2.00e-04 | train -7.953196 | val -8.509165
+Epoch 205 [VMIM] LR:2.00e-04 | train -8.302116 | val -8.818814
+[RF R2]  t0:0.939 | t1:0.934 | t2:-0.046 | t3:0.929
+[q sigma] t0:0.061 | t1:0.047 | t2:0.345 | t3:0.041   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 206 [VMIM] LR:2.00e-04 | train -8.165747 | val -8.174752
+Epoch 207 [VMIM] LR:2.00e-04 | train -7.940910 | val -8.733808
+Epoch 208 [VMIM] LR:2.00e-04 | train -7.978695 | val -8.604193
+Epoch 209 [VMIM] LR:2.00e-04 | train -7.983742 | val -8.620364
+Epoch 210 [VMIM] LR:2.00e-04 | train -8.142279 | val -8.231200
+[RF R2]  t0:0.945 | t1:0.934 | t2:-0.032 | t3:0.956
+[q sigma] t0:0.064 | t1:0.038 | t2:0.371 | t3:0.035   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 211 [VMIM] LR:2.00e-04 | train -8.189338 | val -8.681193
+Epoch 212 [VMIM] LR:2.00e-04 | train -8.103538 | val -8.781119
+Epoch 213 [VMIM] LR:2.00e-04 | train -8.311778 | val -8.562963
+Epoch 214 [VMIM] LR:2.00e-04 | train -8.005424 | val -8.412196
+Epoch 215 [VMIM] LR:2.00e-04 | train -8.236185 | val -8.765394
+[RF R2]  t0:0.943 | t1:0.941 | t2:-0.047 | t3:0.963
+[q sigma] t0:0.059 | t1:0.034 | t2:0.351 | t3:0.035   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 216 [VMIM] LR:2.00e-04 | train -8.214559 | val -8.740250
+Epoch 217 [VMIM] LR:2.00e-04 | train -8.156941 | val -8.122880
+Epoch 218 [VMIM] LR:2.00e-04 | train -8.220967 | val -8.627167
+Epoch 219 [VMIM] LR:2.00e-04 | train -8.175816 | val -8.354573
+Epoch 220 [VMIM] LR:2.00e-04 | train -8.183578 | val -9.079933
+[RF R2]  t0:0.940 | t1:0.946 | t2:-0.067 | t3:0.963
+[q sigma] t0:0.059 | t1:0.033 | t2:0.367 | t3:0.033   (prior sigma ~0.29; floor = head.sigma_floor)
+  saved best-by-loss.
+Epoch 221 [VMIM] LR:2.00e-04 | train -8.328045 | val -8.977402
+Epoch 222 [VMIM] LR:2.00e-04 | train -8.205621 | val -8.374376
+Epoch 223 [VMIM] LR:2.00e-04 | train -8.240747 | val -8.593193
+Epoch 224 [VMIM] LR:2.00e-04 | train -8.097390 | val -8.508854
+Epoch 225 [VMIM] LR:2.00e-04 | train -8.059318 | val -9.015279
+[RF R2]  t0:0.936 | t1:0.922 | t2:-0.062 | t3:0.953
+[q sigma] t0:0.060 | t1:0.031 | t2:0.364 | t3:0.031   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 226 [VMIM] LR:2.00e-04 | train -8.173063 | val -8.502676
+Epoch 227 [VMIM] LR:2.00e-04 | train -8.377919 | val -8.940180
+Epoch 228 [VMIM] LR:2.00e-04 | train -8.387309 | val -9.010859
+Epoch 229 [VMIM] LR:2.00e-04 | train -8.359626 | val -9.105343
+  saved best-by-loss.
+Epoch 230 [VMIM] LR:2.00e-04 | train -8.294346 | val -8.210115
+[RF R2]  t0:0.944 | t1:0.919 | t2:-0.092 | t3:0.945
+[q sigma] t0:0.057 | t1:0.030 | t2:0.343 | t3:0.028   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 231 [VMIM] LR:2.00e-04 | train -8.337645 | val -8.612123
+Epoch 232 [VMIM] LR:2.00e-04 | train -8.284626 | val -9.239145
+  saved best-by-loss.
+Epoch 233 [VMIM] LR:2.00e-04 | train -8.303040 | val -8.713301
+Epoch 234 [VMIM] LR:2.00e-04 | train -8.270589 | val -8.572762
+Epoch 235 [VMIM] LR:2.00e-04 | train -8.404870 | val -8.993988
+[RF R2]  t0:0.945 | t1:0.927 | t2:-0.030 | t3:0.952
+[q sigma] t0:0.060 | t1:0.038 | t2:0.349 | t3:0.040   (prior sigma ~0.29; floor = head.sigma_floor)
+Epoch 236 [VMIM] LR:2.00e-04 | train -8.254522 | val -8.719358
+Epoch 237 [VMIM] LR:2.00e-04 | train -8.506938 | val -9.080681
+Epoch 238 [VMIM] LR:2.00e-04 | train -8.343007 | val -9.061693
+Epoch 239 [VMIM] LR:2.00e-04 | train -8.324754 | val -8.810005
+Epoch 240 [VMIM] LR:2.00e-04 | train -8.079444 | val -9.014997
+[RF R2]  t0:0.946 | t1:0.920 | t2:-0.027 | t3:0.950
+[q sigma] t0:0.056 | t1:0.037 | t2:0.349 | t3:0.034   (prior sigma ~0.29; floor = head.sigma_floor)
+Early stopping at epoch 240: mean probe R2 stale for 35 probes IN PURE-VMIM PHASE.
+[TIMER] train 5155.4s
+[WARN] requested learned_compressor_bestprobe.pt missing; falling back to learned_compressor.pt
+exporting from checkpoint: /gscratch/ddehiwalage-don/sbi_master/cnn_vmim_/n4/seed_s4/nle/learned_compressor.pt
+  export 256/9,120,000
+  export 25,856/9,120,000
+  export 51,456/9,120,000
+  export 77,056/9,120,000
+  export 102,656/9,120,000
+  export 128,256/9,120,000
+  export 153,856/9,120,000
+  export 179,456/9,120,000
+  export 205,056/9,120,000
+  export 230,656/9,120,000
+  export 256,256/9,120,000
+  export 281,856/9,120,000
+  export 307,456/9,120,000
+  export 333,056/9,120,000
+  export 358,656/9,120,000
+  export 384,256/9,120,000
+  export 409,856/9,120,000
+  export 435,456/9,120,000
+  export 461,056/9,120,000
+  export 486,656/9,120,000
+  export 512,256/9,120,000
+  export 537,856/9,120,000
+  export 563,456/9,120,000
+  export 589,056/9,120,000
+  export 614,656/9,120,000
+  export 640,256/9,120,000
+  export 665,856/9,120,000
+  export 691,456/9,120,000
+  export 717,056/9,120,000
+  export 742,656/9,120,000
+  export 768,256/9,120,000
+  export 793,856/9,120,000
+  export 819,456/9,120,000
+  export 845,056/9,120,000
+  export 870,656/9,120,000
+  export 896,256/9,120,000
+  export 921,856/9,120,000
+  export 947,456/9,120,000
+  export 973,056/9,120,000
+  export 998,656/9,120,000
+  export 1,024,256/9,120,000
+  export 1,049,856/9,120,000
+  export 1,075,456/9,120,000
+  export 1,101,056/9,120,000
+  export 1,126,656/9,120,000
+  export 1,152,256/9,120,000
+  export 1,177,856/9,120,000
+  export 1,203,456/9,120,000
+  export 1,229,056/9,120,000
+  export 1,254,656/9,120,000
+  export 1,280,256/9,120,000
+  export 1,305,856/9,120,000
+  export 1,331,456/9,120,000
+  export 1,357,056/9,120,000
+  export 1,382,656/9,120,000
+  export 1,408,256/9,120,000
+  export 1,433,856/9,120,000
+  export 1,459,456/9,120,000
+  export 1,485,056/9,120,000
+  export 1,510,656/9,120,000
+  export 1,536,256/9,120,000
+  export 1,561,856/9,120,000
+  export 1,587,456/9,120,000
+  export 1,613,056/9,120,000
+  export 1,638,656/9,120,000
+  export 1,664,256/9,120,000
+  export 1,689,856/9,120,000
+  export 1,715,456/9,120,000
+  export 1,741,056/9,120,000
+  export 1,766,656/9,120,000
+  export 1,792,256/9,120,000
+  export 1,817,856/9,120,000
+  export 1,843,456/9,120,000
+  export 1,869,056/9,120,000
+  export 1,894,656/9,120,000
+  export 1,920,256/9,120,000
+  export 1,945,856/9,120,000
+  export 1,971,456/9,120,000
+  export 1,997,056/9,120,000
+  export 2,022,656/9,120,000
+  export 2,048,256/9,120,000
+  export 2,073,856/9,120,000
+  export 2,099,456/9,120,000
+  export 2,125,056/9,120,000
+  export 2,150,656/9,120,000
+  export 2,176,256/9,120,000
+  export 2,201,856/9,120,000
+  export 2,227,456/9,120,000
+  export 2,253,056/9,120,000
+  export 2,278,656/9,120,000
+  export 2,304,256/9,120,000
+  export 2,329,856/9,120,000
+  export 2,355,456/9,120,000
+  export 2,381,056/9,120,000
+  export 2,406,656/9,120,000
+  export 2,432,256/9,120,000
+  export 2,457,856/9,120,000
+  export 2,483,456/9,120,000
+  export 2,509,056/9,120,000
+  export 2,534,656/9,120,000
+  export 2,560,256/9,120,000
+  export 2,585,856/9,120,000
+  export 2,611,456/9,120,000
+  export 2,637,056/9,120,000
+  export 2,662,656/9,120,000
+  export 2,688,256/9,120,000
+  export 2,713,856/9,120,000
+  export 2,739,456/9,120,000
+  export 2,765,056/9,120,000
+  export 2,790,656/9,120,000
+  export 2,816,256/9,120,000
+  export 2,841,856/9,120,000
+  export 2,867,456/9,120,000
+  export 2,893,056/9,120,000
+  export 2,918,656/9,120,000
+  export 2,944,256/9,120,000
+  export 2,969,856/9,120,000
+  export 2,995,456/9,120,000
+  export 3,021,056/9,120,000
+  export 3,046,656/9,120,000
+  export 3,072,256/9,120,000
+  export 3,097,856/9,120,000
+  export 3,123,456/9,120,000
+  export 3,149,056/9,120,000
+  export 3,174,656/9,120,000
+  export 3,200,256/9,120,000
+  export 3,225,856/9,120,000
+  export 3,251,456/9,120,000
+  export 3,277,056/9,120,000
+  export 3,302,656/9,120,000
+  export 3,328,256/9,120,000
+  export 3,353,856/9,120,000
+  export 3,379,456/9,120,000
+  export 3,405,056/9,120,000
+  export 3,430,656/9,120,000
+  export 3,456,256/9,120,000
+  export 3,481,856/9,120,000
+  export 3,507,456/9,120,000
+  export 3,533,056/9,120,000
+  export 3,558,656/9,120,000
+  export 3,584,256/9,120,000
+  export 3,609,856/9,120,000
+  export 3,635,456/9,120,000
+  export 3,661,056/9,120,000
+  export 3,686,656/9,120,000
+  export 3,712,256/9,120,000
+  export 3,737,856/9,120,000
+  export 3,763,456/9,120,000
+  export 3,789,056/9,120,000
+  export 3,814,656/9,120,000
+  export 3,840,256/9,120,000
+  export 3,865,856/9,120,000
+  export 3,891,456/9,120,000
+  export 3,917,056/9,120,000
+  export 3,942,656/9,120,000
+  export 3,968,256/9,120,000
+  export 3,993,856/9,120,000
+  export 4,019,456/9,120,000
+  export 4,045,056/9,120,000
+  export 4,070,656/9,120,000
+  export 4,096,256/9,120,000
+  export 4,121,856/9,120,000
+  export 4,147,456/9,120,000
+  export 4,173,056/9,120,000
+  export 4,198,656/9,120,000
+  export 4,224,256/9,120,000
+  export 4,249,856/9,120,000
+  export 4,275,456/9,120,000
+  export 4,301,056/9,120,000
+  export 4,326,656/9,120,000
+  export 4,352,256/9,120,000
+  export 4,377,856/9,120,000
+  export 4,403,456/9,120,000
+  export 4,429,056/9,120,000
+  export 4,454,656/9,120,000
+  export 4,480,256/9,120,000
+  export 4,505,856/9,120,000
+  export 4,531,456/9,120,000
+  export 4,557,056/9,120,000
+  export 4,582,656/9,120,000
+  export 4,608,256/9,120,000
+  export 4,633,856/9,120,000
+  export 4,659,456/9,120,000
+  export 4,685,056/9,120,000
+  export 4,710,656/9,120,000
+  export 4,736,256/9,120,000
+  export 4,761,856/9,120,000
+  export 4,787,456/9,120,000
+  export 4,813,056/9,120,000
+  export 4,838,656/9,120,000
+  export 4,864,256/9,120,000
+  export 4,889,856/9,120,000
+  export 4,915,456/9,120,000
+  export 4,941,056/9,120,000
+  export 4,966,656/9,120,000
+  export 4,992,256/9,120,000
+  export 5,017,856/9,120,000
+  export 5,043,456/9,120,000
+  export 5,069,056/9,120,000
+  export 5,094,656/9,120,000
+  export 5,120,256/9,120,000
+  export 5,145,856/9,120,000
+  export 5,171,456/9,120,000
+  export 5,197,056/9,120,000
+  export 5,222,656/9,120,000
+  export 5,248,256/9,120,000
+  export 5,273,856/9,120,000
+  export 5,299,456/9,120,000
+  export 5,325,056/9,120,000
+  export 5,350,656/9,120,000
+  export 5,376,256/9,120,000
+  export 5,401,856/9,120,000
+  export 5,427,456/9,120,000
+  export 5,453,056/9,120,000
+  export 5,478,656/9,120,000
+  export 5,504,256/9,120,000
+  export 5,529,856/9,120,000
+  export 5,555,456/9,120,000
+  export 5,581,056/9,120,000
+  export 5,606,656/9,120,000
+  export 5,632,256/9,120,000
+  export 5,657,856/9,120,000
+  export 5,683,456/9,120,000
+  export 5,709,056/9,120,000
+  export 5,734,656/9,120,000
+  export 5,760,256/9,120,000
+  export 5,785,856/9,120,000
+  export 5,811,456/9,120,000
+  export 5,837,056/9,120,000
+  export 5,862,656/9,120,000
+  export 5,888,256/9,120,000
+  export 5,913,856/9,120,000
+  export 5,939,456/9,120,000
+  export 5,965,056/9,120,000
+  export 5,990,656/9,120,000
+  export 6,016,256/9,120,000
+  export 6,041,856/9,120,000
+  export 6,067,456/9,120,000
+  export 6,093,056/9,120,000
+  export 6,118,656/9,120,000
+  export 6,144,256/9,120,000
+  export 6,169,856/9,120,000
+  export 6,195,456/9,120,000
+  export 6,221,056/9,120,000
+  export 6,246,656/9,120,000
+  export 6,272,256/9,120,000
+  export 6,297,856/9,120,000
+  export 6,323,456/9,120,000
+  export 6,349,056/9,120,000
+  export 6,374,656/9,120,000
+  export 6,400,256/9,120,000
+  export 6,425,856/9,120,000
+  export 6,451,456/9,120,000
+  export 6,477,056/9,120,000
+  export 6,502,656/9,120,000
+  export 6,528,256/9,120,000
+  export 6,553,856/9,120,000
+  export 6,579,456/9,120,000
+  export 6,605,056/9,120,000
+  export 6,630,656/9,120,000
+  export 6,656,256/9,120,000
+  export 6,681,856/9,120,000
+  export 6,707,456/9,120,000
+  export 6,733,056/9,120,000
+  export 6,758,656/9,120,000
+  export 6,784,256/9,120,000
+  export 6,809,856/9,120,000
+  export 6,835,456/9,120,000
+  export 6,861,056/9,120,000
+  export 6,886,656/9,120,000
+  export 6,912,256/9,120,000
+  export 6,937,856/9,120,000
+  export 6,963,456/9,120,000
+  export 6,989,056/9,120,000
+  export 7,014,656/9,120,000
+  export 7,040,256/9,120,000
+  export 7,065,856/9,120,000
+  export 7,091,456/9,120,000
+  export 7,117,056/9,120,000
+  export 7,142,656/9,120,000
+  export 7,168,256/9,120,000
+  export 7,193,856/9,120,000
+  export 7,219,456/9,120,000
+  export 7,245,056/9,120,000
+  export 7,270,656/9,120,000
+  export 7,296,256/9,120,000
+  export 7,321,856/9,120,000
+  export 7,347,456/9,120,000
+  export 7,373,056/9,120,000
+  export 7,398,656/9,120,000
+  export 7,424,256/9,120,000
+  export 7,449,856/9,120,000
+  export 7,475,456/9,120,000
+  export 7,501,056/9,120,000
+  export 7,526,656/9,120,000
+  export 7,552,256/9,120,000
+  export 7,577,856/9,120,000
+  export 7,603,456/9,120,000
+  export 7,629,056/9,120,000
+  export 7,654,656/9,120,000
+  export 7,680,256/9,120,000
+  export 7,705,856/9,120,000
+  export 7,731,456/9,120,000
+  export 7,757,056/9,120,000
+  export 7,782,656/9,120,000
+  export 7,808,256/9,120,000
+  export 7,833,856/9,120,000
+  export 7,859,456/9,120,000
+  export 7,885,056/9,120,000
+  export 7,910,656/9,120,000
+  export 7,936,256/9,120,000
+  export 7,961,856/9,120,000
+  export 7,987,456/9,120,000
+  export 8,013,056/9,120,000
+  export 8,038,656/9,120,000
+  export 8,064,256/9,120,000
+  export 8,089,856/9,120,000
+  export 8,115,456/9,120,000
+  export 8,141,056/9,120,000
+  export 8,166,656/9,120,000
+  export 8,192,256/9,120,000
+  export 8,217,856/9,120,000
+  export 8,243,456/9,120,000
+  export 8,269,056/9,120,000
+  export 8,294,656/9,120,000
+  export 8,320,256/9,120,000
+  export 8,345,856/9,120,000
+  export 8,371,456/9,120,000
+  export 8,397,056/9,120,000
+  export 8,422,656/9,120,000
+  export 8,448,256/9,120,000
+  export 8,473,856/9,120,000
+  export 8,499,456/9,120,000
+  export 8,525,056/9,120,000
+  export 8,550,656/9,120,000
+  export 8,576,256/9,120,000
+  export 8,601,856/9,120,000
+  export 8,627,456/9,120,000
+  export 8,653,056/9,120,000
+  export 8,678,656/9,120,000
+  export 8,704,256/9,120,000
+  export 8,729,856/9,120,000
+  export 8,755,456/9,120,000
+  export 8,781,056/9,120,000
+  export 8,806,656/9,120,000
+  export 8,832,256/9,120,000
+  export 8,857,856/9,120,000
+  export 8,883,456/9,120,000
+  export 8,909,056/9,120,000
+  export 8,934,656/9,120,000
+  export 8,960,256/9,120,000
+  export 8,985,856/9,120,000
+  export 9,011,456/9,120,000
+  export 9,037,056/9,120,000
+  export 9,062,656/9,120,000
+  export 9,088,256/9,120,000
+  export 9,113,856/9,120,000
+exported summaries -> /gscratch/ddehiwalage-don/sbi_master/cnn_vmim_/n4/seed_s4/summaries  t (9120000, 4)
