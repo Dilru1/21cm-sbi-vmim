@@ -8,10 +8,10 @@ project:
   description: >-
     Simulation-based inference of reionization-era astrophysical parameters from
     the 21 cm signal, comparing VMIM-learned summaries against MSE and fixed
-    summaries under thermal noise and dequantization jitter.
+    summaries under thermal noise (simulated SKA)
   authors:
-    - name: Dilru Dehiwalage-Don
-      affiliation: Observatoire de Paris (LERMA)
+    - name: Dehiwalage-Don Dilruwan
+      affiliation: Observatoire de Paris, ENSAI
   github: https://github.com/Dilru1/21cm-sbi-vmim
   # Notebooks are NOT executed at build time (they need cluster data). The book
   # renders each notebook's *saved* outputs, so build works anywhere, incl. CI.

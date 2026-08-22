@@ -141,7 +141,7 @@ def probe_sigma(compressor, head, loader, device, n_params=4, max_batches=40):
 
 
 # -- main ----------------------------------------------------------------------
-def run_training(compressor, head, train_loader, val_loader, device, nle_dir, c, n_params):
+def run_training(compressor, head, train_loader, val_loader, device, nle_dir, c, n_params, run):
     raw = compressor.module if isinstance(compressor, nn.DataParallel) else compressor
 
     aux_only = bool(c.get("aux_only", True))
@@ -297,6 +297,8 @@ def run_training(compressor, head, train_loader, val_loader, device, nle_dir, c,
             flush=True,
         )
 
+        run.log({"epoch": epoch + 1, "val_loss": avg_val})  # for wandb dashbord
+
         # -- probes: RF-R2 + per-parameter q sigma -----------------------------
         if (epoch + 1) % probe_every == 0:
             r2 = probe_r2(compressor, val_loader, device, n_params)
@@ -305,11 +307,27 @@ def run_training(compressor, head, train_loader, val_loader, device, nle_dir, c,
             rf_log.append([epoch + 1, phase, aux_coef] + r2)
             np.save(os.path.join(nle_dir, "rf_r2_history.npy"), np.array(rf_log))
 
+            # --- Log RF-R2 to W&B ---
+            probe_dict = {
+                "epoch": epoch + 1,
+                "probe/mean_r2": float(np.mean(r2)),
+            }
+            # Log individual parameter R^2 scores (theta_0 .. theta_3)
+            for p_idx, score in enumerate(r2):
+                probe_dict[f"probe/r2_theta_{p_idx}"] = float(score)
+
             if head is not None and not aux_only:
                 s = probe_sigma(compressor, head, val_loader, device, n_params)
                 if s is not None:
                     sigma_log.append([epoch + 1] + s)
                     np.save(os.path.join(nle_dir, "sigma_history.npy"), np.array(sigma_log))
+
+                    # --- Log sigma to W&B ---
+                    for p_idx, val in enumerate(s):
+                        probe_dict[f"probe/sigma_theta_{p_idx}"] = float(val)
+
+            # Send all probe metrics to W&B at once
+            run.log(probe_dict)
 
             mean_r2 = float(np.mean(r2))
             if mean_r2 > best_probe + 1e-4:
@@ -345,4 +363,6 @@ def run_training(compressor, head, train_loader, val_loader, device, nle_dir, c,
 
     np.save(os.path.join(nle_dir, "loss_history.npy"), np.array(loss_log))
     torch.save(raw.state_dict(), os.path.join(nle_dir, "learned_compressor.pt"))
+
+    run.finish()  # finish dashboard
     return best_val

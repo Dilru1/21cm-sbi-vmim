@@ -25,6 +25,9 @@ import torch.nn as nn
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from sbi import arm_dirs, load_config, load_source, split_by_sim
 
+from sbi.tracking import init_run
+
+
 # from sbi.compressors.heads import build_head
 from sbi.compressors.heads import build_head_from_cfg
 from sbi.seeding import apply_arm_name, make_generator, resolve_seeds, seed_worker, set_all_seeds
@@ -125,6 +128,9 @@ def main():
     args = ap.parse_args()
 
     cfg = load_config(args.config, args.override)
+
+    run = init_run(cfg, stage="stage1_compress", tags=[cfg.get("arm_type", "unknown"), "vmim"])
+
     c = cfg["compressor"]
     split_seed, init_seed = resolve_seeds(c)
 
@@ -256,8 +262,10 @@ def main():
 
     if not args.export_only:
         t0 = time.perf_counter()
-        run_training(compressor, head, tl, vl, device, str(dirs["nle"]), c, cfg["n_params"])
+        run_training(compressor, head, tl, vl, device, str(dirs["nle"]), c, cfg["n_params"], run)
         print(f"[TIMER] train {time.perf_counter() - t0:.1f}s", flush=True)
+
+        run.finish()
 
     if args.no_export:
         print(

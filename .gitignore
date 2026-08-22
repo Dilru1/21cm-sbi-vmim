@@ -19,6 +19,8 @@ logs/
 slurm-*.out
 
 
+wandb/
+
 docs/GUIDE.md
 docs/MLOPS.md
 

@@ -1,0 +1,28 @@
+# React to COMPLETED-experiment records when you push them.
+# This is what "CI + experiments" actually means: CI can't watch your training
+# (no GPU, no cluster data), but when you commit an updated manifest/metrics and
+# push, this job (1) validates the log and (2) prints a summary you can read in
+# the repo's Actions tab. It runs ONLY when those record files change.
+name: experiment-log
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "experiments/manifest.csv"
+      - "**/metrics.csv"
+  workflow_dispatch:        # also runnable by hand from the Actions tab
+
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pandas
+      # Validates the manifest (fails red if malformed) and writes a summary
+      # table to the run's page via $GITHUB_STEP_SUMMARY.
+      - name: Validate + summarize experiment log
+        run: python experiments/summarize.py
