@@ -1,15 +1,20 @@
+# Build the Jupyter Book and publish it to GitHub Pages on every push to main.
+# One-time setup: repo Settings -> Pages -> Build and deployment -> Source =
+# "GitHub Actions". Then the site appears at
+# https://Dilru1.github.io/21cm-sbi-vmim/
 name: deploy-book
 
 on:
   push:
     branches: [main]
-  workflow_dispatch:
+  workflow_dispatch:      # lets you trigger it manually from the Actions tab
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Allow only one concurrent deployment.
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -27,61 +32,15 @@ jobs:
           python-version: "3.11"
       - name: Install Jupyter Book 2
         run: pip install "jupyter-book>=2"
-
-      # Tell MyST to build with the correct subpath for GitHub Pages
+      # Notebooks are rendered from saved outputs (not executed) -> no cluster
+      # data needed, so the build is safe on a bare runner.
       - name: Build HTML
-        run: jupyter book build --html
+        # GitHub Pages serves this project site from the /21cm-sbi-vmim/
+        # subpath, so MyST must prepend that prefix to every asset link.
+        # Must match your repo name exactly (case-sensitive), no trailing slash.
         env:
-          BASE_URL: /21cm-sbi-vmim/
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: _build/html
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4name: deploy-book
-
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - name: Install Jupyter Book 2
-        run: pip install "jupyter-book>=2"
-
-      # Tell MyST to build with the correct subpath for GitHub Pages
-      - name: Build HTML
+          BASE_URL: /21cm-sbi-vmim
         run: jupyter book build --html
-        env:
-          BASE_URL: /21cm-sbi-vmim/
-
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _build/html
