@@ -6,3 +6,8 @@ timestamp,git_sha,config,arm_name,seed,family,scope,stages,job_ids,user,note
 2026-08-23T10:27:23,79c615d-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n2.yaml,cnn_vmim_/n2/seed,2,nsf,std,23,5331185 5331186,ddehiwalage-don,"no jitter noise scale 2.0 seed 0,1,2,3,4 stage 2 and 3"
 2026-08-23T10:27:24,79c615d-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n2.yaml,cnn_vmim_/n2/seed,3,nsf,std,23,5331187 5331188,ddehiwalage-don,"no jitter noise scale 2.0 seed 0,1,2,3,4 stage 2 and 3"
 2026-08-23T10:27:24,79c615d-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n2.yaml,cnn_vmim_/n2/seed,4,nsf,std,23,5331189 5331190,ddehiwalage-don,"no jitter noise scale 2.0 seed 0,1,2,3,4 stage 2 and 3"
+2026-08-23T10:42:04,b4ab668-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n3.yaml,cnn_vmim_/n3/seed,0,nsf,std,23,5331191 5331192,ddehiwalage-don,"no jitter noise scale 2.0 seed 0,1,2,3,4 stage 2 and 3"
+2026-08-23T10:42:04,b4ab668-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n3.yaml,cnn_vmim_/n3/seed,1,nsf,std,23,5331193 5331194,ddehiwalage-don,"no jitter noise scale 2.0 seed 0,1,2,3,4 stage 2 and 3"
+2026-08-23T10:42:05,b4ab668-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n3.yaml,cnn_vmim_/n3/seed,2,nsf,std,23,5331195 5331196,ddehiwalage-don,"no jitter noise scale 2.0 seed 0,1,2,3,4 stage 2 and 3"
+2026-08-23T10:42:05,b4ab668-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n3.yaml,cnn_vmim_/n3/seed,3,nsf,std,23,5331197 5331198,ddehiwalage-don,"no jitter noise scale 2.0 seed 0,1,2,3,4 stage 2 and 3"
+2026-08-23T10:42:06,b4ab668-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n3.yaml,cnn_vmim_/n3/seed,4,nsf,std,23,5331199 5331200,ddehiwalage-don,"no jitter noise scale 2.0 seed 0,1,2,3,4 stage 2 and 3"
