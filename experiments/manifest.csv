@@ -84,3 +84,8 @@ timestamp,git_sha,config,arm_name,seed,family,scope,stages,job_ids,user,note
 2026-08-25T13:56:14,e21df37-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,2,gmm,raw,3,5341601,ddehiwalage-don,"mcmc for raw gmm (s 0,1,2,3,4)"
 2026-08-25T13:56:15,e21df37-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,3,gmm,raw,3,5341602,ddehiwalage-don,"mcmc for raw gmm (s 0,1,2,3,4)"
 2026-08-25T13:56:15,e21df37-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,4,gmm,raw,3,5341603,ddehiwalage-don,"mcmc for raw gmm (s 0,1,2,3,4)"
+2026-08-25T15:07:10,7c4c8b2-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,0,gmm,raw,3,5341985,ddehiwalage-don,"mcmc for raw gmm (s 0,1,2,3,4)"
+2026-08-25T15:07:10,7c4c8b2-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,1,gmm,raw,3,5341986,ddehiwalage-don,"mcmc for raw gmm (s 0,1,2,3,4)"
+2026-08-25T15:07:10,7c4c8b2-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,2,gmm,raw,3,5341987,ddehiwalage-don,"mcmc for raw gmm (s 0,1,2,3,4)"
+2026-08-25T15:07:11,7c4c8b2-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,3,gmm,raw,3,5341988,ddehiwalage-don,"mcmc for raw gmm (s 0,1,2,3,4)"
+2026-08-25T15:07:11,7c4c8b2-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,4,gmm,raw,3,5341989,ddehiwalage-don,"mcmc for raw gmm (s 0,1,2,3,4)"
