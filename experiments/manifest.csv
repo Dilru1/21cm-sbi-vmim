@@ -58,3 +58,4 @@ timestamp,git_sha,config,arm_name,seed,family,scope,stages,job_ids,user,note
 2026-08-25T12:28:43,d7f266d-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,4,maf,std,2,5341075,ddehiwalage-don,"nle for std maf (s 0,3,4)"
 2026-08-25T12:30:29,7ccc121-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,0,maf,raw,2,5341076,ddehiwalage-don,"nle for std maf (s 0,4)"
 2026-08-25T12:30:29,7ccc121-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,4,maf,raw,2,5341077,ddehiwalage-don,"nle for std maf (s 0,4)"
+2026-08-25T12:41:04,2053f36-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,4,maf,std raw,2,5341079 5341080,ddehiwalage-don,"nle for std maf (s 0,4)"
