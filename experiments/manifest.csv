@@ -47,3 +47,5 @@ timestamp,git_sha,config,arm_name,seed,family,scope,stages,job_ids,user,note
 2026-08-25T09:54:51,2cc9327-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,4,maf,raw std,3,5339143 5339144,ddehiwalage-don,"no jitter noise scale 1.0 seed 0,2,3,4 stage 3 maf chains (raw - std)"
 2026-08-25T10:07:53,6eae626-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,4,gmm nsf maf,raw std,3,5339406 5339407 5339408 5339409 5339410 5339411,ddehiwalage-don,Full chains for seed 4 all models (cz its easy) (raw - std)
 2026-08-25T10:39:21,5659ae1-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,1,gmm,raw,2,5339456,ddehiwalage-don,nle for gmm raw
+2026-08-25T10:40:07,ecc1211-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,0,maf,raw,2,5339457,ddehiwalage-don,"nle for maf raw (s 0, 4)"
+2026-08-25T10:40:07,ecc1211-dirty,configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml,cnn_vmim_/n1/seed,4,maf,raw,2,5339458,ddehiwalage-don,"nle for maf raw (s 0, 4)"
