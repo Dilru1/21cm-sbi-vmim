@@ -173,3 +173,8 @@ timestamp,git_sha,config,arm_name,seed,family,scope,stages,job_ids,user,note
 2026-08-26T22:50:00,52a9230-dirty,configs_seeds/mlp_/arm_mlp_pdf_ps.yaml,mlp_/pdf_ps/seed,2,gmm nsf,std raw,23,5360187 5360188 5360189 5360190 5360191 5360192 5360193 5360194,ddehiwalage-don,mlp seeding (0) pdf+ps stage2 and 3
 2026-08-26T22:50:02,52a9230-dirty,configs_seeds/mlp_/arm_mlp_pdf_ps.yaml,mlp_/pdf_ps/seed,3,gmm nsf,std raw,23,5360195 5360196 5360197 5360198 5360199 5360200 5360201 5360202,ddehiwalage-don,mlp seeding (0) pdf+ps stage2 and 3
 2026-08-26T22:50:05,52a9230-dirty,configs_seeds/mlp_/arm_mlp_pdf_ps.yaml,mlp_/pdf_ps/seed,4,gmm nsf,std raw,23,5360203 5360204 5360205 5360206 5360207 5360208 5360209 5360210,ddehiwalage-don,mlp seeding (0) pdf+ps stage2 and 3
+2026-08-27T01:34:12,1ecfef7-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,0,nsf gmm,std raw,3,5360438 5360439 5360440 5360441,ddehiwalage-don,stage 3 mcmc
+2026-08-27T01:34:13,1ecfef7-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,1,nsf gmm,std raw,3,5360442 5360443 5360444 5360445,ddehiwalage-don,stage 3 mcmc
+2026-08-27T01:34:14,1ecfef7-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,2,nsf gmm,std raw,3,5360446 5360447 5360448 5360449,ddehiwalage-don,stage 3 mcmc
+2026-08-27T01:34:14,1ecfef7-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,3,nsf gmm,std raw,3,5360450 5360451 5360452 5360453,ddehiwalage-don,stage 3 mcmc
+2026-08-27T01:34:15,1ecfef7-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,4,nsf gmm,std raw,3,5360454 5360455 5360456 5360457,ddehiwalage-don,stage 3 mcmc
