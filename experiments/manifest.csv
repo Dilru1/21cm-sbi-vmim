@@ -124,3 +124,8 @@ timestamp,git_sha,config,arm_name,seed,family,scope,stages,job_ids,user,note
 2026-08-25T23:37:44,5c36dfa-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,2,nsf,std,1,5345325,ddehiwalage-don,mse seeding
 2026-08-25T23:37:44,5c36dfa-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,3,nsf,std,1,5345326,ddehiwalage-don,mse seeding
 2026-08-25T23:37:45,5c36dfa-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,4,nsf,std,1,5345327,ddehiwalage-don,mse seeding
+2026-08-26T08:12:44,96a37ca-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,0,nsf gmm maf,std raw,2,5347552 5347553 5347554 5347555 5347556 5347557,ddehiwalage-don,mse seeding stage 2
+2026-08-26T08:12:45,96a37ca-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,1,nsf gmm maf,std raw,2,5347558 5347559 5347560 5347561 5347562 5347563,ddehiwalage-don,mse seeding stage 2
+2026-08-26T08:12:47,96a37ca-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,2,nsf gmm maf,std raw,2,5347564 5347565 5347566 5347567 5347568 5347569,ddehiwalage-don,mse seeding stage 2
+2026-08-26T08:12:48,96a37ca-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,3,nsf gmm maf,std raw,2,5347570 5347571 5347572 5347573 5347574 5347575,ddehiwalage-don,mse seeding stage 2
+2026-08-26T08:12:49,96a37ca-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,4,nsf gmm maf,std raw,2,5347576 5347577 5347578 5347579 5347580 5347581,ddehiwalage-don,mse seeding stage 2
