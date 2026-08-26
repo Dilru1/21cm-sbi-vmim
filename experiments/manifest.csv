@@ -158,3 +158,8 @@ timestamp,git_sha,config,arm_name,seed,family,scope,stages,job_ids,user,note
 2026-08-26T21:19:03,55e7336-dirty,configs_seeds/mlp_/arm_mlp_pdf_ps.yaml,mlp_/pdf_ps/seed,2,nsf,std,1,5359732,ddehiwalage-don,mlp seeding (1-5) pdf+ps up
 2026-08-26T21:19:04,55e7336-dirty,configs_seeds/mlp_/arm_mlp_pdf_ps.yaml,mlp_/pdf_ps/seed,3,nsf,std,1,5359733,ddehiwalage-don,mlp seeding (1-5) pdf+ps up
 2026-08-26T21:19:04,55e7336-dirty,configs_seeds/mlp_/arm_mlp_pdf_ps.yaml,mlp_/pdf_ps/seed,4,nsf,std,1,5359734,ddehiwalage-don,mlp seeding (1-5) pdf+ps up
+2026-08-26T21:31:33,7e91d80-dirty,configs_seeds/mlp_/arm_mlp_ps.yaml,mlp_new/ps,0,nsf,std,1,5359735,ddehiwalage-don,mlp seeding (1-5) pdf+ps
+2026-08-26T21:31:34,7e91d80-dirty,configs_seeds/mlp_/arm_mlp_ps.yaml,mlp_new/ps,1,nsf,std,1,5359736,ddehiwalage-don,mlp seeding (1-5) pdf+ps
+2026-08-26T21:31:34,7e91d80-dirty,configs_seeds/mlp_/arm_mlp_ps.yaml,mlp_new/ps,2,nsf,std,1,5359737,ddehiwalage-don,mlp seeding (1-5) pdf+ps
+2026-08-26T21:31:34,7e91d80-dirty,configs_seeds/mlp_/arm_mlp_ps.yaml,mlp_new/ps,3,nsf,std,1,5359738,ddehiwalage-don,mlp seeding (1-5) pdf+ps
+2026-08-26T21:31:34,7e91d80-dirty,configs_seeds/mlp_/arm_mlp_ps.yaml,mlp_new/ps,4,nsf,std,1,5359739,ddehiwalage-don,mlp seeding (1-5) pdf+ps
