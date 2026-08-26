@@ -143,3 +143,8 @@ timestamp,git_sha,config,arm_name,seed,family,scope,stages,job_ids,user,note
 2026-08-26T15:27:18,a47cee8-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,4,nsf gmm maf,std raw,2,5358621 5358622 5358623 5358624 5358625 5358626,ddehiwalage-don,mse seeding stage 2 (fix the batchsize to 4 it has to be 4 for gmm and 32 else)
 2026-08-26T20:31:38,1405731-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,2,nsf,std,2,5359713,ddehiwalage-don,mse seeding stage 2 (fix the batchsize to 4 it has to be 4 for gmm and 32 else)
 2026-08-26T20:31:38,1405731-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,4,nsf,std,2,5359714,ddehiwalage-don,mse seeding stage 2 (fix the batchsize to 4 it has to be 4 for gmm and 32 else)
+2026-08-26T20:48:23,e8883f4-dirty,configs_seeds/mlp_/arm_mlp_pdf_ps.yaml,mlp_/pdf_ps,0,nsf,std,1,5359715,ddehiwalage-don,mlp seeding (1-5) pdf+ps
+2026-08-26T20:48:23,e8883f4-dirty,configs_seeds/mlp_/arm_mlp_pdf_ps.yaml,mlp_/pdf_ps,1,nsf,std,1,5359716,ddehiwalage-don,mlp seeding (1-5) pdf+ps
+2026-08-26T20:48:23,e8883f4-dirty,configs_seeds/mlp_/arm_mlp_pdf_ps.yaml,mlp_/pdf_ps,2,nsf,std,1,5359717,ddehiwalage-don,mlp seeding (1-5) pdf+ps
+2026-08-26T20:48:24,e8883f4-dirty,configs_seeds/mlp_/arm_mlp_pdf_ps.yaml,mlp_/pdf_ps,3,nsf,std,1,5359718,ddehiwalage-don,mlp seeding (1-5) pdf+ps
+2026-08-26T20:48:24,e8883f4-dirty,configs_seeds/mlp_/arm_mlp_pdf_ps.yaml,mlp_/pdf_ps,4,nsf,std,1,5359719,ddehiwalage-don,mlp seeding (1-5) pdf+ps
