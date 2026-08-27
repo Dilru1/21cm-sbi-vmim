@@ -178,3 +178,4 @@ timestamp,git_sha,config,arm_name,seed,family,scope,stages,job_ids,user,note
 2026-08-27T01:34:14,1ecfef7-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,2,nsf gmm,std raw,3,5360446 5360447 5360448 5360449,ddehiwalage-don,stage 3 mcmc
 2026-08-27T01:34:14,1ecfef7-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,3,nsf gmm,std raw,3,5360450 5360451 5360452 5360453,ddehiwalage-don,stage 3 mcmc
 2026-08-27T01:34:15,1ecfef7-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,4,nsf gmm,std raw,3,5360454 5360455 5360456 5360457,ddehiwalage-don,stage 3 mcmc
+2026-08-27T13:05:51,25a67a0-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,4,nsf,std,2,5363578,ddehiwalage-don,stage 2 nsf missing
