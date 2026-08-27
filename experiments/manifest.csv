@@ -179,3 +179,6 @@ timestamp,git_sha,config,arm_name,seed,family,scope,stages,job_ids,user,note
 2026-08-27T01:34:14,1ecfef7-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,3,nsf gmm,std raw,3,5360450 5360451 5360452 5360453,ddehiwalage-don,stage 3 mcmc
 2026-08-27T01:34:15,1ecfef7-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,4,nsf gmm,std raw,3,5360454 5360455 5360456 5360457,ddehiwalage-don,stage 3 mcmc
 2026-08-27T13:05:51,25a67a0-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,4,nsf,std,2,5363578,ddehiwalage-don,stage 2 nsf missing
+2026-08-27T16:47:08,2f61827-dirty,configs_seeds/mlp_/arm_mlp_pdf_ps.yaml,mlp_/pdf_ps/seed,0,nsf gmm,std raw,123,5364820 5364821 5364822 5364823 5364824 5364825 5364826 5364827 5364828,ddehiwalage-don,full pipe line
+2026-08-27T16:48:45,2f61827-dirty,configs_seeds/mlp_/arm_mlp_pdf_ps.yaml,mlp_/pdf_ps/seed,0,nsf gmm,std raw,123,5364832 5364833 5364834 5364835 5364836 5364837 5364838 5364839 5364840,ddehiwalage-don,full pipe line
+2026-08-27T16:52:05,2f61827-dirty,configs_seeds/mse_/arm_cnn_mse_no_jitter_n1.yaml,cnn_mse_/n1/seed,0,gmm nsf,std raw,123,5364846 5364847 5364848 5364849 5364850 5364851 5364852 5364853 5364854,ddehiwalage-don,stage 123 full seed0
