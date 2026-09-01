@@ -11,8 +11,6 @@ MSE-trained compressor or a fixed hand-made summary (power spectrum / PDF)?* —
 and how robust that answer is to instrumental **thermal noise** and to
 **dequantization jitter** during training.
 
-> **Status:** research code, actively developed. The pipeline runs end-to-end on a
-> SLURM cluster; several analyses are still in progress.
 
 ---
 
@@ -101,68 +99,3 @@ pip install -r requirements.txt
 > (see https://pytorch.org). `requirements.txt` lists a plain `torch` for
 > portability; on the cluster it is provided by the module system + conda env.
 
----
-
-## Quick start
-
-A single arm, end-to-end (config-driven; edit paths in the YAML first):
-
-```bash
-# 1. train the compressor and export summaries
-python stage1_compress.py configs_seeds/noise/arm_cnn_vmim_jitter_n1.yaml -o compressor.init_seed=0
-
-# 2. train a neural likelihood family (nsf, standardized t)
-python stage2_nle.py configs_seeds/noise/arm_cnn_vmim_jitter_n1.yaml -o nle.model=nsf
-
-# 3. SBC MCMC chains (sharded across array tasks on the cluster)
-python stage3_mcmc.py configs_seeds/noise/arm_cnn_vmim_jitter_n1.yaml --task-num 0 --task-nb 10
-
-# 4. evaluate + build the report
-python eval.py --out eval_reports/n1 \
-    --item "configs_seeds/noise/arm_cnn_vmim_jitter_n1.yaml|nsf|std|VMIM n1"
-```
-
-On the cluster, use the batch scripts in `slurm/` and the `submit_nle_grid.sh`
-launcher instead of calling the stages by hand. See **[`docs/COMMANDS.md`](docs/COMMANDS.md)**
-for the full set of commands used to reproduce the figures.
-
-### Config overrides
-Any config key can be overridden on the command line without editing the YAML:
-
-```bash
-python stage1_compress.py <config>.yaml -o compressor.init_seed=3 -o compressor.num_workers=0
-```
-
----
-
-## Configuration
-
-Each experiment is one YAML in `configs_seeds/`. Key fields:
-
-- `arm_name`, `arm_type` (`cnn` / `mlp`) — identity and compressor family of the arm.
-- `scratch_root` — where heavy outputs are written (**cluster path, edit for your system**).
-- `data.*` — paths to signal cubes, noise cubes, and parameter files.
-- `compressor.*` — architecture, objective (`vmim_head` / MSE), noise scale, jitter (`dequant`), seeds.
-- `nle.*` — density family and hyperparameters (shared across arms for fairness).
-- `mcmc.*` — sampler settings.
-
----
-
-## Reproducibility & MLOps
-
-Every run records its provenance (git commit, config hash, SLURM ids) via
-`sbi/tracking.py`, and optionally streams metrics to
-[Weights & Biases](https://wandb.ai) when `wandb` is installed. Code quality is
-kept with `ruff` + `pre-commit`, a torch-free `pytest` suite runs in GitHub
-Actions CI, and common tasks are wrapped in a `Makefile` (`make setup`,
-`make test`, `make fmt`). See **[`docs/MLOPS.md`](docs/MLOPS.md)** for the full,
-phased plan and how to enable each piece.
-
-## Citing
-
-If you use this code, please cite it via [`CITATION.cff`](CITATION.cff)
-(GitHub renders a "Cite this repository" button from it).
-
-## License
-
-Released under the MIT License — see [`LICENSE`](LICENSE).
