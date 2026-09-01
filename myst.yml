@@ -19,9 +19,7 @@ project:
   toc:
     - file: index.md
     - file: docs/GUIDE.md
-    - file: docs/MLOPS.md
-    - file: notebooks/diagnostics.ipynb
-    - file: docs/COMMANDS.md
+
 site:
   template: book-theme
   options:
