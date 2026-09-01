@@ -8,9 +8,13 @@
 ## Interactive Jobs
 
 salloc -t 60 -p short -J Interase_DIL --ntasks=1 --cpus-per-task=8 --mem=96G srun --pty bash
-salloc -t 10 -p short -J Interase_DIL --gres=gpu:1 --ntasks=1 --nodelist=tycho91 --cpus-per-task=1 --mem=16G srun --pty bash
+salloc -t 60 -p short -J Interase_DIL --ntasks=1 --cpus-per-task=4 --mem=46G srun --pty bash
+
+
 salloc -t 60 -p short -J Interase_DIL --gres=gpu:1 --ntasks=1 --cpus-per-task=1 --mem=64G srun --pty bash
-srun -t 60 -p short -J Interase_DIL --gres=gpu:1 --ntasks=1 --cpus-per-task=1 --nodelist=tycho91 --mem=64G
+
+
+salloc -t 5:00:00 -p medium -J Interactif_gpu --gres=gpu:1 --ntasks=1 --cpus-per-task=4 --nodelist=tycho91 --mem=96G --pty bash
 
 
 ## Load module
@@ -53,12 +57,30 @@ bash submit_nle_grid.sh configs_seeds/noise/arm_cnn_vmim_jitter_n1.yaml -o compr
 bash submit_nle_grid.sh configs_seeds/noise/arm_cnn_vmim_jitter_n1.yaml -o compressor.init_seed=3 "nsf" "std" 23
 bash submit_nle_grid.sh configs_seeds/noise/arm_cnn_vmim_jitter_n1.yaml -o compressor.init_seed=4 "nsf" "std" 1
 
+#bash submit nle_grid.sh configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml "gmm" "std raw" 2
 
-bash submit_nle_grid.sh configs_seeds/noise/arm_cnn_vmim_no_jitter_n4.yaml -o compressor.init_seed=0 "nsf" "std" 1
-bash submit_nle_grid.sh configs_seeds/noise/arm_cnn_vmim_no_jitter_n4.yaml -o compressor.init_seed=1 "nsf" "std" 1
-bash submit_nle_grid.sh configs_seeds/noise/arm_cnn_vmim_no_jitter_n4.yaml -o compressor.init_seed=2 "nsf" "std" 1
-bash submit_nle_grid.sh configs_seeds/noise/arm_cnn_vmim_no_jitter_n4.yaml -o compressor.init_seed=3 "nsf" "std" 1
-bash submit_nle_grid.sh configs_seeds/noise/arm_cnn_vmim_no_jitter_n4.yaml -o compressor.init_seed=4 "nsf" "std" 1
+bash submit_nle_grid.sh configs_seeds/mlp_/arm_mlp_ps.yaml -o compressor.init_seed=1 "gmm nsf" "std raw" 1
+bash submit_nle_grid.sh configs_seeds/mlp_/arm_mlp_pdf_ps.yaml -o compressor.init_seed=0 "gmm nsf" "std raw" 3
+
+
+
+
+bash submit_nle_grid.sh configs_seeds/mse_/arm_cnn_mse_n1.yaml -o compressor.init_seed=43 "nsf" "std" 123
+
+
+
+bash submit_nle_grid.sh configs_seeds/mse_/arm_cnn_mse_n1.yaml -o compressor.init_seed=0 "gmm nsf" "std raw" 1
+
+
+bash submit_nle_grid.sh configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml -o compressor.init_seed=4 "maf" "raw" 3
+
+bash submit_nle_grid.sh configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml -o compressor.init_seed=3 "nsf" "std" 3
+
+
+bash submit_nle_grid.sh configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml -o compressor.init_seed=1 "nsf" "raw" 3
+bash submit_nle_grid.sh configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml -o compressor.init_seed=2 "nsf" "raw" 3
+bash submit_nle_grid.sh configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml -o compressor.init_seed=3 "nsf" "raw" 3
+bash submit_nle_grid.sh configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml -o compressor.init_seed=4 "nsf" "raw" 3
 
 
 

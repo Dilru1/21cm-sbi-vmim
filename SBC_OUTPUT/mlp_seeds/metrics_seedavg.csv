@@ -1,0 +1,6 @@
+"# seed-averaged: sigma/GV geometric mean (+/- dex), calib_ratio arithmetic mean (+/- std). ratio=1 -> at Poisson floor."
+arm,n_seeds,n_used_mean,GV_mean,GV_logstd,sigma_0_mean,sigma_1_mean,sigma_2_mean,sigma_3_mean,sigma_0_logstd,sigma_1_logstd,sigma_2_logstd,sigma_3_logstd,calibratio_0_mean,calibratio_1_mean,calibratio_2_mean,calibratio_3_mean,calibratio_0_std,calibratio_1_std,calibratio_2_std,calibratio_3_std
+arm_mlp_pdf_ps gmm/std,5,908,1.180294e-07,0.122,2.121357e-02,6.212447e-02,4.187889e-02,7.324100e-02,0.027,0.008,0.021,0.021,1.304,2.342,2.294,1.878,0.184,1.656,0.520,1.360
+arm_mlp_pdf_ps gmm/raw,5,908,1.115288e-07,0.080,2.104535e-02,6.267024e-02,4.176320e-02,7.356414e-02,0.026,0.017,0.018,0.023,1.271,1.419,3.862,1.255,0.311,0.319,0.557,0.504
+arm_mlp_pdf_ps nsf/std,5,908,8.089814e-08,0.020,1.933613e-02,5.963181e-02,3.818030e-02,6.855519e-02,0.013,0.008,0.004,0.004,1.163,1.930,1.969,1.413,0.213,0.186,0.155,0.281
+arm_mlp_pdf_ps nsf/raw,5,908,8.241290e-08,0.019,1.909003e-02,5.820706e-02,3.822223e-02,6.849682e-02,0.007,0.008,0.010,0.009,0.939,1.920,2.158,1.295,0.159,0.365,0.853,0.239

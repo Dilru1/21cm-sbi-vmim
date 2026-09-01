@@ -224,7 +224,7 @@ def main():
     have_loss = any(a["loss"] is not None for a in arms)
 
     rows = ["r2"] + (["sigma"] if have_sigma else []) + (["loss"] if have_loss else [])
-    hgt = {"r2": 1.80, "sigma": 1.70, "loss": 2.00}
+    hgt = {"r2": 1.20, "sigma": 1.20, "loss": 1.50}
     fig = plt.figure(figsize=(args.colwidth * P, sum(hgt[r] for r in rows) + 0.5))
     gs = GridSpec(
         len(rows), P, figure=fig, height_ratios=[hgt[r] for r in rows], hspace=0.45, wspace=0.12

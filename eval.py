@@ -203,6 +203,14 @@ def eval_arm(arm, burnin_frac, thin, dlogp, nbins, sims_keep, sbc_unfiltered=Fal
         return None
     rank_hist *= nbins / used
     calib = np.mean((rank_hist - 1.0) ** 2, axis=1)
+    # --- Poisson floor: expected calib for a PERFECT posterior at this (N, nbins).
+    #     N*calib ~ chi^2_(nbins-1)  =>  E[calib | perfect] = (nbins-1)/N.
+    #     Report calib RELATIVE to this floor so 1.0 == perfectly calibrated,
+    #     independent of how many sims/bins were used. -----------------------------
+    floor = (nbins - 1) / used
+    calib_ratio = calib / floor  # reduced chi^2: 1.0 = at floor
+    tol_1sigma = math.sqrt(2.0 / (nbins - 1))  # 1-sigma spread of the ratio
+    calib_nsigma = (calib_ratio - 1.0) / tol_1sigma  # sigma above the floor
     sqrtdets = np.asarray(sqrtdets)
     return {
         "name": arm["name"],
@@ -210,6 +218,9 @@ def eval_arm(arm, burnin_frac, thin, dlogp, nbins, sims_keep, sbc_unfiltered=Fal
         "sigma": [float(np.median(s)) for s in sigmas],
         "gv": float(np.median(sqrtdets)) if len(sqrtdets) else float("nan"),
         "calib": calib.tolist(),
+        "calib_floor": float(floor),
+        "calib_ratio": calib_ratio.tolist(),  # <-- floor-relative (report this)
+        "calib_nsigma": calib_nsigma.tolist(),
         "rank_hist": rank_hist.tolist(),
     }
 
@@ -410,139 +421,122 @@ def sbc_reference(nbins, n_used):
 
 
 # ============================================================ SBC figure (PDF)
-def plot_sbc(report, out_pdf, nbins, mode_txt):
-    from matplotlib.offsetbox import AnchoredOffsetbox, HPacker, TextArea
+def plot_sbc(report, out_pdf, nbins, mode_txt, line_width=0.9, show_refs=True, show_param_tag=True):
+    """SBC rank plot grouped by ARM, with that arm's SEEDS overlaid.
 
-    # divergent astro palette from cmastro for the arm curves; safe fallback
-    try:
-        from cmastro import cmaps
+    Arms and seeds are inferred from each entry's label: '<arm> s<seed>'
+    (what --all-seeds produces). Entries sharing an arm are grouped; the trailing
+    ' s<seed>' is stripped to name the arm.
 
-        _cmap = cmaps["cma:emph"]
-    except Exception:
-        _cmap = plt.get_cmap("Spectral")
-    n_arms = max(len(report), 1)
-    arm_colors = [_cmap(v) for v in np.linspace(0.05, 0.95, n_arms)]
+    Output is a multi-page PDF:
+      * page 1   : combined grid -- rows = parameters, COLUMNS = arms; each cell
+                   overlays that arm's per-seed rank curves. (For P=1 this is the
+                   1xN_arms row you asked for.)
+      * pages 2+ : one figure per arm (P stacked panels), its seeds overlaid.
 
-    xval = np.arange(0.5 / nbins, 1.0, 1.0 / nbins)
-    n_used = max((r["used"] for r in report), default=0)
-    bands, bias_h, under_h = sbc_reference(nbins, n_used)
+    Style knobs: line_width (curve thickness), show_refs (dashed guide curves),
+    show_param_tag (tiny per-panel parameter label). No legends, no chi^2 boxes.
+    """
+    import re
+
+    # --- group report entries by arm (strip trailing ' s<seed>' from label) ---
+    groups, order = {}, []
+    for r in report:
+        arm = re.sub(r"\s*s\d+$", "", str(r["label"])).strip() or str(r["label"])
+        if arm not in groups:
+            groups[arm] = []
+            order.append(arm)
+        groups[arm].append(r)
+    arms = order
+    n_arms = max(len(arms), 1)
     P = len(COMMON_PARAMS)
+    xval = np.arange(0.5 / nbins, 1.0, 1.0 / nbins)
+    seed_cmap = plt.get_cmap("viridis")
+    seed_colors = [
+        "#1f77b4",  # blue
+        "#ff7f0e",  # orange
+        "#2ca02c",  # green
+        "#d62728",  # red
+        "#9467bd",  # purple
+    ]
 
-    # --- Poisson/multinomial calibration floor -------------------------------
-    # For calib = mean_bins (h-1)^2 with h normalized so a flat histogram = 1:
-    #   E[calib | perfect posterior] = (nbins-1)/N        (per-arm N)
-    #   percentage = 100 * calib / floor  == reduced chi^2 * 100 (100% = at floor)
-    #   Pearson X^2 = N*calib ~ chi^2_(nbins-1);  1-sigma tol on ratio = sqrt(2/(nbins-1))
-    tol_pct = 100.0 * math.sqrt(2.0 / max(nbins - 1, 1))
-    floor_ref = (nbins - 1) / max(n_used, 1)
-
-    fig, axes = plt.subplots(P, 1, figsize=(7.0, 2.35 * P), constrained_layout=True, squeeze=False)
-    axes = axes[:, 0]
-
-    for jj in range(P):
-        ax = axes[jj]
-        # visible confidence shading (== per-bin Poisson 2sigma/1sigma envelope)
+    def draw_cell(ax, entries, jj, n_used):
+        bands, bias_h, under_h = sbc_reference(nbins, n_used)
         ax.fill_between(
-            [0, 1], bands["low2"], bands["high2"], color="#a6bddb", alpha=0.45, lw=0, zorder=0
+            [0, 1], bands["low2"], bands["high2"], color="#a6bddb", alpha=0.40, lw=0, zorder=0
         )
         ax.fill_between(
-            [0, 1], bands["low1"], bands["high1"], color="#3690c0", alpha=0.35, lw=0, zorder=0
+            [0, 1], bands["low1"], bands["high1"], color="#3690c0", alpha=0.30, lw=0, zorder=0
         )
-        ax.axhline(1.0, color="0.35", ls="-", lw=0.8, zorder=1)
-        # reference deviation curves
-        ax.plot(xval, bias_h, ls="--", lw=1.2, color="k", zorder=2, label=r"0.2$\sigma$ bias")
-        ax.plot(
-            xval, under_h, ls=":", lw=1.5, color="k", zorder=2, label=r"0.15$\sigma$ under-conf."
-        )
-        # arm rank histograms (labels carry no chi^2 -> percentages go in-panel below)
-        for k, r in enumerate(report):
+        ax.axhline(1.0, color="0.45", ls="-", lw=0.7, zorder=1)
+        if show_refs:
+            ax.plot(xval, bias_h, ls="--", lw=0.7, color="0.6", zorder=2)
+            ax.plot(xval, under_h, ls=":", lw=0.8, color="0.6", zorder=2)
+        m = max(len(entries) - 1, 1)
+        for i, r in enumerate(entries):  # one thin curve per seed
+            color = seed_colors[i % len(seed_colors)]
             ax.plot(
                 xval,
                 np.asarray(r["rank_hist"])[jj],
                 drawstyle="steps-mid",
-                lw=1.7,
-                color=arm_colors[k],
+                lw=line_width,
+                color=color,
                 zorder=3,
-                label=r["label"],
             )
-
         ax.set_ylim(0, 2.0)
         ax.set_xlim(0, 1)
-        ax.set_ylabel("rank freq", fontsize=8.5)
-        ax.tick_params(labelsize=8)
+        ax.tick_params(labelsize=7)
         ax.xaxis.set_minor_locator(AutoMinorLocator())
-        ax.text(
-            0.012,
-            0.94,
-            PLABELS[jj],
-            transform=ax.transAxes,
-            fontsize=10,
-            fontweight="semibold",
-            va="top",
-            ha="left",
-            bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="0.75", alpha=0.9),
-        )
-
-        # chi^2 AS % OF POISSON FLOOR, one color-matched row, bottom-left (per-arm N)
-        frags = [
-            TextArea(
-                r"$\chi^2/\mathrm{floor}$:",
-                textprops=dict(color="0.15", fontsize=7.5, fontweight="bold"),
+        if show_param_tag:
+            ax.text(
+                0.02,
+                0.94,
+                PLABELS[jj],
+                transform=ax.transAxes,
+                fontsize=8,
+                va="top",
+                ha="left",
+                color="0.35",
             )
-        ]
-        for k, r in enumerate(report):
-            floor = (nbins - 1) / max(r["used"], 1)
-            pct = 100.0 * r["calib"][jj] / floor if floor > 0 else float("nan")
-            frags.append(
-                TextArea(
-                    f"{pct:.0f}%",
-                    textprops=dict(color=arm_colors[k], fontsize=7.5, fontweight="bold"),
-                )
-            )
-        row = HPacker(children=frags, align="baseline", pad=0, sep=7)
-        box = AnchoredOffsetbox(
-            loc="lower left",
-            child=row,
-            pad=0.3,
-            borderpad=0.5,
-            frameon=True,
-            bbox_to_anchor=(0.0, 0.0),
-            bbox_transform=ax.transAxes,
-        )
-        box.patch.set(alpha=0.85, edgecolor="0.8", facecolor="white")
-        ax.add_artist(box)
-
-    axes[-1].set_xlabel("fractional rank (CDF of truth)", fontsize=9.5)
-
-    # one common legend for the whole figure (top of panel 0): 2 cols -> 3 rows
-    h, l = axes[0].get_legend_handles_labels()
-    axes[0].legend(
-        h,
-        l,
-        loc="lower center",
-        bbox_to_anchor=(0.5, 1.01),
-        ncol=2,
-        fontsize=7.5,
-        columnspacing=1.3,
-        handlelength=1.9,
-        handletextpad=0.5,
-        borderaxespad=0.15,
-        frameon=True,
-        framealpha=0.92,
-        edgecolor="0.8",
-    )
-
-    note = (
-        r"Poisson floor $\chi^2=(n_\mathrm{bins}-1)/N$ = " + f"{floor_ref:.3f}\n"
-        f"100% = perfect posterior  (" + r"$\pm$" + f"{tol_pct:.0f}% at 1" + r"$\sigma$)"
-    )
-    fig.text(0.008, 0.988, note, ha="left", va="top", fontsize=6.2, color="0.4", linespacing=1.35)
-    axes[0].set_title(f"{mode_txt},  N={n_used}", fontsize=8, color="0.35", loc="right", pad=2)
 
     with PdfPages(out_pdf) as pdf:
+        # -------- page 1: combined grid (rows = params, cols = arms) --------
+        fig, axes = plt.subplots(
+            P, n_arms, figsize=(3.1 * n_arms, 2.0 * P), constrained_layout=True, squeeze=False
+        )
+        for cc, arm in enumerate(arms):
+            entries = groups[arm]
+            n_used = max((e["used"] for e in entries), default=1)
+            for jj in range(P):
+                ax = axes[jj][cc]
+                draw_cell(ax, entries, jj, n_used)
+                if jj == 0:
+                    ax.set_title(arm, fontsize=8, color="0.3")
+                if cc == 0:
+                    ax.set_ylabel("rank freq", fontsize=8)
+        for cc in range(n_arms):
+            axes[-1][cc].set_xlabel("frac. rank", fontsize=8)
+        fig.suptitle(f"SBC  ({mode_txt})", fontsize=9, color="0.35")
         pdf.savefig(fig, bbox_inches="tight")
-    plt.close(fig)
-    print(f"[sbc] wrote {out_pdf}")
+        plt.close(fig)
+
+        # -------- pages 2+: one figure per arm, seeds overlaid --------
+        for arm in arms:
+            entries = groups[arm]
+            n_used = max((e["used"] for e in entries), default=1)
+            fig, axes = plt.subplots(
+                P, 1, figsize=(6.0, 2.1 * P), constrained_layout=True, squeeze=False
+            )
+            axes = axes[:, 0]
+            for jj in range(P):
+                draw_cell(axes[jj], entries, jj, n_used)
+                axes[jj].set_ylabel("rank freq", fontsize=8.5)
+            axes[-1].set_xlabel("fractional rank (CDF of truth)", fontsize=9.5)
+            fig.suptitle(f"{arm}   ({mode_txt}, N={n_used})", fontsize=8.5, color="0.35")
+            pdf.savefig(fig, bbox_inches="tight")
+            plt.close(fig)
+
+    print(f"[sbc] wrote {out_pdf}  (1 combined page + {n_arms} per-arm page(s))")
 
 
 # ============================================================ corner figure (PDF)
@@ -686,6 +680,131 @@ def plot_corner(arms, maps, sim, out_pdf, thin, burnin, bins, smooth, width, dlo
     print(f"[corner] wrote {out_pdf}")
 
 
+# ============================================================ seed averaging
+def _arm_base_label(entry):
+    """Strip a trailing ' s<seed>' to get the arm name shared across its seeds."""
+    lab = entry.get("label", entry["name"])
+    return re.sub(r"\s+s\d+$", "", lab)
+
+
+def average_over_seeds(report):
+    """Collapse per-seed report entries into one summary row per arm.
+
+    Averaging rules (see explanation):
+      sigma, GV : GEOMETRIC mean across seeds (they are positive SCALE quantities;
+                  the right 'average' of 0.02 and 0.08 is 0.04, not 0.05). Reported
+                  with the across-seed std of log10 as a reproducibility spread.
+      calib_ratio (reduced chi^2, centered on 1.0) : ARITHMETIC mean across seeds,
+                  with plain across-seed std. This is option (A): 'how calibrated is
+                  a typical seed'. (Option (B), pooling all seeds' chains into one
+                  SBC with a tighter floor (nbins-1)/(S*N), answers a different
+                  question and is NOT done here.)
+
+    Returns a list of dicts, one per arm, with *_mean and *_std fields plus n_seeds.
+    """
+    groups, order = {}, []
+    for r in report:
+        base = _arm_base_label(r)
+        if base not in groups:
+            groups[base] = []
+            order.append(base)
+        groups[base].append(r)
+
+    out = []
+    for base in order:
+        entries = groups[base]
+        S = len(entries)
+        P = len(COMMON_PARAMS)
+
+        sig = np.array([e["sigma"] for e in entries], float)  # (S, P)
+        gv = np.array([e["gv"] for e in entries], float)  # (S,)
+        rat = np.array([e["calib_ratio"] for e in entries], float)  # (S, P)
+        used = np.array([e["used"] for e in entries], float)
+
+        # geometric mean for scale quantities (log-average then exponentiate)
+        def geo_mean_std(x, axis=0):
+            lg = np.log10(np.clip(x, 1e-300, None))
+            return 10.0 ** lg.mean(axis=axis), lg.std(axis=axis)  # (mean, std-of-log10)
+
+        sig_mean, sig_logstd = geo_mean_std(sig, axis=0)  # (P,), (P,)
+        gv_mean, gv_logstd = geo_mean_std(gv, axis=0)  # scalar, scalar
+
+        out.append(
+            {
+                "label": base,
+                "n_seeds": S,
+                "n_used_mean": float(used.mean()),
+                "gv_mean": float(gv_mean),
+                "gv_logstd": float(gv_logstd),  # spread in dex
+                "sigma_mean": sig_mean.tolist(),
+                "sigma_logstd": sig_logstd.tolist(),
+                "calib_ratio_mean": rat.mean(axis=0).tolist(),  # arithmetic
+                "calib_ratio_std": rat.std(axis=0).tolist(),
+            }
+        )
+    return out
+
+
+def write_seed_avg_csv(avg, path):
+    with open(path, "w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(
+            [
+                "# seed-averaged: sigma/GV geometric mean (+/- dex), "
+                "calib_ratio arithmetic mean (+/- std). ratio=1 -> at Poisson floor."
+            ]
+        )
+        w.writerow(
+            ["arm", "n_seeds", "n_used_mean", "GV_mean", "GV_logstd"]
+            + [f"sigma_{j}_mean" for j in COMMON_PARAMS]
+            + [f"sigma_{j}_logstd" for j in COMMON_PARAMS]
+            + [f"calibratio_{j}_mean" for j in COMMON_PARAMS]
+            + [f"calibratio_{j}_std" for j in COMMON_PARAMS]
+        )
+        for a in avg:
+            w.writerow(
+                [
+                    a["label"],
+                    a["n_seeds"],
+                    f"{a['n_used_mean']:.0f}",
+                    f"{a['gv_mean']:.6e}",
+                    f"{a['gv_logstd']:.3f}",
+                ]
+                + [f"{s:.6e}" for s in a["sigma_mean"]]
+                + [f"{s:.3f}" for s in a["sigma_logstd"]]
+                + [f"{c:.3f}" for c in a["calib_ratio_mean"]]
+                + [f"{c:.3f}" for c in a["calib_ratio_std"]]
+            )
+    print(f"[table] wrote {path}  (seed-averaged)")
+
+
+def write_seed_avg_tex(avg, path):
+    with open(path, "w") as fh:
+        fh.write("% seed-averaged; sigma/GV geometric mean, calib_ratio arithmetic mean\n")
+        fh.write(
+            "\\begin{tabular}{lr" + "r" * len(COMMON_PARAMS) + "r" * len(COMMON_PARAMS) + "}\n"
+        )
+        fh.write("\\toprule\n")
+        fh.write(
+            "Arm & GV & "
+            + " & ".join(f"$\\sigma_{{{n}}}$" for n in ["Fx", "\\tau", "rHS", "Mmin"])
+            + " & "
+            + " & ".join(f"$\\hat\\chi^2_{{{n}}}$" for n in ["Fx", "\\tau", "rHS", "Mmin"])
+            + r" \\"
+            + "\n\\midrule\n"
+        )
+        for a in avg:
+            gv = f"{a['gv_mean']:.2e}"
+            sig = " & ".join(f"{m:.2e}" for m in a["sigma_mean"])
+            # calib ratio +/- std; 1.0 = perfectly calibrated (at Poisson floor)
+            rat = " & ".join(
+                f"${m:.2f}\\pm{s:.2f}$" for m, s in zip(a["calib_ratio_mean"], a["calib_ratio_std"])
+            )
+            fh.write(f"{a['label']} ({a['n_seeds']}s) & {gv} & {sig} & {rat} \\\\\n")
+        fh.write("\\bottomrule\n\\end{tabular}\n")
+    print(f"[table] wrote {path}  (seed-averaged)")
+
+
 # ============================================================ tables
 def write_csv(report, path, dlogp, mode_txt):
     with open(path, "w", newline="") as fh:
@@ -695,12 +814,14 @@ def write_csv(report, path, dlogp, mode_txt):
             ["arm", "n_used", "GV_4x4"]
             + [f"sigma_{j}" for j in COMMON_PARAMS]
             + [f"calib_{j}" for j in COMMON_PARAMS]
+            + [f"calibratio_{j}" for j in COMMON_PARAMS]  # floor-relative: 1.0 = perfect
         )
         for r in report:
             w.writerow(
                 [r["name"], r["used"], f"{r['gv']:.6e}"]
                 + [f"{s:.6e}" for s in r["sigma"]]
                 + [f"{c:.4f}" for c in r["calib"]]
+                + [f"{c:.3f}" for c in r["calib_ratio"]]
             )
     print(f"[table] wrote {path}  ({mode_txt})")
 
@@ -980,6 +1101,22 @@ def main():
     write_tex(report, os.path.join(args.out, "metrics.tex"))
     print_summary(report)
 
+    # ---- seed-averaged tables (one row per arm, collapsing its seeds) ----
+    seed_avg = average_over_seeds(report)
+    write_seed_avg_csv(seed_avg, os.path.join(args.out, "metrics_seedavg.csv"))
+    write_seed_avg_tex(seed_avg, os.path.join(args.out, "metrics_seedavg.tex"))
+    print(
+        "\n=== seed-averaged (geom-mean sigma/GV, arith-mean calib_ratio; ratio=1 -> at floor) ==="
+    )
+    for a in seed_avg:
+        print(
+            f"  {a['label']:26s} [{a['n_seeds']}s] "
+            f"GV={a['gv_mean']:.3e} "
+            f"sigma={[round(s, 4) for s in a['sigma_mean']]} "
+            f"calib_ratio={[round(c, 2) for c in a['calib_ratio_mean']]}"
+            f" +/- {[round(c, 2) for c in a['calib_ratio_std']]}"
+        )
+
     # ---- publication SBC (filtered) ----
     plot_sbc(report, os.path.join(args.out, f"sbc_{sbc_tag}.pdf"), args.nbins, mode_txt)
 
@@ -1014,7 +1151,14 @@ def main():
         for a in arms:
             latent_diagnostics(a, args.out)
 
-    outs = ["metrics.csv", "metrics.tex", "metrics.json", f"sbc_{sbc_tag}.pdf"] + made_corner
+    outs = [
+        "metrics.csv",
+        "metrics.tex",
+        "metrics_seedavg.csv",
+        "metrics_seedavg.tex",
+        "metrics.json",
+        f"sbc_{sbc_tag}.pdf",
+    ] + made_corner
     if args.latent:
         outs.append("latent/<arm>/*.pdf")
     print(f"\ndone -> {args.out}/  ({', '.join(outs)})")

@@ -3,12 +3,18 @@
 #SBATCH --output=logs/s2_%j.out
 #SBATCH --error=logs/s2_%j.err
 #SBATCH --partition=medium
-#SBATCH --time=24:00:00
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=48G
+#SBATCH --time=8:00:00
+#SBATCH --array=0-15%8        # 16 configs, 8 running at once
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=8G
 
 set -euo pipefail
+
+unset PYTHONPATH PYTHONHOME PYTHONSTARTUP
+unset ${!CONDA@} 2>/dev/null || true
+export MPLBACKEND=Agg
+
+
 mkdir -p logs
 
 NODE=$(hostname -s)
@@ -21,14 +27,7 @@ else
     conda activate /data/ddehiwalage-don/conda_envs/torch_nadam
 fi
 
-export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
-export MKL_NUM_THREADS=${SLURM_CPUS_PER_TASK}
-export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK}
-export NUMEXPR_NUM_THREADS=${SLURM_CPUS_PER_TASK}
-export MKL_DYNAMIC=FALSE; export OMP_DYNAMIC=FALSE
-
-export CUDA_VISIBLE_DEVICES=""   # NLE is a tiny MLP; CPU avoids V100/CC-7.0 CUBLAS crash
+export OMP_NUM_THREADS=2 MKL_NUM_THREADS=2
 CONFIG=${1:?pass a config}
 shift   # everything after the config is forwarded verbatim to stage2_nle.py
-
 python -u stage2_nle.py "$CONFIG" "$@"

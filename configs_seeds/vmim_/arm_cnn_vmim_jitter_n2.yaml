@@ -35,7 +35,7 @@ compressor:
 
   # ---- CHANGED: full 4-parameter dequant, from grid_check.py output ----
   dequant:
-    2: {half: 0.1000}    # rHS,   6 grid points 
+    2: {half: 0.1000}    # rHS,   6 grid points
     #3: {half: 0.0813}    # Mmin,  7 grid points
 
   head_lr_mult: 5.0          # identical to exp1
@@ -57,7 +57,7 @@ nle:
   model: gmm            # scalar placeholder; the launcher overrides per job with -o nle.model=...
   # NO `standardize:` key -- the launcher's --raw-t flag controls it per job
   nsplit: 10
-  batch_size: 4  #batch size 4 for gmm but 32 for nsf      
+  batch_size: 4  #batch size 4 for gmm but 32 for nsf
   lr_phase1: 2.0e-4
   lr_phase2: 2.0e-5
   num_workers: 2
@@ -77,7 +77,3 @@ nle:
 mcmc:
   wedge_tau_idx: 1
   wedge_mmin_idx: 3
-
-
-
-

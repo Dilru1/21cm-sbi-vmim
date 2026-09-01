@@ -70,7 +70,7 @@ nle:
   model: gmm            # scalar placeholder; the launcher overrides per job with -o nle.model=...
   # NO `standardize:` key -- the launcher's --raw-t flag controls it per job
   nsplit: 10
-  batch_size: 4  #batch size 4 for gmm but 32 for nsf overisde at .sh file      
+  batch_size: 4  #batch size 4 for gmm but 32 for nsf overisde at .sh file
   lr_phase1: 2.0e-4
   lr_phase2: 2.0e-5
   num_workers: 2

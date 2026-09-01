@@ -90,6 +90,18 @@ def train_family(
     """Train ONE family end-to-end (fresh model/opt/best-val), save to its subdir."""
     nc_k = copy.deepcopy(nc)
     nc_k["model"] = kind
+    # Per-family batch size: some families (e.g. GMM) train better/are expected to
+    # use a smaller batch than the flows. Resolve in priority order:
+    #   1) nle.batch_size_by_family: {gmm: 4, maf: 32, nsf: 32}   (explicit map)
+    #   2) nle.batch_size                                          (shared fallback)
+    # so a family absent from the map just uses the shared batch_size.
+    bmap = nc_k.get("batch_size_by_family") or {}
+    if kind in bmap:
+        nc_k["batch_size"] = int(bmap[kind])
+    elif str(kind) in {str(k) for k in bmap}:  # tolerate str/loaded-yaml key types
+        nc_k["batch_size"] = int(bmap[str(kind)])
+    # else: keep nc_k["batch_size"] as-is (the shared value)
+    print(f"[batch] family '{kind}' -> batch_size={nc_k['batch_size']}", flush=True)
     nc_k["init_seed"] = init_seed
     # Re-seed per family: without this, `nsf` gets a different init depending on
     # whether `maf` happened to run before it in the same process, so a family
@@ -187,7 +199,7 @@ def main():
     apply_arm_name(cfg)
     dirs = arm_dirs(cfg)
     set_all_seeds(init_seed)
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cpu")  # torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # standardize priority: CLI flag > yaml nle.standardize > default True
     if args.standardize is not None:

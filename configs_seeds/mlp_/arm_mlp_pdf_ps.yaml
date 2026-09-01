@@ -1,6 +1,6 @@
-arm_name: mlp_new/pdf_ps
+arm_name: mlp_/pdf_ps/seed
 arm_type: mlp
-scratch_root: /gscratch/ddehiwalage-don/sbi_runs
+scratch_root: /gscratch/ddehiwalage-don/sbi_master
 n_params: 4
 t_dim: 8
 
@@ -11,25 +11,28 @@ compressor:
   vmim_head: gmm_old
   n_mix_head: 4
   hidden_head: 64
-  epochs: 80
+  epochs: 200
   batch_size: 32
   save_batch_size: 8192
   dropout: 0.0
   dense_layers: [256, 256, 128, 64]
   warmup_epochs: 10
 
-  # ---- sigma floor: IDENTICAL scalar to exp1 ----
-  sigma_floor: 1.0e-2       # scalar, same as exp1 -- isolating the dequant effect only
+
+  sigma_floor: 1.0e-2
 
   # ---- CHANGED: full 4-parameter dequant, from grid_check.py output ----
-  dequant:
-    2: {half: 0.1000}    # rHS,   6 grid points 
-    3: {half: 0.0813}    # Mmin,  7 grid points
+  #dequant:
+  #  2: {half: 0.1000}    # rHS,   6 grid points
 
   head_lr_mult: 5.0          # identical to exp1
-  plateau_patience: 15       # identical to exp1
+  plateau_patience: 10       # identical to exp1
   probe_patience: 50         # identical to exp1
 
+  #seeding_new
+  split_seed: 43
+  init_seed: 43
+  tag_arm_with_seed: true
 
 # NLE + MCMC blocks inherit identical defaults (param_style semelin etc.)
 # IDENTICAL NLE/MCMC across ALL arms (incl. the MSE arm!) for a fair GV/SBC
@@ -37,7 +40,7 @@ nle:
   model: gmm            # scalar placeholder; the launcher overrides per job with -o nle.model=...
   # NO `standardize:` key -- the launcher's --raw-t flag controls it per job
   nsplit: 10
-  batch_size: 32      # <-- was 4, that's a typo; MUST fix or stage2 runs for days
+  batch_size: 4      # <-- was 4, that's a typo; MUST fix or stage2 runs for days
   lr_phase1: 2.0e-4
   lr_phase2: 2.0e-5
   num_workers: 2

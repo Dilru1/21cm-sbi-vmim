@@ -219,7 +219,9 @@ def main():
 
         if model_choice == "seblock":
             from sbi.compressors.cnn_seblock_up import ResNet3DCompressor as comp  # for SEBLOCK
-            # from sbi.compressors.cnn_seblock import ResNet3DCompressor as comp #for SEBLOCK OLD
+            from sbi.compressors.cnn_seblock import (
+                ResNet3DCompressor as comp_mse,
+            )  # for SEBLOCK OLD
 
         elif model_choice == "conv4d":
             from sbi.compressors.cnn_grn4d_up import Conv4DCompressor as comp  # for grn4d
@@ -230,11 +232,13 @@ def main():
         from torch.utils.data import DataLoader
 
         tl, vl, full_va = prepare_cube_loaders(cfg["data"], c, split_seed, c["val_frac"])
-        compressor = comp(
+
+        compressor = comp_mse(
             t_dim=cfg["t_dim"],
             n_params=cfg["n_params"],
             direct=bool(c.get("direct_regression", False)),
         ).to(device)
+
         if device.type == "cuda" and torch.cuda.device_count() > 1:
             compressor = nn.DataParallel(compressor)
 

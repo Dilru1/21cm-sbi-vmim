@@ -31,16 +31,16 @@ compressor:
   noise_scale: 1.0
 
 
-  sigma_floor: 1.0e-2       
+  sigma_floor: 1.0e-2
 
 
   dequant:
-    2: {half: 0.100}    # rHS,   6 grid points 
+    2: {half: 0.100}    # rHS,   6 grid points
 
 
-  head_lr_mult: 5.0          
-  plateau_patience: 15      
-  probe_patience: 8        
+  head_lr_mult: 5.0
+  plateau_patience: 15
+  probe_patience: 8
 
 
   epochs: 200
@@ -58,9 +58,9 @@ compressor:
 
 
 nle:
-  model: gmm           
+  model: gmm
   nsplit: 10
-  batch_size: 4     
+  batch_size: 4
   lr_phase1: 2.0e-4
   lr_phase2: 2.0e-5
   num_workers: 2
@@ -83,7 +83,3 @@ nle:
 mcmc:
   wedge_tau_idx: 1
   wedge_mmin_idx: 3
-
-
-
-

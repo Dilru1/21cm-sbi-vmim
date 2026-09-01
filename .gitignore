@@ -24,6 +24,10 @@ wandb/
 docs/GUIDE.md
 docs/MLOPS.md
 
+docs/
+SBC_OUTPUT/
+notebooks/
+
 # ---- Heavy cosmological data & simulation outputs (keep out of git) ----
 data/
 *.h5
@@ -52,3 +56,4 @@ sum_out/
 !nle_training_comparison_mse.png
 _build/
 node_modules/
+myst.yml

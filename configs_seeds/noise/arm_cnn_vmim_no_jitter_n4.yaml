@@ -40,7 +40,7 @@ compressor:
 
 
 
-  epochs: 35 #350 #for epoch 4 --> longer training!
+  epochs: 200 #350 #for epoch 4 --> longer training!
   batch_size: 16
   save_batch_size: 256
   lr: 2.0e-4

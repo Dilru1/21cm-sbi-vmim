@@ -39,11 +39,11 @@ compressor:
   plateau_patience: 15       # identical to exp1
   probe_patience: 15          # identical to exp1
 
-  sigma_floor: 1.0e-2     
+  sigma_floor: 1.0e-2
   dequant:
-    2: {half: 0.10000}    
-  
-    
+    2: {half: 0.10000}
+
+
   epochs: 200
   batch_size: 16
   save_batch_size: 1024
@@ -64,7 +64,7 @@ nle:
   model: gmm            # scalar placeholder; the launcher overrides per job with -o nle.model=...
   # NO `standardize:` key -- the launcher's --raw-t flag controls it per job
   nsplit: 10
-  batch_size: 32      
+  batch_size: 32
   lr_phase1: 2.0e-4
   lr_phase2: 2.0e-5
   num_workers: 2
@@ -84,7 +84,3 @@ nle:
 mcmc:
   wedge_tau_idx: 1
   wedge_mmin_idx: 3
-
-
-
-

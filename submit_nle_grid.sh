@@ -18,7 +18,7 @@
 #
 #   bash nle_grid.sh config/cnn.arm "nsf" "std"
 #   bash nle_grid.sh config/cnn.arm "nsf" "std" 23      # skip stage1 (trained)
-#   bash nle_grid.sh config/cnn.arm "gmm maf nsf" "std raw" 1
+#   bash submit nle_grid.sh configs_seeds/noise/arm_cnn_vmim_no_jitter_n1.yaml "gmm" "std raw" 23
 
 ##EXAMPLE USE CASE
 
@@ -87,7 +87,19 @@ if [[ $DO2 -eq 1 && $DO1 -eq 1 && "$DO1_MODE" != "full" ]]; then
 fi
 
 arm_yaml=$(grep -E "^arm_name:" "$CONFIG" | head -1 | awk '{print $2}')
-echo "config=$CONFIG  arm(yaml)=$arm_yaml"
+arm_type=$(grep -E "^arm_type:" "$CONFIG" | head -1 | awk '{print $2}')
+
+# pick the stage-1 script from arm_type: the mlp head is tiny and trains on CPU,
+# so it must NOT sit in the GPU queue (the cluster has only 3 GPUs). cnn arms
+# train a 3D CNN and need the GPU.
+case "$arm_type" in
+  mlp) S1_SBATCH="slurm/stage1_mlp.sbatch" ;;   # CPU
+  cnn) S1_SBATCH="slurm/stage1_cnn.sbatch" ;;   # GPU
+  *)   S1_SBATCH="slurm/stage1_cnn.sbatch"
+       echo "WARNING: arm_type='$arm_type' unrecognized; defaulting stage 1 to $S1_SBATCH" ;;
+esac
+
+echo "config=$CONFIG  arm(yaml)=$arm_yaml  arm_type=${arm_type:-?}  stage1_script=$S1_SBATCH"
 echo "stages=$STAGES  stage1=$([[ $DO1 -eq 1 ]] && echo $DO1_MODE || echo skip)"\
      " stage2=$([[ $DO2 -eq 1 ]] && echo yes || echo skip)"\
      " stage3=$([[ $DO3 -eq 1 ]] && echo yes || echo skip)"
@@ -106,7 +118,7 @@ if [[ $DO1 -eq 1 ]]; then
   esac
   # shellcheck disable=SC2086
   J1=$(sbatch --job-name="s1_$(basename "$CONFIG" .yaml)" \
-              slurm/stage1_cnn.sbatch "$CONFIG" ${USER_OV[@]+"${USER_OV[@]}"} "${s1_extra[@]}" \
+              "$S1_SBATCH" "$CONFIG" ${USER_OV[@]+"${USER_OV[@]}"} "${s1_extra[@]}" \
        | awk '{print $NF}')
   echo "stage1 ($DO1_MODE): $J1"
   echo

@@ -10,7 +10,15 @@
 #SBATCH --array=0-5
 
 set -euo pipefail
+
+
+unset PYTHONPATH PYTHONHOME PYTHONSTARTUP
+unset ${!CONDA@} 2>/dev/null || true
+export MPLBACKEND=Agg
+
+
 mkdir -p logs
+
 module purge; module load anaconda/2024.10-1
 source "$(conda info --base)/etc/profile.d/conda.sh"
 conda activate /data/ddehiwalage-don/conda_envs/torch_nadam
