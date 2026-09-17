@@ -1,0 +1,36 @@
+{
+ "params": [
+  "log10 fX",
+  "tau",
+  "rH/S",
+  "log10 Mmin"
+ ],
+ "arms": [
+  {
+   "key": "baseline_pdf_ps_semelin_25",
+   "name": "Baseline: pdf+ps (semelin+25)",
+   "n_sims": 908,
+   "settings": {
+    "thin": 11,
+    "burnin_frac": 0.0,
+    "dlogp": 10.0,
+    "n_keep": 1000
+   },
+   "summary": "arms/baseline_pdf_ps_semelin_25/summary.json",
+   "sims": "arms/baseline_pdf_ps_semelin_25/sims/sim{id}.bin"
+  },
+  {
+   "key": "path_b_cnn_vmim_on_raw_cubes",
+   "name": "Path B: CNN+VMIM on raw cubes",
+   "n_sims": 908,
+   "settings": {
+    "thin": 11,
+    "burnin_frac": 0.0,
+    "dlogp": 10.0,
+    "n_keep": 1000
+   },
+   "summary": "arms/path_b_cnn_vmim_on_raw_cubes/summary.json",
+   "sims": "arms/path_b_cnn_vmim_on_raw_cubes/sims/sim{id}.bin"
+  }
+ ]
+}

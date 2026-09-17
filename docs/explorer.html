@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posterior explorer | 21cm-sbi-vmim</title>
+  <meta name="description" content="Interactive SBC rank histograms and per-simulation corner plots for every pipeline arm.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">21cm-sbi-vmim<span>Learned compression for 21&nbsp;cm inference</span></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="data.html">Problem and data</a></li>
+          <li><a href="method.html">Method</a></li>
+          <li><a href="results.html">Results</a></li>
+          <li><a href="explorer.html" aria-current="page">Explorer</a></li>
+          <li><a href="code.html">Code</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap wide">
+    <h1>Posterior explorer</h1>
+    <p class="lede">Check calibration across the validation set, then open any single simulation to see how each arm's posterior sits around the truth.</p>
+    <p id="ex-status" class="ex-status" role="status" aria-live="polite"></p>
+
+    <section class="ex-controls" aria-label="Explorer settings">
+      <fieldset>
+        <legend>Arms</legend>
+        <div id="arm-toggles" class="arm-toggles"></div>
+      </fieldset>
+      <label class="ex-field">Rank bins
+        <select id="nbins"><option>10</option><option>15</option><option>20</option><option>30</option><option>40</option></select>
+      </label>
+    </section>
+
+    <h2>Simulation-based calibration</h2>
+    <p class="small" id="sbc-count"></p>
+    <p class="small">A flat histogram inside the shaded band means the posteriors are calibrated. A U shape means overconfident, an arch means under-confident, a tilt means biased. Triangles mark where the selected simulation's truth ranks. Red χ̂² values fall outside the 1σ tolerance.</p>
+    <div id="sbc-grid" class="sbc-grid"></div>
+
+    <div class="bin-panel">
+      <label class="ex-field">List simulations for
+        <select id="focus-arm"></select>
+      </label>
+      <div id="bin-list"></div>
+    </div>
+
+    <h2 id="corner-title">Simulation</h2>
+    <form id="sim-form" class="sim-nav">
+      <label class="ex-field">Simulation ID <input id="sim-input" type="text" inputmode="numeric" size="7"></label>
+      <button type="submit">Show</button>
+      <button type="button" id="sim-prev">Previous</button>
+      <button type="button" id="sim-next">Next</button>
+      <button type="button" id="sim-random">Random</button>
+      <span id="sim-pos" class="small"></span>
+    </form>
+    <div id="corner" class="corner"></div>
+    <div id="sim-table" class="table-scroll"></div>
+    <p class="note">Contours enclose 68% and 95% of each posterior, drawn from 1,000 samples of the filtered chain (thin 11, Δlog p = 10), so they are slightly noisier than the published figures. Ranks use the full filtered chain and reproduce the published calibration ratios.</p>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>&copy; 2026 Dilruwan Dehiwalage Don &nbsp;/&nbsp; Paris Observatory and ENSAI</span>
+      <a href="https://github.com/Dilru1/21cm-sbi-vmim">github.com/Dilru1/21cm-sbi-vmim</a>
+    </div>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+  <script src="explorer.js"></script>
+</body>
+</html>

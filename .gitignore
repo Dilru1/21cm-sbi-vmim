@@ -10,6 +10,7 @@ sbc_out/
 sbc_out_FULL/
 pure_slices_output/
 _tmp_renders/
+eval_web_check/
 logs/
 
 # SLURM job artifacts
