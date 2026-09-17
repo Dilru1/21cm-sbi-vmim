@@ -1,0 +1,60 @@
+# BASELINE arm -- ps: raw summaries passed straight to the shared NLE.
+# No compression. stage1_raw.py copies data.summaries_npz into {arm}/summaries/
+# with the identical memmap layout the mlp/cnn arms export, so stage2/3/4 are
+# byte-for-byte the same pipeline; only dim(t) differs.
+#
+#   bash slurm/pipeline.sh configs_seeds/baseline_/arm_baseline_ps.yaml
+#
+# Filename MUST contain "baseline" -- pipeline.sh routes on it to stage1_raw.sbatch.
+
+arm_name: baseline_ps/raw
+arm_type: raw
+scratch_root: /gscratch/ddehiwalage-don/sbi_runs/BASELINE
+n_params: 5
+t_dim: 0            # UNUSED by stage1_raw.py; stage2 infers t_dim from t.shape[1].
+
+data:
+  summaries_npz: /gscratch/ddehiwalage-don/sbi_runs/BASELINE/baseline_ps/baseline_ps_Nnoise1000.npz
+
+# stage1_raw.py reads ONLY val_frac + seed from this block (for split_by_sim).
+# These MUST match the mlp/cnn arms or the baseline gets a different train/val
+# split than the arm it is being compared against.
+compressor:
+  val_frac: 0.1
+  seed: 43
+  # MUST stay false: stage1_raw.py does not call apply_arm_name(), but stage2
+  # and stage3 do -- true would make stage2 look in {arm_name}_s43/ and fail.
+  tag_arm_with_seed: false
+
+nle:
+  model: gmm            # launcher overrides per job with -o nle.model=...
+  nsplit: 10
+  batch_size: 4
+  lr_phase1: 2.0e-4
+  lr_phase2: 2.0e-5
+  num_workers: 2
+  val_frac: 0.1
+  seed: 42
+
+  # --- Legacy Baseline Triggers ---
+  param_style: semelin_legacy
+  legacy_branch: true
+  mean_style: sigmoid_scaled
+  diag_floor: 0.0
+  standardize: false      # Ensures t is min-max normalized to [0,1], matching the TF script
+  
+  # --- Optimizer Settings ---
+  optimizer: nadam
+  betas: [0.5, 0.999]     # Forces beta_1=0.5 matching the legacy script
+
+  # --- Dimensions ---
+  n_mix: 2
+  hidden: 64
+  n_layers: 4
+  num_bins: 8
+  tail_bound: 5.0
+
+  
+mcmc:
+  wedge_tau_idx: 1
+  wedge_mmin_idx: 3

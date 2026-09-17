@@ -1,0 +1,4 @@
+Baseline: pdf+ps (semelin+25), /gscratch/ddehiwalage-don/sbi_runs/BASELINE/baseline_pdf_ps/raw/chains, , raw_t_gmm
+Path A: MLP+VMIM on pdf+ps, /gscratch/ddehiwalage-don/sbi/mlp/seed_pdf_ps_s44, , standard_t_nsf_seed_43
+Path B: CNN+MSE  on raw cubes, /gscratch/ddehiwalage-don/sbi/cnn_mse_up/seed_n1_s44, , standard_t_nsf_seed_43
+Path B: CNN+VMIM on raw cubes, /gscratch/ddehiwalage-don/sbi/cnn_vmim_up/no_jitter/seed_n1_s44, , standard_t_nsf_seed_43

@@ -1,0 +1,6 @@
+cnn mse n2 c43 n42, /gscratch/ddehiwalage-don/sbi/cnn_mse_up/seed_n2_s43, , standard_t_nsf_seed_42
+cnn mse n2 c43 n43, /gscratch/ddehiwalage-don/sbi/cnn_mse_up/seed_n2_s43, , standard_t_nsf_seed_43
+cnn mse n2 c44 n42, /gscratch/ddehiwalage-don/sbi/cnn_mse_up/seed_n2_s44, , standard_t_nsf_seed_42
+cnn mse n2 c44 n43, /gscratch/ddehiwalage-don/sbi/cnn_mse_up/seed_n2_s44, , standard_t_nsf_seed_43
+cnn mse n2 c45 n42, /gscratch/ddehiwalage-don/sbi/cnn_mse_up/seed_n2_s45, , standard_t_nsf_seed_42
+cnn mse n2 c45 n43, /gscratch/ddehiwalage-don/sbi/cnn_mse_up/seed_n2_s45, , standard_t_nsf_seed_43

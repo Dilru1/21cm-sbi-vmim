@@ -1,0 +1,77 @@
+\documentclass[border=8pt, multi, tikz]{standalone}
+\usepackage{import}
+\subimport{../layers/}{init}
+\usetikzlibrary{positioning}
+\usepackage{amsmath,amssymb}
+
+\def\ConvColor{rgb:yellow,5;red,2.5;white,5}
+\def\FcColor{rgb:blue,5;red,2.5;white,5}
+\def\SoftmaxColor{rgb:magenta,5;black,7}
+\def\SummaryColor{rgb:magenta,5;black,2}
+\def\HeadColor{rgb:violet,6;white,6}
+\def\DataColor{rgb:green,5;blue,1;white,6}
+
+\begin{document}
+\begin{tikzpicture}
+\tikzstyle{connection}=[ultra thick,every node/.style={sloped,allow upside down},draw=\edgecolor,opacity=0.7]
+
+% ---------------- input: hand-crafted summaries ----------------
+\pic[shift={(0,0,0)}] at (0,0,0) {Box={name=s,caption=,xlabel={{30,}},zlabel=,
+    fill=\DataColor,height=22,width=1,depth=3,opacity=.8}};
+\node[anchor=north,align=center] at ([yshift=-14pt]s-south)
+    {$s\in\mathbb{R}^{30}$\\[-1pt]\scriptsize hand-crafted summaries\\[-2pt]\scriptsize (PDF, $P(k)$, $\overline{\delta T_b}$; 3 redshifts)};
+
+% ---------------- dense trunk: 3 x FC128 + LayerNorm + LeakyReLU ----------------
+\pic[shift={(2.2,0,0)}] at (s-east) {Box={name=fc1,caption=,xlabel={{128,}},zlabel=,
+    fill=\FcColor,height=30,width=1.6,depth=3}};
+\pic[shift={(1.4,0,0)}] at (fc1-east) {Box={name=fc2,caption=,xlabel={{128,}},zlabel=,
+    fill=\FcColor,height=30,width=1.6,depth=3}};
+\pic[shift={(1.4,0,0)}] at (fc2-east) {Box={name=fc3,caption=,xlabel={{128,}},zlabel=,
+    fill=\FcColor,height=30,width=1.6,depth=3}};
+\draw[connection] (s-east) -- node{\midarrow} (fc1-west);
+\draw[connection] (fc1-east) -- node{\midarrow} (fc2-west);
+\draw[connection] (fc2-east) -- node{\midarrow} (fc3-west);
+\node[anchor=south,align=center] at ([yshift=16pt]fc2-north)
+    {dense trunk\\[-2pt]\scriptsize $3\times$\,[Linear\,$\to$\,LayerNorm\,$\to$\,LeakyReLU(0.1)]};
+
+% ---------------- summary head -> t ----------------
+\pic[shift={(2.4,0,0)}] at (fc3-east) {Box={name=t,caption=,xlabel={{4,}},zlabel=,
+    fill=\SummaryColor,height=6,width=1,depth=3,opacity=.85}};
+\draw[connection] (fc3-east) -- node{\midarrow} (t-west);
+\node[anchor=north,align=center] at ([yshift=-14pt]t-south)
+    {$t=f_\eta(s)\in\mathbb{R}^{4}$\\[-2pt]\scriptsize \texttt{fc\_summary} --- exported to stage 2};
+
+% ---------------- auxiliary MSE head (warm-up / ablations) ----------------
+\pic[shift={(2.4,4.2,0)}] at (fc3-east) {Box={name=aux,caption=,xlabel={{4,}},zlabel=,
+    fill=\ConvColor,height=6,width=1,depth=3,opacity=.55}};
+\draw[connection,densely dashed] (fc3-northeast) -- node{\midarrow} (aux-west);
+\node[anchor=west,align=left] at ([xshift=14pt]aux-east)
+    {$\hat\theta$ \quad \scriptsize\texttt{fc\_aux}: $\mathcal{L}_{\mathrm{MSE}}$\\[-2pt]
+     \scriptsize (warm-up / annealed schedules only)};
+
+% ---------------- VMIM variational head (training only) ----------------
+\pic[shift={(3.0,0,0)}] at (t-east) {Box={name=hd1,caption=,xlabel={{64,}},zlabel=,
+    fill=\HeadColor,height=14,width=1.3,depth=3,opacity=.6}};
+\pic[shift={(0.9,0,0)}] at (hd1-east) {Box={name=hd2,caption=,xlabel={{64,}},zlabel=,
+    fill=\HeadColor,height=14,width=1.3,depth=3,opacity=.6}};
+\pic[shift={(0.9,0,0)}] at (hd2-east) {Box={name=hd3,caption=,xlabel={{64,}},zlabel=,
+    fill=\HeadColor,height=14,width=1.3,depth=3,opacity=.6}};
+\pic[shift={(1.6,0,0)}] at (hd3-east) {Box={name=gmm,caption=,xlabel={{,}},zlabel=,
+    fill=\SoftmaxColor,height=10,width=1.2,depth=5,opacity=.7}};
+\draw[connection,densely dashed] (t-east) -- node{\midarrow} (hd1-west);
+\draw[connection,densely dashed] (hd1-east) -- (hd2-west);
+\draw[connection,densely dashed] (hd2-east) -- (hd3-west);
+\draw[connection,densely dashed] (hd3-east) -- node{\midarrow} (gmm-west);
+\node[anchor=north,align=center] at ([yshift=-10pt]gmm-south)
+    {\scriptsize GMM $K{=}2$, full cov.\\[-2pt]\scriptsize $\{w_k,\mu_k,L_k\}$};
+\node[anchor=south,align=center] at ([yshift=22pt]hd2-north)
+    {variational head $q_\varphi(\theta\mid t)$\\[-2pt]\scriptsize MLP $3{\times}64$ (tanh)};
+\node[anchor=west,align=left] at ([xshift=20pt]gmm-east)
+    {$\mathcal{L}_{\mathrm{VMIM}}=-\,\mathbb{E}\log q_\varphi(\tilde\theta\mid t)$\\[2pt]
+     \scriptsize $\sigma_{\min}{=}10^{-2}$ scale floor; $\theta$-dequantisation\\[-2pt]
+     \scriptsize \emph{training only --- head discarded after training}};
+\draw[densely dashed, rounded corners=6pt, draw=black!60, thick]
+    ([shift={(-14pt,50pt)}]hd1-northwest) rectangle ([shift={(16pt,-40pt)}]gmm-southeast);
+
+\end{tikzpicture}
+\end{document}

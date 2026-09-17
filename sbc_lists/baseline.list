@@ -1,0 +1,3 @@
+PDF_PS new, /gscratch/ddehiwalage-don/sbi_runs/BASELINE/baseline_pdf_ps/raw/chains, , raw_t_gmm
+PS new, /gscratch/ddehiwalage-don/sbi_runs/BASELINE/baseline_ps/raw/chains, , raw_t_gmm
+PDF new, /gscratch/ddehiwalage-don/sbi_runs/BASELINE/baseline_pdf/raw/chains, , raw_t_gmm

@@ -1,0 +1,13 @@
+numpy==1.26.4
+scipy==1.13.1
+pandas==2.2.2
+matplotlib==3.9.2
+scikit-learn==1.5.1
+torch==2.7.1
+nflows==0.14
+PyYAML==6.0.1
+tqdm==4.66.5
+cmastro==0.2
+
+# Optional, only needed for tools/report_plots/figs_cubes.py (3D cube rendering)
+# pyvista

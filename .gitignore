@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.ipynb_checkpoints/
+
+# Experiment outputs (regenerable by running the pipeline)
+sbc_out/
+sbc_out_FULL/
+pure_slices_output/
+_tmp_renders/
+logs/
+
+# SLURM job artifacts
+slurm-*.out
+*.out
+*.err
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Data (large binaries not tracked in git)
+*.dat
+*.npz
+*.npy
+*.pt
+*.pth
+*.h5
+*.hdf5
