@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Method | 21cm-sbi-vmim</title>
+  <meta name="description" content="Four-stage pipeline: VMIM neural compression, neural likelihood estimation with normalising flows, MCMC and simulation-based calibration.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">21cm-sbi-vmim<span>Learned compression for 21&nbsp;cm inference</span></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="data.html">Problem and data</a></li>
+          <li><a href="method.html" aria-current="page">Method</a></li>
+          <li><a href="results.html">Results</a></li>
+          <li><a href="code.html">Code</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <article class="project-detail">
+      <h1>Method</h1>
+      <div class="meta">Compression, neural likelihood, posterior sampling, calibration</div>
+
+      <p class="lede">The two data paths enter only at the first stage. Stages two to four are identical for every arm: same split, same estimator families, same sampler settings, same 908 validation simulations. Any difference in the final posteriors is attributable to compression alone.</p>
+
+      <figure class="wide-fig">
+        <img class="bordered" src="images/pipeline.png" width="1307" height="566" alt="Pipeline diagram: simulation produces path A summaries or path B cubes, compressed to a summary t, then a neural likelihood, MCMC posterior and SBC validation">
+        <figcaption>The four-stage pipeline. The VMIM head is used only during training and discarded; only the summary t is passed on.</figcaption>
+      </figure>
+
+      <div class="stage">
+        <span class="n">Stage 1</span>
+        <h3>Neural compression with VMIM</h3>
+        <p>The compressor f<sub>&eta;</sub> maps an observation to t. The quantity worth preserving is the mutual information I(t; &theta;), which can never exceed I(x; &theta;) and equals it only when t is sufficient. It cannot be evaluated directly, but an auxiliary density q<sub>&phi;</sub>(&theta; | t) gives the Barber&ndash;Agakov lower bound, and maximising it reduces to a negative log-likelihood:</p>
+        <div class="eq">I(t; &theta;) &ge; E[ log q<sub>&phi;</sub>(&theta; | t) ] + H(&theta;) &nbsp;&nbsp;&rArr;&nbsp;&nbsp; L<sub>VMIM</sub> = &minus; &Sigma;<sub>n</sub> log q<sub>&phi;</sub>(&theta;<sub>n</sub> | f<sub>&eta;</sub>(x<sub>n</sub>))</div>
+        <p>The head is a two-component Gaussian mixture with full Cholesky covariance. The MSE baseline trains the same networks to predict the conditional mean; it is VMIM with the variational family frozen to a fixed-width Gaussian, so it carries no information about posterior shape.</p>
+      </div>
+
+      <div class="stage">
+        <span class="n">Stage 2</span>
+        <h3>Neural likelihood estimation</h3>
+        <p>A conditional density q<sub>&psi;</sub>(t | &theta;) is fitted by maximum likelihood on roughly 9.8 million (simulation, noise) rows, split by simulation ID to avoid leakage. The Gaussian mixture of Semelin et al. (2025) is the baseline, with a softplus floor added on the Cholesky diagonal. Masked autoregressive flows and neural spline flows are added as more expressive alternatives; the spline flow uses 8 rational-quadratic bins on [&minus;5, 5] over standardised t and becomes the default.</p>
+      </div>
+
+      <div class="stage">
+        <span class="n">Stage 3</span>
+        <h3>Posterior sampling</h3>
+        <p>The surrogate likelihood and a uniform prior on the sampled, censored support are combined and explored with an affine-invariant ensemble sampler: 160 walkers, 250 burn-in steps and 3,000 steps. Each likelihood call is one batched network pass, so an inference takes seconds.</p>
+      </div>
+
+      <div class="stage">
+        <span class="n">Stage 4</span>
+        <h3>Validation</h3>
+        <p>Every arm runs full inference on 908 held-out simulations. Calibration is read first, from simulation-based calibration rank histograms in 30 bins, summarised as a floor-relative ratio where 1 means as flat as Poisson noise allows and 1 &plusmn; 0.26 is consistent with perfect calibration. Precision is read second, as the median generalised variance det(&Sigma;)<sup>1/2</sup> and robust marginal half-widths.</p>
+        <div class="eq">&chi;&#770;<sup>2</sup><sub>j</sub> = N / (B &minus; 1) &middot; (1/B) &Sigma;<sub>b</sub> ( h<sub>jb</sub> &minus; 1 )<sup>2</sup></div>
+      </div>
+
+      <h2>Compressor architectures</h2>
+      <h3>Path A: residual MLP</h3>
+      <p>Three hidden layers of width 128 with LayerNorm and LeakyReLU, exporting t &isin; R<sup>8</sup>. The natural choice of four dimensions gave visibly worse posteriors. A short MSE warm-up was needed before switching to VMIM.</p>
+      <h3>Path B: 3D SE-ResNet</h3>
+      <p>The three redshifts enter as three channels of one 3D image. A 3<sup>3</sup> stem is followed by four residual blocks with squeeze-and-excitation gating and channels 32 &rarr; 32 &rarr; 64 &rarr; 128 &rarr; 256, about 4.1M parameters. Downsampling is deliberately late: the first two blocks stay at 32<sup>3</sup>, because the r<sub>H/S</sub> signature lives in small-scale texture that early pooling averages away. The last three stages are each pooled to a per-channel mean and standard deviation, concatenated into 896 features, and mapped to t &isin; R<sup>4</sup>.</p>
+
+      <h2>Keeping the weak parameter in play</h2>
+      <p>A single joint log-likelihood rewards every halving of a well-constrained parameter&rsquo;s width, so easy parameters are learned first and the weak one waits. Two changes restore balance.</p>
+      <ul class="plain">
+        <li><strong>A width floor.</strong> Cholesky diagonals are clamped at &sigma;<sub>min</sub> = 10<sup>&minus;2</sup>, capping each parameter&rsquo;s contribution at about 3.7 nats per sample, so saturated parameters stop attracting gradient.</li>
+        <li><strong>A faster head.</strong> The variational head uses a learning rate five times the compressor&rsquo;s, so it re-converges on the moving latent and the gradients it passes back remain trustworthy.</li>
+      </ul>
+      <p>A dequantisation option adds uniform noise of half-width 0.1 to the r<sub>H/S</sub> training target, turning grid atoms into bands. It applies only to the stage-1 head; exported summaries and stage-2 targets stay un-jittered.</p>
+
+      <h2>A training-time recovery probe</h2>
+      <p>Every five epochs the compressor is frozen, and a random forest per parameter predicts &theta;<sub>j</sub> from t on held-out simulations. The out-of-sample R<sup>2</sup> approximates the share of prior variance the summary removes, parameter by parameter, and drives checkpointing and early stopping.</p>
+
+      <p><a href="results.html">Continue to the results</a></p>
+    </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>&copy; 2026 Dilruwan Dehiwalage Don &nbsp;/&nbsp; Paris Observatory and ENSAI</span>
+      <a href="https://github.com/Dilru1/21cm-sbi-vmim">github.com/Dilru1/21cm-sbi-vmim</a>
+    </div>
+  </footer>
+</body>
+</html>

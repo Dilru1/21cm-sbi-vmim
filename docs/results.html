@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results | 21cm-sbi-vmim</title>
+  <meta name="description" content="Posterior width and calibration across hand-crafted and learned compressors on 908 held-out LORELI II simulations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">21cm-sbi-vmim<span>Learned compression for 21&nbsp;cm inference</span></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="data.html">Problem and data</a></li>
+          <li><a href="method.html">Method</a></li>
+          <li><a href="results.html" aria-current="page">Results</a></li>
+          <li><a href="code.html">Code</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <article class="project-detail">
+      <h1>Results</h1>
+      <div class="meta">Noise level n<sub>s</sub> = 1 (SKA 100&nbsp;h), 908 held-out inferences per arm</div>
+
+      <p class="lede">Learned compression on raw cubes produces joint posteriors about fifty times smaller in volume than the published hand-crafted-summary result, with calibration that is close to ideal on most parameters.</p>
+
+      <figure>
+        <svg class="chart" viewBox="0 0 670 256" role="img" aria-labelledby="gvt"><title id="gvt">Generalised posterior variance by pipeline arm, logarithmic scale; lower is tighter</title><line class="axis" x1="274.7" y1="6" x2="274.7" y2="220"/><text class="tick" x="274.7" y="234" text-anchor="middle">1</text><line class="axis" x1="389.8" y1="6" x2="389.8" y2="220"/><text class="tick" x="389.8" y="234" text-anchor="middle">10</text><line class="axis" x1="504.9" y1="6" x2="504.9" y2="220"/><text class="tick" x="504.9" y="234" text-anchor="middle">100</text><line class="axis" x1="620.0" y1="6" x2="620.0" y2="220"/><text class="tick" x="620.0" y="234" text-anchor="middle">1000</text><text class="tick" x="430.0" y="252" text-anchor="middle">Generalised variance (×10⁻⁹), log scale — lower is tighter</text><text class="lbl" x="230" y="28" text-anchor="end">Direct, PDF (Semelin+ 2025)</text><rect class="bar-ref" x="240" y="16" width="365.8" height="16"/><text class="val" x="611.8" y="28">753</text><text class="lbl" x="230" y="58" text-anchor="end">Direct, PS</text><rect class="bar-ref" x="240" y="46" width="279.1" height="16"/><text class="val" x="525.1" y="58">133</text><text class="lbl" x="230" y="88" text-anchor="end">Direct, PDF + PS</text><rect class="bar-ref" x="240" y="76" width="228.2" height="16"/><text class="val" x="474.2" y="88">48</text><text class="lbl" x="230" y="118" text-anchor="end">Path A: MLP + VMIM, PDF + PS</text><rect class="bar-a" x="240" y="106" width="282.1" height="16"/><text class="val" x="528.1" y="118">141</text><text class="lbl" x="230" y="148" text-anchor="end">Path B: CNN + MSE</text><rect class="bar-b" x="240" y="136" width="129.7" height="16"/><text class="val" x="375.7" y="148">6.7</text><text class="lbl" x="230" y="178" text-anchor="end">Path B: CNN + VMIM, no jitter</text><rect class="bar-b" x="240" y="166" width="51.5" height="16"/><text class="val" x="297.5" y="178">1.4</text><text class="lbl" x="230" y="208" text-anchor="end">Path B: CNN + VMIM, jitter</text><rect class="bar-b" x="240" y="196" width="32.1" height="16"/><text class="val" x="278.1" y="208">0.95</text></svg>
+        <figcaption>Median generalised variance for each arm. Grey: direct inference on hand-crafted summaries (Semelin et al. 2025). Orange: learned compressor on those summaries. Blue: learned compressor on raw cubes. All path A and B arms use the neural spline flow likelihood.</figcaption>
+      </figure>
+
+      <h3>Master comparison</h3>
+      <div class="table-scroll wide-fig">
+        <table>
+          <thead>
+            <tr><th>Arm</th><th>GV<br>&times;10<sup>&minus;9</sup></th><th>&sigma; log f<sub>X</sub><br>&times;10<sup>&minus;3</sup></th><th>&sigma; &tau;<br>&times;10<sup>&minus;2</sup></th><th>&sigma; r<sub>H/S</sub><br>&times;10<sup>&minus;2</sup></th><th>&sigma; log M<sub>min</sub><br>&times;10<sup>&minus;3</sup></th><th>&chi;&#770;<sup>2</sup> f<sub>X</sub></th><th>&chi;&#770;<sup>2</sup> &tau;</th><th>&chi;&#770;<sup>2</sup> r<sub>H/S</sub></th><th>&chi;&#770;<sup>2</sup> M<sub>min</sub></th></tr>
+          </thead>
+          <tbody>
+            <tr class="group"><td colspan="10">Reference: direct inference, no learned compression (Semelin et al. 2025)</td></tr>
+            <tr><td>PDF, GMM</td><td>753</td><td>37.5</td><td>8.0</td><td>6.0</td><td>109</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+            <tr><td>PS, GMM</td><td>133</td><td>24.0</td><td>7.5</td><td>4.9</td><td>87</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+            <tr><td>PDF + PS, GMM</td><td>48</td><td>19.0</td><td>5.2</td><td>3.5</td><td>63</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+            <tr class="group"><td colspan="10">Path A: MLP + VMIM on hand-crafted summaries, t &isin; R<sup>8</sup></td></tr>
+            <tr><td>PDF + PS, NSF</td><td>141</td><td>21.6</td><td>6.6</td><td>4.4</td><td>76</td><td class="bad">1.69</td><td class="bad">2.50</td><td class="bad">2.28</td><td class="bad">1.65</td></tr>
+            <tr class="group"><td colspan="10">Path B: 3D CNN on raw cubes, t &isin; R<sup>4</sup></td></tr>
+            <tr><td>CNN + MSE, NSF</td><td>6.7</td><td>5.4</td><td>1.2</td><td class="best">1.8</td><td>9.8</td><td>1.34</td><td>1.45</td><td>1.28</td><td>1.14</td></tr>
+            <tr><td>CNN + VMIM, no jitter, NSF</td><td>1.4</td><td>5.4</td><td>1.1</td><td>2.4</td><td>8.7</td><td>1.42</td><td>1.03</td><td>0.62</td><td>1.33</td></tr>
+            <tr><td>CNN + VMIM, jitter, NSF</td><td class="best">0.95</td><td class="best">4.7</td><td class="best">1.0</td><td>2.0</td><td class="best">7.7</td><td>1.12</td><td>1.18</td><td>0.93</td><td>1.64</td></tr>
+          </tbody>
+          <caption>&sigma; are median half-68% marginal widths in normalised coordinates. &chi;&#770;<sup>2</sup> is the floor-relative calibration ratio; values within 1 &plusmn; 0.26 are consistent with perfect calibration.</caption>
+        </table>
+      </div>
+
+      <h2>Raw cubes beat hand-crafted summaries</h2>
+      <p>The best path B arm reaches GV = 0.95 &times; 10<sup>&minus;9</sup>, a factor of about 147 below the best path A arm and about 50 below the uncompressed reference. Per parameter, relative to that reference, log f<sub>X</sub> tightens about 4.0 times, &tau; 5.2 times, log M<sub>min</sub> 8.2 times, and r<sub>H/S</sub> only 1.8 times. The gain is real everywhere but uneven, and smallest on the weak parameter.</p>
+      <p>Learned compression of the already-compact summaries makes things worse, not better: the joint volume grows by 1.20, 1.95 and 2.92 times on the PDF, PS and combined sets, and the loss grows as the input improves. Compression pays only when the input is genuinely oversized.</p>
+
+      <h2>MSE versus VMIM</h2>
+      <p>On width the result is narrow: VMIM is tighter jointly and on three marginals, while MSE is tighter on r<sub>H/S</sub>. On calibration it is clear. The jittered VMIM arm sits between 0.93 and 1.18 on f<sub>X</sub>, &tau; and r<sub>H/S</sub>, though it drifts to 1.64 on M<sub>min</sub>. The MSE arm is above tolerance on those same three parameters, and its rank histograms for log f<sub>X</sub> and r<sub>H/S</sub> are U-shaped. Its narrower r<sub>H/S</sub> interval excludes the truth too often.</p>
+      <figure>
+        <img class="bordered" src="images/sbc.png" width="1307" height="1212" alt="Four panels of SBC rank histograms for log fX, tau, rH/S and log Mmin, comparing CNN MSE, CNN VMIM with and without jitter, and PDF_PS">
+        <figcaption>Simulation-based calibration for the arms above. The shaded band is the 2&sigma; envelope of a perfectly calibrated pipeline. A U shape signals overconfidence, an inverted U under-confidence, a tilt bias.</figcaption>
+      </figure>
+
+      <h2>How the compressor learns</h2>
+      <figure class="wide-fig">
+        <img class="bordered" src="images/training.png" width="1307" height="720" alt="Recovery R-squared per parameter over epochs for MSE and two VMIM arms, with training loss curves below">
+        <figcaption>Path B training. Top: random-forest recovery R<sup>2</sup> per parameter. Bottom: loss; the MSE curve is a squared error and the VMIM curves are negative log-likelihoods, so they share an axis but not a unit.</figcaption>
+      </figure>
+      <p>Both VMIM arms encode f<sub>X</sub> immediately, M<sub>min</sub> within about twenty epochs and &tau; by epoch 40, but r<sub>H/S</sub> stays near R<sup>2</sup> = 0 until roughly epoch 55 and then jumps to about 0.85. A run stopped earlier, or one watching only the loss, would export a summary with no r<sub>H/S</sub> information at all. The MSE probe is saturated from the start, but that is circular: its summary was trained to copy the parameters.</p>
+
+      <h2>Estimator, jitter and noise</h2>
+      <ul class="plain">
+        <li><strong>Neural spline flows dominate.</strong> On identical summaries the NSF is best on generalised variance in almost every cell and never produced the one badly calibrated run, a Gaussian-mixture arm with jitter at n<sub>s</sub> = 1.</li>
+        <li><strong>Dequantisation is second-order.</strong> Jitter tightens the joint posterior by about 1.5 times and moves r<sub>H/S</sub> calibration from 0.62 to 0.93, with mixed effects on the other parameters.</li>
+        <li><strong>More noise costs width, not honesty.</strong> At n<sub>s</sub> = 2 the generalised variance roughly doubles and r<sub>H/S</sub> widens 1.8 times, while NSF calibration stays within about 0.7&ndash;1.9.</li>
+        <li><strong>Standardising t changes nothing.</strong> Raw and standardised coordinates agree within fitting noise, as the invariance argument predicts.</li>
+      </ul>
+
+      <h2>Limitations</h2>
+      <p>Every configuration is a single training run, so the MSE-versus-VMIM width gap and most of the jitter effect are within plausible seed-to-seed scatter. Only four of five parameters are inferred. Path A exports eight dimensions and path B four; the confound favours path A, so it cannot manufacture path B&rsquo;s advantage, but it blurs its exact size. Repeating each key arm with three or more seeds is the immediate next step.</p>
+    </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>&copy; 2026 Dilruwan Dehiwalage Don &nbsp;/&nbsp; Paris Observatory and ENSAI</span>
+      <a href="https://github.com/Dilru1/21cm-sbi-vmim">github.com/Dilru1/21cm-sbi-vmim</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code | 21cm-sbi-vmim</title>
+  <meta name="description" content="Install and run the 21cm-sbi-vmim four-stage pipeline.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">21cm-sbi-vmim<span>Learned compression for 21&nbsp;cm inference</span></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="data.html">Problem and data</a></li>
+          <li><a href="method.html">Method</a></li>
+          <li><a href="results.html">Results</a></li>
+          <li><a href="code.html" aria-current="page">Code</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <article class="project-detail">
+      <h1>Code</h1>
+      <div class="meta">Python, PyTorch, nflows &nbsp;/&nbsp; SLURM scripts for HPC</div>
+
+      <p class="lede">Each experiment is fully specified by one YAML config. The four stages run identically for every arm, whether a CNN cube compressor, an MLP summary compressor, or the no-compression baseline.</p>
+      <div class="links"><a class="primary" href="https://github.com/Dilru1/21cm-sbi-vmim">View repository</a></div>
+
+      <h3>Install</h3>
+<pre><code>git clone https://github.com/Dilru1/21cm-sbi-vmim.git
+cd 21cm-sbi-vmim
+python -m venv .venv &amp;&amp; source .venv/bin/activate
+pip install -r requirements.txt</code></pre>
+      <p>The 3D cube renderings additionally need <code>pyvista</code>.</p>
+
+      <h3>Run the pipeline</h3>
+      <p>Each stage reads and writes <code>{scratch_root}/{arm_name}/</code>, set in the config or on the command line.</p>
+<pre><code># Stage 1: train a compressor and export summaries
+python stage1_compress.py configs/vmim_/arm_cnn_vmim_n1.yaml
+#   or, for the no-compression baseline
+python stage1_raw.py configs/baseline_/baseline_pdf.yaml
+
+# Stage 2: fit neural likelihoods on the exported summaries
+python stage2_nle.py configs/vmim_/arm_cnn_vmim_n1.yaml --models gmm,maf,nsf
+
+# Stage 3: SBC MCMC chains on the validation set
+python stage3_mcmc.py configs/vmim_/arm_cnn_vmim_n1.yaml
+
+# Stage 4: compare arms
+python stage4_eval.py --list sbc_lists/baseline.list \
+    --out eval_report --dlogp 10 --filtered-only</code></pre>
+
+      <h3>Repository layout</h3>
+      <div class="rows">
+        <div class="row"><dt><code>sbi/</code></dt><dd>Core package: config and data loading, compressors (3D SE-ResNet, MLP, variational heads), NLE models, MCMC sampler, SBC validation.</dd></div>
+        <div class="row"><dt><code>configs/</code></dt><dd>One YAML per arm, grouped as <code>baseline_</code>, <code>mlp_</code>, <code>mse_</code> and <code>vmim_</code>, including jitter, floor and noise-level variants.</dd></div>
+        <div class="row"><dt><code>stage1&ndash;4_*.py</code></dt><dd>Entry points for compression, likelihood fitting, sampling and evaluation.</dd></div>
+        <div class="row"><dt><code>sbc_lists/</code></dt><dd>Lists of chain directories that stage 4 overplots and scores.</dd></div>
+        <div class="row"><dt><code>slurm/</code></dt><dd>Batch scripts for each stage on a SLURM cluster.</dd></div>
+        <div class="row"><dt><code>tools/</code></dt><dd>Standalone plotting and diagnostic scripts, including the figures on this site.</dd></div>
+      </div>
+
+      <h3>Arms reported on this site</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Arm</th><th>Config</th></tr></thead>
+          <tbody>
+            <tr><td>Direct inference, PDF + PS</td><td><code>configs/baseline_/baseline_pdf_ps.yaml</code></td></tr>
+            <tr><td>Path A, MLP + VMIM</td><td><code>configs/mlp_/arm_mlp_pdf_ps.yaml</code></td></tr>
+            <tr><td>Path B, CNN + MSE</td><td><code>configs/mse_/arm_cnn_mse_n1.yaml</code></td></tr>
+            <tr><td>Path B, CNN + VMIM, no jitter</td><td><code>configs/vmim_/arm_cnn_vmim_n1.yaml</code></td></tr>
+            <tr><td>Path B, CNN + VMIM, jitter</td><td><code>configs/vmim_/arm_cnn_vmim_n1_jit_0.1.yaml</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Data</h3>
+      <p>The pipeline expects the LORELI II cubes, summary tables and SKA noise bank described by Meriot &amp; Semelin (2024) and Semelin et al. (2025). They are not distributed with the repository.</p>
+
+      <h3>References</h3>
+      <ul class="plain">
+        <li>Semelin, B., M&eacute;riot, R., Mishra, A., &amp; Cornu, D. 2025, A&amp;A, 698, A35</li>
+        <li>Meriot, R. &amp; Semelin, B. 2024, A&amp;A, 683, A24</li>
+        <li>Jeffrey, N., Alsing, J., &amp; Lanusse, F. 2021, MNRAS, 501, 954</li>
+        <li>Zhao, X., Mao, Y., Cheng, C., &amp; Wandelt, B. D. 2022, ApJ, 926, 151</li>
+        <li>Durkan, C., Bekasov, A., Murray, I., &amp; Papamakarios, G. 2019, arXiv:1906.04032</li>
+      </ul>
+      <p class="note">This work is ongoing. Numbers are from single training runs per configuration and will be updated as replicate seeds complete.</p>
+    </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>&copy; 2026 Dilruwan Dehiwalage Don &nbsp;/&nbsp; Paris Observatory and ENSAI</span>
+      <a href="https://github.com/Dilru1/21cm-sbi-vmim">github.com/Dilru1/21cm-sbi-vmim</a>
+    </div>
+  </footer>
+</body>
+</html>

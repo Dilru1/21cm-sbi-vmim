@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Problem and data | 21cm-sbi-vmim</title>
+  <meta name="description" content="The statistical problem and the LORELI II database of simulated 21 cm observations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">21cm-sbi-vmim<span>Learned compression for 21&nbsp;cm inference</span></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="data.html" aria-current="page">Problem and data</a></li>
+          <li><a href="method.html">Method</a></li>
+          <li><a href="results.html">Results</a></li>
+          <li><a href="code.html">Code</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <article class="project-detail">
+      <h1>Problem and data</h1>
+      <div class="meta">High-dimensional inference under an implicit likelihood</div>
+
+      <p class="lede">We observe a 98,304-dimensional map x and want the posterior over a four-dimensional parameter vector &theta;. The likelihood p(x | &theta;) exists only as a simulator, and the database is fixed at 9,828 simulations, so the ratio d/n is roughly ten.</p>
+
+      <h3>Why classical inference fails here</h3>
+      <p>The traditional route compresses the map to a power spectrum, assumes a Gaussian likelihood and runs MCMC. It breaks in three places. A high-resolution LICORICE run costs around 10<sup>6</sup> CPU hours while MCMC needs 10<sup>5</sup>&ndash;10<sup>6</sup> likelihood evaluations. A Gaussian likelihood on the raw vector needs a 98,304 &times; 98,304 precision matrix, about 9.7 &times; 10<sup>9</sup> entries, whose sample estimate is singular because its rank is at most n &minus; 1. And the field itself is strongly non-Gaussian: voxel distributions become skewed and bimodal as ionised bubbles grow.</p>
+      <div class="eq">p(x | &theta;) = &int; p<sub>noise</sub>(x | x<sub>clean</sub>) &nbsp;p<sub>sim</sub>(x<sub>clean</sub> | &theta;) &nbsp;dx<sub>clean</sub></div>
+      <p>We can sample this but cannot evaluate it. Simulation-based inference learns a surrogate from simulated (&theta;, x) pairs, and its sample cost scales with the dimension of the summary, so compression is not optional.</p>
+
+      <h3>The LORELI II database</h3>
+      <p>LORELI II (Meriot &amp; Semelin 2024) holds 9,828 independent LICORICE runs at 256<sup>3</sup> particles in a 200&nbsp;h<sup>&minus;1</sup>&nbsp;cMpc box, each with its own initial conditions and parameters. Three epochs are kept, z &isin; {8.18, 10.32, 12.06}, each downsampled to 32<sup>3</sup> voxels to match the roughly 6&nbsp;arcmin SKA resolution.</p>
+      <p>Two sources of randomness shape each observation. Thermal noise matching 100&nbsp;hours of SKA observation is additive and roughly Gaussian, with 1,000 realisations per redshift available for augmentation. Cosmic variance is baked into each simulation as a single draw of initial conditions and cannot be augmented.</p>
+
+      <figure>
+        <img class="bordered" src="images/snr.png" width="1373" height="896" alt="Mid-slices of one simulation at three redshifts, clean on top and with SKA 100 hour noise below, with signal-to-noise ratios 0.84, 0.80 and 0.68">
+        <figcaption>The same 32 &times; 32 mid-slice, clean (top) and with one SKA 100&nbsp;h noise draw (bottom). Voxel-level signal-to-noise falls from about 0.84 at z = 8.18 to 0.68 at z = 12.06, so fine structure is partly buried before compression begins.</figcaption>
+      </figure>
+
+      <h3>Parameters</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Parameter</th><th>Symbol</th><th>Range</th><th>Sampling</th></tr></thead>
+          <tbody>
+            <tr><td>X-ray efficiency</td><td>f<sub>X</sub></td><td>0.1 &ndash; 10</td><td>13 log-spaced values</td></tr>
+            <tr><td>Star-formation timescale</td><td>&tau;</td><td>7.5 &ndash; 105 Gyr</td><td>6 values per M<sub>min</sub>, censored</td></tr>
+            <tr><td>Hard-to-soft X-ray ratio</td><td>r<sub>H/S</sub></td><td>0 &ndash; 1</td><td>6 values</td></tr>
+            <tr><td>Minimum halo mass</td><td>M<sub>min</sub></td><td>10<sup>8</sup> &ndash; 4&times;10<sup>9</sup> M<sub>&odot;</sub></td><td>7 log-spaced, censored</td></tr>
+            <tr><td>Escape fraction</td><td>f<sub>esc</sub></td><td>0.05 &ndash; 0.5</td><td>3 values, not inferred</td></tr>
+          </tbody>
+          <caption>All parameters sit on grids. Inference uses coordinates normalised to [0, 1], log-scaled for f<sub>X</sub>, &tau; and M<sub>min</sub>.</caption>
+        </table>
+      </div>
+
+      <h3>Two representations of the same observation</h3>
+      <p><strong>Path A</strong> uses the hand-crafted summaries of Semelin et al. (2025): five power-spectrum bands and five L-moments of the pixel distribution per redshift, 30 numbers in total. The power spectrum would be sufficient for a Gaussian field but is not for this one, and the pixel distribution discards spatial arrangement entirely.</p>
+      <p><strong>Path B</strong> hands the full noisy 3&times;32<sup>3</sup> tensor to a 3D CNN. Colouring the voxel distributions by r<sub>H/S</sub> shows no ordering at all, so whatever information exists about that parameter lives in spatial structure, which only path B can reach.</p>
+
+      <h3>The research question</h3>
+      <p>Can an information-preserving neural compressor, trained to maximise mutual information between summary and parameters rather than to minimise a regression loss, outperform hand-crafted summary statistics when both feed the identical inference and validation pipeline?</p>
+
+      <p><a href="method.html">Continue to the method</a></p>
+    </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>&copy; 2026 Dilruwan Dehiwalage Don &nbsp;/&nbsp; Paris Observatory and ENSAI</span>
+      <a href="https://github.com/Dilru1/21cm-sbi-vmim">github.com/Dilru1/21cm-sbi-vmim</a>
+    </div>
+  </footer>
+</body>
+</html>

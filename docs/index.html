@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overview | 21cm-sbi-vmim</title>
+  <meta name="description" content="Simulation-based inference of Epoch of Reionisation parameters from SKA-like 21 cm maps, comparing learned VMIM compression with hand-crafted summaries.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">21cm-sbi-vmim<span>Learned compression for 21&nbsp;cm inference</span></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="index.html" aria-current="page">Overview</a></li>
+          <li><a href="data.html">Problem and data</a></li>
+          <li><a href="method.html">Method</a></li>
+          <li><a href="results.html">Results</a></li>
+          <li><a href="code.html">Code</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <h1>Reading the first galaxies straight from the 21&nbsp;cm map</h1>
+        <p class="lede">A simulation-based inference pipeline that compresses noisy, SKA-like 3D maps of the early Universe into four numbers, and asks whether a neural compressor trained to preserve information can beat the summary statistics astrophysicists design by hand.</p>
+        <p class="authors"><b>Dilruwan Dehiwalage Don</b> &nbsp;/&nbsp; Master&rsquo;s thesis, ENSAI &nbsp;/&nbsp; Hosted at Paris Observatory, supervised by Benoit Semelin</p>
+      </div>
+      <svg class="slices" viewBox="0 0 150 150" role="img" aria-label="Three offset voxel slices, one per redshift">
+        <rect x="46" y="10" width="92" height="92" stroke-width="1" opacity=".45"/>
+        <rect x="29" y="29" width="92" height="92" stroke-width="1.25" opacity=".7"/>
+        <rect x="12" y="48" width="92" height="92" stroke-width="1.75"/>
+        <g class="grid-line" stroke-width="1">
+          <line x1="35" y1="48" x2="35" y2="140"/><line x1="58" y1="48" x2="58" y2="140"/><line x1="81" y1="48" x2="81" y2="140"/>
+          <line x1="12" y1="71" x2="104" y2="71"/><line x1="12" y1="94" x2="104" y2="94"/><line x1="12" y1="117" x2="104" y2="117"/>
+        </g>
+      </svg>
+    </section>
+
+    <div class="links">
+      <a class="primary" href="https://github.com/Dilru1/21cm-sbi-vmim">Code on GitHub</a>
+      <a href="results.html">Results</a>
+      <a href="code.html">Reproduce the pipeline</a>
+    </div>
+
+    <p class="domains"><b>Data</b> &nbsp;LORELI&nbsp;II, 9,828 LICORICE simulations, SKA 100&nbsp;h noise &nbsp;&nbsp;<b>Methods</b> &nbsp;3D CNN, VMIM, neural spline flows, MCMC, simulation-based calibration</p>
+
+    <figure>
+      <img class="bordered" src="images/cubes.png" width="1357" height="433" alt="Three volumetric renderings of the 21 cm brightness temperature cube at redshifts 12.06, 10.32 and 8.18, showing bubble and filament texture">
+      <figcaption>One observation: the 21&nbsp;cm brightness-temperature field at z = 12.06, 10.32 and 8.18, stacked as a 3&times;32&sup3; tensor. Its spatial texture is what the learned compressor reads and what isotropic summaries discard.</figcaption>
+    </figure>
+
+    <h2>The question</h2>
+    <p>The Square Kilometre Array will map the faint radio glow of neutral hydrogen during the Epoch of Reionisation. Each simulated observation holds 98,304 values, yet the physics behind it is set by four astrophysical parameters. There is no formula for the likelihood, and the simulator is far too expensive to call inside a sampler, so inference must be learned from a fixed database of simulations. That only works if each map is first compressed to a handful of numbers without losing what matters.</p>
+    <p>This project compares two ways of doing that compression, with everything downstream held identical: a learned network on the <strong>hand-crafted summaries</strong> (power spectrum and pixel-distribution moments), and a 3D convolutional network on the <strong>raw noisy cubes</strong>, both trained by variational mutual information maximisation.</p>
+
+    <div class="numbers">
+      <div><b>&times;50</b><span>smaller joint posterior volume than the published hand-crafted-summary result</span></div>
+      <div><b>0.93&ndash;1.18</b><span>calibration ratio on three of four parameters for the best arm, where 1 is ideal</span></div>
+      <div><b>908</b><span>held-out simulations, one full MCMC inference each, per arm</span></div>
+    </div>
+
+    <h2>What we found</h2>
+    <div class="aim">
+      <h3>Raw cubes carry far more information than the summaries</h3>
+      <p>A CNN compressor on raw cubes shrinks the generalised posterior variance by a factor of about 50 relative to the direct inference of Semelin et al. (2025), and by about 150 relative to the same learned compressor on hand-crafted summaries, at equal or better calibration.</p>
+    </div>
+    <div class="aim">
+      <h3>VMIM wins on honesty, not only on width</h3>
+      <p>Against an MSE-trained compressor with the same backbone, VMIM gives a tighter joint posterior and flatter rank histograms on f<sub>X</sub>, &tau; and r<sub>H/S</sub>, where the MSE arm is mildly overconfident.</p>
+    </div>
+    <div class="aim">
+      <h3>The weak parameter arrives late</h3>
+      <p>The hard-to-soft X-ray ratio r<sub>H/S</sub> leaves almost no trace in one-point or two-point statistics. Under VMIM it stays unencoded for about 55 epochs and then appears abruptly, which is why a per-parameter recovery probe, a width floor and a faster head matter during training.</p>
+    </div>
+
+    <p><a href="data.html">Read about the problem and the data</a>, or go straight to the <a href="results.html">results</a>.</p>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>&copy; 2026 Dilruwan Dehiwalage Don &nbsp;/&nbsp; Paris Observatory and ENSAI</span>
+      <a href="https://github.com/Dilru1/21cm-sbi-vmim">github.com/Dilru1/21cm-sbi-vmim</a>
+    </div>
+  </footer>
+</body>
+</html>
