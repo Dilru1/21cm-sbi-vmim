@@ -27,6 +27,73 @@ Stage 4 (eval)        --                          overplot/compare chains across
 - **Stage 4 eval**: `.list`-file driven overplotting/metrics across any set
   of chain directories (see `sbi/example_lists.md`).
 
+## Compressor architecture (path B: raw cubes)
+
+The cube compressor (`ResNet3DCompressor`) takes the three redshifts as the
+three input channels of one 3D image (`3 × 32³`). The default schedule is:
+
+- a 3×3×3 stem with 32 channels;
+- five residual blocks with squeeze-and-excitation gating, with channels
+  32 → 64 → 128 → 256 → 512 and strides 1, 1, 2, 2, 2;
+- a multi-scale readout: the per-channel spatial **mean and std** of blocks
+  2–5 are concatenated into a 1920-d vector;
+- two dense heads on that vector: `fc_summary` exports `t`, and `fc_aux`
+  is the MSE regression head.
+
+Two things are deliberate:
+
+- **Late downsampling.** The two stride-1 blocks keep full resolution, so
+  small-scale texture survives long enough to be encoded.
+- **The std readout.** The std channels keep the fluctuation amplitude that
+  global average pooling would discard.
+
+Width, depth, strides and readout stages are configurable for ablations.
+The defaults reproduce the 15.48M-parameter network.
+
+**Overall framework.**
+
+![Overall architecture: stem, five Res+SE stages, mean/std multi-scale readout, VMIM and MSE heads; SE block; residual block](docs/figs/architecture1.svg)
+
+**Zoomed-in view on one redshift channel.** This is a toy view of how
+compression propagates.
+
+- **Input:** the front face of the input cube is a real 32×32 LORELI II
+  slice (sim 3946, z = 10.32).
+- **Dashed squares and rays:** the theoretical receptive field of a single
+  unit in each readout stage, which is 11, 17, 29 and 53 voxels. They are
+  *not* skip connections. Features pass through every block in sequence, and
+  residual shortcuts act only within a block.
+
+![Zoomed-in view: one redshift channel, 3×3×3 sampling grid, receptive fields of RB2–RB5, SE gating, mean/std readout to t](docs/figs/compression_zoom_v2_UPDATED.svg)
+
+## Results
+
+Representative posterior for one held-out simulation (68%/95% contours).
+It compares the hand-crafted summaries (`PDF_PS`, path A) with the CNN
+compressor on raw cubes (path B) under MSE and VMIM, with and without
+dequantisation jitter. The true parameter values are shown as dashed lines.
+
+<p align="center">
+  <img src="docs/figs/corner1.svg" width="620"
+       alt="Posterior corner plot: CNN (MSE / VMIM) contours are much tighter than PDF_PS while containing the truth">
+</p>
+
+The table below gives results over 908 held-out SBC inferences at SKA 100 h
+noise, all with the NSF likelihood.
+
+| Compressor | Generalised variance (×10⁻⁹) | Calibration χ̂² (1 = ideal) |
+|---|---|---|
+| Hand-crafted PDF+PS, no compression (Semelin et al. 2025) | 48 | — |
+| Path A: MLP + VMIM on PDF+PS | 141 | 1.65 – 2.50 |
+| Path B: CNN + MSE | 6.7 | 1.14 – 1.45 |
+| Path B: CNN + VMIM, jitter | **0.95** | **0.93 – 1.18** |
+
+Learned compression on raw cubes tightens the joint posterior by about 50×
+compared with the hand-crafted reference. VMIM stays within the calibration
+tolerance (1 ± 0.26) on all four parameters, while MSE is mildly
+over-confident. All results come from single training runs per
+configuration.
+
 ## Repository layout
 
 ```
@@ -42,6 +109,7 @@ sbc_lists/              .list files for stage4 (which arms/chains to compare)
 slurm/                  SLURM batch scripts for each stage (HPC cluster)
 tools/                  Standalone plotting/diagnostic scripts
 notebook/               Exploratory notebooks
+docs/figures/           Architecture diagrams and result figures used in this README
 ```
 
 ## Installation

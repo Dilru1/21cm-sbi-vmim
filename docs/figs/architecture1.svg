@@ -1,0 +1,2261 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 960 662"
+   width="960"
+   height="662"
+   version="1.1"
+   id="svg132"
+   sodipodi:docname="architecture1.svg"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:c2pa="http://c2pa.org/manifest">
+  <sodipodi:namedview
+     id="namedview132"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.81648599"
+     inkscape:cx="848.7592"
+     inkscape:cy="364.36632"
+     inkscape:window-width="1680"
+     inkscape:window-height="1013"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg132"
+     showguides="false" />
+  <metadata
+     id="metadata1">
+    <c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTpiNGY5NDQzOC0zZGJiLTRmNDYtYWU0MS1kZTU4YzNjMmE3YTIAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaGpHMvBHctNjgoysN7Lu9fMAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDpjNDhlOTI3Mi0yYjA0LTQyOWYtYjlhNC05OTE5NzQ1Y2QwYjdscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNobkQMig3dscyeDRjI+PnMJwAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggOoUYjWyQ/k00AVmYEbE4vsac8j0mhnoN+llyjUAHZzmkZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaP74t6WZ7i/+81ocK/r1nIQAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRNAAAAAAAAAAAAAAAAAGRoYXNoWCAq53gGunYDwpmb9kne6LR0c0ruXvnbmR97rMBjXOKDdGRuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBiWZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOmI0Zjk0NDM4LTNkYmItNGY0Ni1hZTQxLWRlNThjM2MyYTdhMi9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOmFlZjg1ZDM2LWIwMDQtNGYxYi05MWViLTU3MzMxYmZlNjI3NHJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCA6hRiNbJD+TTQBWZgRsTi+xpzyPSaGeg36WXKNQAdnOaJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggrCgUWPbeUE6ZnIx4GSuFbF7Jgnb8zhInupOQveVcjPKiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggLq3kUurTCcELS5+t3Yo6GVagyo+Q4gtakD1U5VNtB4R0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQEPL1oH6jIRVD5qAwiIBQfVR1Lb7x+9MzDtshNAzBTlr7qa/YnYUyR1/oGvWwGAv/grzSE2w3CpIXAxEqpfrMYI=</c2pa:manifest>
+  </metadata>
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="marker49"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path49" />
+    </marker>
+    <rect
+       x="733.10943"
+       y="5.9413379"
+       width="50.372213"
+       height="97.644597"
+       id="rect31" />
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <rect
+       x="-39.365763"
+       y="-23.961769"
+       width="1018.3752"
+       height="737.68017"
+       id="rect3" />
+    <marker
+       id="arr"
+       viewBox="0 0 10 10"
+       refX="9"
+       refY="5"
+       markerWidth="7"
+       markerHeight="7"
+       orient="auto-start-reverse">
+      <path
+         d="M0,0 L10,5 L0,10 z"
+         fill="#000"
+         id="path1" />
+    </marker>
+    <marker
+       id="arr-6"
+       viewBox="0 0 10 10"
+       refX="9"
+       refY="5"
+       markerWidth="7"
+       markerHeight="7"
+       orient="auto-start-reverse"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#000000"
+         id="path1-0" />
+    </marker>
+  </defs>
+  <rect
+     width="974.99115"
+     height="626.48193"
+     fill="#ffffff"
+     id="rect1"
+     inkscape:export-filename="arch1.pdf"
+     inkscape:export-xdpi="96"
+     inkscape:export-ydpi="96"
+     x="-14.991135"
+     y="0"
+     style="stroke-width:0.980372" />
+  <g
+     id="g4"
+     transform="matrix(1.9045238,0,0,1.9045238,-16.472693,-53.9687)"
+     inkscape:export-filename="arch1.pdf"
+     inkscape:export-xdpi="96"
+     inkscape:export-ydpi="96">
+    <polygon
+       points="74,72 64,82 38,82 48,72 "
+       fill="#93b4f5"
+       stroke="#000000"
+       stroke-width="1.2"
+       id="polygon5"
+       transform="matrix(0.85794887,0,0,0.34237262,-26.674036,35.768809)"
+       style="fill:#88acf4;fill-opacity:1;stroke-width:0.566529;stroke-dasharray:none" />
+    <polygon
+       points="74,142 64,152 64,82 74,72 "
+       fill="#2f5fc4"
+       stroke="#000000"
+       stroke-width="1.2"
+       id="polygon6"
+       transform="matrix(0.85794887,0,0,0.34237262,-26.674036,35.768809)"
+       style="opacity:0.971076;fill:#3164ce;fill-opacity:1;stroke-width:0.566529;stroke-dasharray:none" />
+    <rect
+       x="5.9280219"
+       y="63.843365"
+       width="22.306669"
+       height="23.966084"
+       fill="#5b8def"
+       stroke="#000000"
+       stroke-width="1.48411"
+       id="rect6"
+       style="fill:#0d308c;fill-opacity:1;stroke-width:0.307046;stroke-dasharray:none" />
+  </g>
+  <text
+     x="36.332825"
+     y="174.06775"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="15.7917px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text6"
+     style="stroke-width:1.43561">Input</text>
+  <text
+     x="40.018867"
+     y="47.500526"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="13.6383px"
+     font-weight="normal"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text7"
+     style="stroke-width:1.43561">3×D×H×W</text>
+  <polyline
+     points="76,100.0 98,100.0"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.8"
+     marker-end="url(#arr)"
+     id="polyline7" />
+  <rect
+     x="100"
+     y="40"
+     width="42"
+     height="120"
+     fill="#d9d9d9"
+     stroke="#000"
+     stroke-width="1.6"
+     id="rect7" />
+  <text
+     transform="rotate(-90)"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="18.5775px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text8"
+     x="-100.43146"
+     y="121.40341"
+     style="font-size:18.6667px;stroke-width:1.42903">3D Conv 3³</text>
+  <text
+     x="122.2748"
+     y="32.980156"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="9.5"
+     font-weight="normal"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text9"
+     style="font-size:14.6667px">32</text>
+  <polyline
+     points="142,100.0 160,100.0"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.8"
+     marker-end="url(#arr)"
+     id="polyline9" />
+  <rect
+     x="162"
+     y="40"
+     width="46"
+     height="120"
+     fill="#f4a259"
+     stroke="#000"
+     stroke-width="1.6"
+     id="rect9" />
+  <rect
+     x="162"
+     y="132"
+     width="46"
+     height="28"
+     fill="#f78fb3"
+     stroke="#000"
+     stroke-width="1.2"
+     id="rect10" />
+  <text
+     x="187.06354"
+     y="147.36139"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="19.4414px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text10"
+     style="font-size:16px;stroke-width:1.7674">SE1</text>
+  <text
+     transform="matrix(0,-0.90674671,1.1028438,0,0,0)"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="28.8871px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text11"
+     x="-92.624634"
+     y="169.93442"
+     style="font-size:18.6667px;stroke-width:2.22208"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;font-family:Arial, Helvetica, sans-serif;-inkscape-font-specification:'Arial, Helvetica, sans-serif';stroke-width:2.22208"
+       id="tspan11">Res 1</tspan></text>
+  <text
+     x="185"
+     y="32"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="9.5"
+     font-weight="normal"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text12"
+     style="font-size:14.6667px">32, s1</text>
+  <polyline
+     points="208,100.0 234,100.0"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.8"
+     marker-end="url(#arr)"
+     id="polyline12" />
+  <rect
+     x="236"
+     y="40"
+     width="46"
+     height="120"
+     fill="#f4a259"
+     stroke="#000"
+     stroke-width="1.6"
+     id="rect12" />
+  <rect
+     x="236"
+     y="132"
+     width="46"
+     height="28"
+     fill="#f78fb3"
+     stroke="#000"
+     stroke-width="1.2"
+     id="rect13" />
+  <text
+     x="259"
+     y="146"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="11"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text13"
+     style="font-size:18.6667px">SE2</text>
+  <text
+     transform="rotate(-90,172.5,-86.5)"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="13px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text14"
+     style="font-size:18.6667px"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;font-family:Arial, Helvetica, sans-serif;-inkscape-font-specification:'Arial, Helvetica, sans-serif'"
+       id="tspan12">Res 2</tspan></text>
+  <text
+     x="259"
+     y="32"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="9.5"
+     font-weight="normal"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text15"
+     style="font-size:14.6667px">64, s1</text>
+  <polyline
+     points="282,100.0 308,100.0"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.8"
+     marker-end="url(#arr)"
+     id="polyline15" />
+  <rect
+     x="310"
+     y="40"
+     width="46"
+     height="120"
+     fill="#f4a259"
+     stroke="#000"
+     stroke-width="1.6"
+     id="rect15" />
+  <rect
+     x="310"
+     y="132"
+     width="46"
+     height="28"
+     fill="#f78fb3"
+     stroke="#000"
+     stroke-width="1.2"
+     id="rect16" />
+  <text
+     x="333"
+     y="146"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="11"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text16"
+     style="font-size:18.6667px">SE3</text>
+  <text
+     transform="rotate(-90,209.5,-123.5)"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="13px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text17"
+     style="font-size:18.6667px"><tspan
+       style="font-weight:normal;font-size:18.6667px"
+       id="tspan13">Res 3</tspan></text>
+  <text
+     x="333"
+     y="32"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="9.5"
+     font-weight="normal"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text18"
+     style="font-size:14.6667px">128, s2</text>
+  <polyline
+     points="356,100.0 382,100.0"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.8"
+     marker-end="url(#arr)"
+     id="polyline18" />
+  <rect
+     x="384"
+     y="40"
+     width="46"
+     height="120"
+     fill="#f4a259"
+     stroke="#000"
+     stroke-width="1.6"
+     id="rect18" />
+  <rect
+     x="384"
+     y="132"
+     width="46"
+     height="28"
+     fill="#f78fb3"
+     stroke="#000"
+     stroke-width="1.2"
+     id="rect19" />
+  <text
+     x="407"
+     y="146"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="11"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text19"
+     style="font-size:18.6667px">SE4</text>
+  <text
+     transform="rotate(-90,246.5,-160.5)"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="13"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text20"
+     style="font-size:18.6667px"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial, Helvetica, sans-serif;-inkscape-font-specification:'Arial, Helvetica, sans-serif'"
+       id="tspan14">Res 4</tspan></text>
+  <text
+     x="407"
+     y="32"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="9.5"
+     font-weight="normal"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text21"
+     style="font-size:14.6667px">256, s2</text>
+  <polyline
+     points="430,100.0 456,100.0"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.8"
+     marker-end="url(#arr)"
+     id="polyline21" />
+  <rect
+     x="458"
+     y="40"
+     width="46"
+     height="120"
+     fill="#f4a259"
+     stroke="#000"
+     stroke-width="1.6"
+     id="rect21" />
+  <rect
+     x="458"
+     y="132"
+     width="46"
+     height="28"
+     fill="#f78fb3"
+     stroke="#000"
+     stroke-width="1.2"
+     id="rect22" />
+  <text
+     x="481"
+     y="146"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="11"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text22"
+     style="font-size:18.6667px">SE5</text>
+  <text
+     transform="rotate(-90,283.5,-197.5)"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="13px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text23"
+     style="font-size:18.6667px"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;font-family:Arial, Helvetica, sans-serif;-inkscape-font-specification:'Arial, Helvetica, sans-serif'"
+       id="tspan15">Res 5</tspan></text>
+  <text
+     x="481"
+     y="32"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="9.5"
+     font-weight="normal"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text24"
+     style="font-size:14.6667px">512, s2</text>
+  <polyline
+     points="259.0,160 259.0,172"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline24" />
+  <polyline
+     points="247.0,172 271.0,172"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline25" />
+  <polyline
+     points="247.0,172 247.0,184"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline26" />
+  <circle
+     cx="247.0"
+     cy="191"
+     r="6"
+     fill="#fff"
+     stroke="#000"
+     stroke-width="1.3"
+     id="circle26" />
+  <path
+     d="M241.0,191 H253.0 M247.0,185 V197"
+     stroke="#000"
+     stroke-width="1.3"
+     id="path26" />
+  <text
+     x="235.0"
+     y="191"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="11"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000"
+     font-style="italic"
+     id="text26">μ</text>
+  <polyline
+     points="247.0,197 247.0,222"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline27" />
+  <polyline
+     points="271.0,172 271.0,184"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline28" />
+  <circle
+     cx="271.0"
+     cy="191"
+     r="6"
+     fill="#fff"
+     stroke="#000"
+     stroke-width="1.3"
+     id="circle28" />
+  <path
+     d="M265.0,191 H277.0 M271.0,185 V197"
+     stroke="#000"
+     stroke-width="1.3"
+     id="path28" />
+  <text
+     x="283.0"
+     y="191"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="11"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000"
+     font-style="italic"
+     id="text28">σ</text>
+  <polyline
+     points="271.0,197 271.0,222"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline29" />
+  <polyline
+     points="333.0,160 333.0,172"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline30" />
+  <polyline
+     points="321.0,172 345.0,172"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline31" />
+  <polyline
+     points="321.0,172 321.0,184"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline32" />
+  <circle
+     cx="321.0"
+     cy="191"
+     r="6"
+     fill="#fff"
+     stroke="#000"
+     stroke-width="1.3"
+     id="circle32" />
+  <path
+     d="M315.0,191 H327.0 M321.0,185 V197"
+     stroke="#000"
+     stroke-width="1.3"
+     id="path32" />
+  <text
+     x="309.0"
+     y="191"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="11"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000"
+     font-style="italic"
+     id="text32">μ</text>
+  <polyline
+     points="321.0,197 321.0,222"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline33" />
+  <polyline
+     points="345.0,172 345.0,184"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline34" />
+  <circle
+     cx="345.0"
+     cy="191"
+     r="6"
+     fill="#fff"
+     stroke="#000"
+     stroke-width="1.3"
+     id="circle34" />
+  <path
+     d="M339.0,191 H351.0 M345.0,185 V197"
+     stroke="#000"
+     stroke-width="1.3"
+     id="path34" />
+  <text
+     x="357.0"
+     y="191"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="11"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000"
+     font-style="italic"
+     id="text34">σ</text>
+  <polyline
+     points="345.0,197 345.0,222"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline35" />
+  <polyline
+     points="407.0,160 407.0,172"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline36" />
+  <polyline
+     points="395.0,172 419.0,172"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline37" />
+  <polyline
+     points="395.0,172 395.0,184"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline38" />
+  <circle
+     cx="395.0"
+     cy="191"
+     r="6"
+     fill="#fff"
+     stroke="#000"
+     stroke-width="1.3"
+     id="circle38" />
+  <path
+     d="M389.0,191 H401.0 M395.0,185 V197"
+     stroke="#000"
+     stroke-width="1.3"
+     id="path38" />
+  <text
+     x="383.0"
+     y="191"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="11"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000"
+     font-style="italic"
+     id="text38">μ</text>
+  <polyline
+     points="395.0,197 395.0,222"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline39" />
+  <polyline
+     points="419.0,172 419.0,184"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline40" />
+  <circle
+     cx="419.0"
+     cy="191"
+     r="6"
+     fill="#fff"
+     stroke="#000"
+     stroke-width="1.3"
+     id="circle40" />
+  <path
+     d="M413.0,191 H425.0 M419.0,185 V197"
+     stroke="#000"
+     stroke-width="1.3"
+     id="path40" />
+  <text
+     x="431.0"
+     y="191"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="11"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000"
+     font-style="italic"
+     id="text40">σ</text>
+  <polyline
+     points="419.0,197 419.0,222"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline41" />
+  <polyline
+     points="481.0,160 481.0,172"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline42" />
+  <polyline
+     points="469.0,172 493.0,172"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline43" />
+  <polyline
+     points="469.0,172 469.0,184"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline44" />
+  <circle
+     cx="469.0"
+     cy="191"
+     r="6"
+     fill="#fff"
+     stroke="#000"
+     stroke-width="1.3"
+     id="circle44" />
+  <path
+     d="M463.0,191 H475.0 M469.0,185 V197"
+     stroke="#000"
+     stroke-width="1.3"
+     id="path44" />
+  <text
+     x="457.0"
+     y="191"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="11"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000"
+     font-style="italic"
+     id="text44">μ</text>
+  <polyline
+     points="469.0,197 469.0,222"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline45" />
+  <polyline
+     points="493.0,172 493.0,184"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline46" />
+  <circle
+     cx="493.0"
+     cy="191"
+     r="6"
+     fill="#fff"
+     stroke="#000"
+     stroke-width="1.3"
+     id="circle46" />
+  <path
+     d="M487.0,191 H499.0 M493.0,185 V197"
+     stroke="#000"
+     stroke-width="1.3"
+     id="path46" />
+  <text
+     x="505.0"
+     y="191"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="11"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000"
+     font-style="italic"
+     id="text46">σ</text>
+  <polyline
+     points="493.0,197 493.0,222"
+     fill="none"
+     stroke="#000"
+     stroke-width="1.4"
+     id="polyline47" />
+  <polyline
+     points="247.0,222 549,222"
+     fill="none"
+     stroke="#000000"
+     stroke-width="1.6"
+     marker-end="url(#arr)"
+     id="polyline48"
+     transform="matrix(0.89920378,0,0,1,24.896665,0)" />
+  <circle
+     cx="530"
+     cy="222"
+     r="10"
+     fill="#ffffff"
+     stroke="#000000"
+     stroke-width="1.6"
+     id="circle49" />
+  <text
+     x="530"
+     y="222.5"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="12px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text50">C</text>
+  <text
+     x="553.70673"
+     y="222.12988"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="9px"
+     font-weight="normal"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text51">concat</text>
+  <rect
+     x="540.54224"
+     y="90.872177"
+     width="9"
+     height="14"
+     fill="#e0e0e0"
+     stroke="#000000"
+     stroke-width="0.8"
+     id="rect51" />
+  <rect
+     x="549.54224"
+     y="90.872177"
+     width="9"
+     height="14"
+     fill="#bdbdbd"
+     stroke="#000000"
+     stroke-width="0.8"
+     id="rect52" />
+  <rect
+     x="558.54224"
+     y="90.872177"
+     width="9"
+     height="14"
+     fill="#e0e0e0"
+     stroke="#000000"
+     stroke-width="0.8"
+     id="rect53" />
+  <rect
+     x="567.54224"
+     y="90.872177"
+     width="9"
+     height="14"
+     fill="#bdbdbd"
+     stroke="#000000"
+     stroke-width="0.8"
+     id="rect54" />
+  <rect
+     x="576.54224"
+     y="90.872177"
+     width="9"
+     height="14"
+     fill="#e0e0e0"
+     stroke="#000000"
+     stroke-width="0.8"
+     id="rect55" />
+  <rect
+     x="585.54224"
+     y="90.872177"
+     width="9"
+     height="14"
+     fill="#bdbdbd"
+     stroke="#000000"
+     stroke-width="0.8"
+     id="rect56" />
+  <rect
+     x="594.54224"
+     y="90.872177"
+     width="9"
+     height="14"
+     fill="#e0e0e0"
+     stroke="#000000"
+     stroke-width="0.8"
+     id="rect57" />
+  <rect
+     x="603.54224"
+     y="90.872177"
+     width="9"
+     height="14"
+     fill="#bdbdbd"
+     stroke="#000000"
+     stroke-width="0.8"
+     id="rect58" />
+  <text
+     x="564.87256"
+     y="76.554062"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="16.265px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text58"
+     transform="scale(1.0235039,0.97703584)"
+     style="font-size:17.3333px;stroke-width:1.6265">f (1920)</text>
+  <polyline
+     points="652,222 665,222"
+     fill="none"
+     stroke="#000000"
+     stroke-width="1.8"
+     id="polyline58"
+     transform="matrix(1.1404353,0,0,1,-58.466116,-173.20845)" />
+  <polyline
+     points="665,160 665,284"
+     fill="none"
+     stroke="#000000"
+     stroke-width="1.8"
+     id="polyline59"
+     transform="translate(-38.557775,-109.53952)" />
+  <rect
+     x="-100.72015"
+     y="650.6095"
+     width="87.367622"
+     height="33.688232"
+     fill="#33b5e5"
+     stroke="#000000"
+     stroke-width="2.19491"
+     id="rect60"
+     transform="rotate(-90)"
+     style="stroke-width:1.6;stroke-dasharray:none" />
+  <text
+     x="-53.917599"
+     y="662.45361"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="9.5px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text60"
+     transform="rotate(-90)"
+     style="font-size:16px"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial, Helvetica, sans-serif;-inkscape-font-specification:'Arial, Helvetica, sans-serif'"
+       id="tspan16">FC 256</tspan></text>
+  <text
+     x="-53.917599"
+     y="675.45361"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="7.5px"
+     font-weight="normal"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text61"
+     transform="rotate(-90)">LN·LReLU</text>
+  <text
+     x="708.4386"
+     y="111.46356"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="9px"
+     font-weight="normal"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     font-style="italic"
+     id="text65">fc_summary (dropout p=0.05)</text>
+  <text
+     x="764.13647"
+     y="49.427208"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="14px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     font-style="italic"
+     id="text66">t</text>
+  <rect
+     x="795.13647"
+     y="36.427204"
+     width="72"
+     height="30"
+     fill="#9be39b"
+     stroke="#000000"
+     stroke-width="1.6"
+     rx="4"
+     id="rect66" />
+  <text
+     x="831.13647"
+     y="51.427204"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="10.5px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text67">VMIM loss</text>
+  <text
+     x="689.74652"
+     y="240.3054"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="9px"
+     font-weight="normal"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     font-style="italic"
+     id="text73">fc_aux (dropout p=0.2)</text>
+  <text
+     x="763.42969"
+     y="173.10645"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="14px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     font-style="italic"
+     id="text74">θ</text>
+  <rect
+     x="798.42969"
+     y="158.10645"
+     width="72"
+     height="30"
+     fill="#c9b3f0"
+     stroke="#000000"
+     stroke-width="1.6"
+     rx="4"
+     id="rect74" />
+  <text
+     x="834.42969"
+     y="173.10645"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="10.5px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text75">MSE loss</text>
+  <text
+     x="354.51108"
+     y="243.02367"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="15px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text76">(a) Overall Framework</text>
+  <g
+     transform="translate(-8.0000153,-28.5)"
+     id="g129">
+    <rect
+       x="8"
+       y="300"
+       width="566"
+       height="255"
+       fill="#fbe8da"
+       stroke="#e8954f"
+       stroke-width="2.5"
+       id="rect76" />
+    <polygon
+       points="102,386 86,402 28,402 44,386 "
+       fill="#efefef"
+       stroke="#000000"
+       stroke-width="1.2"
+       id="polygon76" />
+    <polygon
+       points="102,466 86,482 86,402 102,386 "
+       fill="#b5b5b5"
+       stroke="#000000"
+       stroke-width="1.2"
+       id="polygon77" />
+    <rect
+       x="28"
+       y="402"
+       width="58"
+       height="80"
+       fill="#d9d9d9"
+       stroke="#000000"
+       stroke-width="1.2"
+       id="rect77" />
+    <text
+       x="52"
+       y="374"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="13px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       font-style="italic"
+       id="text77">U</text>
+    <text
+       x="57"
+       y="497"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="9.5px"
+       font-weight="normal"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text78">C×D×H×W</text>
+    <polyline
+       points="102,445 470,445"
+       fill="none"
+       stroke="#000000"
+       stroke-width="1.8"
+       id="polyline78" />
+    <polyline
+       points="118,445 118,375 138,375"
+       fill="none"
+       stroke="#000000"
+       stroke-width="1.8"
+       marker-end="url(#arr)"
+       id="polyline79" />
+    <text
+       x="128"
+       y="357"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="12px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       font-style="italic"
+       id="text79">F</text>
+    <text
+       x="134"
+       y="361"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="8px"
+       font-weight="normal"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text80">sq</text>
+    <text
+       x="83"
+       y="410"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="1px"
+       font-weight="normal"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text81" />
+    <rect
+       x="140"
+       y="368"
+       width="9"
+       height="14"
+       fill="#ffffff"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect81" />
+    <rect
+       x="149"
+       y="368"
+       width="9"
+       height="14"
+       fill="#ffffff"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect82" />
+    <rect
+       x="158"
+       y="368"
+       width="9"
+       height="14"
+       fill="#ffffff"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect83" />
+    <rect
+       x="167"
+       y="368"
+       width="9"
+       height="14"
+       fill="#ffffff"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect84" />
+    <rect
+       x="176"
+       y="368"
+       width="9"
+       height="14"
+       fill="#ffffff"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect85" />
+    <rect
+       x="185"
+       y="368"
+       width="9"
+       height="14"
+       fill="#ffffff"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect86" />
+    <rect
+       x="194"
+       y="368"
+       width="9"
+       height="14"
+       fill="#ffffff"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect87" />
+    <rect
+       x="203"
+       y="368"
+       width="9"
+       height="14"
+       fill="#ffffff"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect88" />
+    <text
+       x="176"
+       y="393"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="9px"
+       font-weight="normal"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text88">1×1×C</text>
+    <text
+       x="176"
+       y="407"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="8px"
+       font-weight="normal"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#444444"
+       id="text89">(global avg pool)</text>
+    <polyline
+       points="212,375 228,375"
+       fill="none"
+       stroke="#000000"
+       stroke-width="1.8"
+       marker-end="url(#arr)"
+       id="polyline89" />
+    <rect
+       x="230"
+       y="336"
+       width="34"
+       height="78"
+       fill="#f2b77d"
+       stroke="#000000"
+       stroke-width="1.6"
+       id="rect89" />
+    <text
+       transform="rotate(-90,311,64)"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="10.5px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text90">FC C→C/8</text>
+    <rect
+       x="264"
+       y="336"
+       width="34"
+       height="78"
+       fill="#cfe0a8"
+       stroke="#000000"
+       stroke-width="1.6"
+       id="rect90" />
+    <text
+       transform="rotate(-90,328,47)"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="10.5px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text91">ReLU</text>
+    <rect
+       x="298"
+       y="336"
+       width="34"
+       height="78"
+       fill="#f2b77d"
+       stroke="#000000"
+       stroke-width="1.6"
+       id="rect91" />
+    <text
+       transform="rotate(-90,345,30)"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="10.5px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text92">FC C/8→C</text>
+    <rect
+       x="332"
+       y="336"
+       width="34"
+       height="78"
+       fill="#f78fb3"
+       stroke="#000000"
+       stroke-width="1.6"
+       id="rect92" />
+    <text
+       transform="rotate(-90,362,13)"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="10.5px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text93">Sigmoid</text>
+    <text
+       x="298"
+       y="325"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="12px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       font-style="italic"
+       id="text94">F</text>
+    <text
+       x="312"
+       y="329"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="8px"
+       font-weight="normal"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text95">ex</text>
+    <text
+       x="298"
+       y="426"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="9px"
+       font-weight="normal"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#444444"
+       id="text96">hidden = max(4, C/8)</text>
+    <polyline
+       points="366,375 382,375"
+       fill="none"
+       stroke="#000000"
+       stroke-width="1.8"
+       marker-end="url(#arr)"
+       id="polyline96" />
+    <rect
+       x="384"
+       y="368"
+       width="9"
+       height="14"
+       fill="#f6a37a"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect96" />
+    <rect
+       x="393"
+       y="368"
+       width="9"
+       height="14"
+       fill="#d9534f"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect97" />
+    <rect
+       x="402"
+       y="368"
+       width="9"
+       height="14"
+       fill="#f7c6b8"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect98" />
+    <rect
+       x="411"
+       y="368"
+       width="9"
+       height="14"
+       fill="#e8713c"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect99" />
+    <rect
+       x="420"
+       y="368"
+       width="9"
+       height="14"
+       fill="#b8325a"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect100" />
+    <rect
+       x="429"
+       y="368"
+       width="9"
+       height="14"
+       fill="#fbd3e0"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect101" />
+    <rect
+       x="438"
+       y="368"
+       width="9"
+       height="14"
+       fill="#ef8a62"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect102" />
+    <rect
+       x="447"
+       y="368"
+       width="9"
+       height="14"
+       fill="#c2185b"
+       stroke="#000000"
+       stroke-width="0.8"
+       id="rect103" />
+    <text
+       x="420"
+       y="393"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="9px"
+       font-weight="normal"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text103">1×1×C</text>
+    <polyline
+       points="456,375 480,375 480,435"
+       fill="none"
+       stroke="#000000"
+       stroke-width="1.8"
+       marker-end="url(#arr)"
+       id="polyline103" />
+    <circle
+       cx="480"
+       cy="445"
+       r="10"
+       fill="#ffffff"
+       stroke="#000000"
+       stroke-width="1.6"
+       id="circle103" />
+    <text
+       x="480"
+       y="445.5"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="14px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text104">×</text>
+    <text
+       x="500"
+       y="361"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="12px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       font-style="italic"
+       id="text105">F</text>
+    <text
+       x="512"
+       y="365"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="8px"
+       font-weight="normal"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text106">scale</text>
+    <polyline
+       points="490,445 504,445"
+       fill="none"
+       stroke="#000000"
+       stroke-width="1.8"
+       marker-end="url(#arr)"
+       id="polyline106" />
+    <polygon
+       points="562,398 548,412 506,412 520,398 "
+       fill="#fde0cf"
+       stroke="#000000"
+       stroke-width="1.2"
+       id="polygon106" />
+    <polygon
+       points="562,470 548,484 548,412 562,398 "
+       fill="#d4882f"
+       stroke="#000000"
+       stroke-width="1.2"
+       id="polygon107" />
+    <rect
+       x="506"
+       y="412"
+       width="6"
+       height="72"
+       fill="#f6a37a"
+       stroke="#000000"
+       stroke-width="0.5"
+       id="rect107" />
+    <rect
+       x="512"
+       y="412"
+       width="6"
+       height="72"
+       fill="#d9534f"
+       stroke="#000000"
+       stroke-width="0.5"
+       id="rect108" />
+    <rect
+       x="518"
+       y="412"
+       width="6"
+       height="72"
+       fill="#f7c6b8"
+       stroke="#000000"
+       stroke-width="0.5"
+       id="rect109" />
+    <rect
+       x="524"
+       y="412"
+       width="6"
+       height="72"
+       fill="#e8713c"
+       stroke="#000000"
+       stroke-width="0.5"
+       id="rect110" />
+    <rect
+       x="530"
+       y="412"
+       width="6"
+       height="72"
+       fill="#b8325a"
+       stroke="#000000"
+       stroke-width="0.5"
+       id="rect111" />
+    <rect
+       x="536"
+       y="412"
+       width="6"
+       height="72"
+       fill="#fbd3e0"
+       stroke="#000000"
+       stroke-width="0.5"
+       id="rect112" />
+    <rect
+       x="542"
+       y="412"
+       width="6"
+       height="72"
+       fill="#ef8a62"
+       stroke="#000000"
+       stroke-width="0.5"
+       id="rect113" />
+    <rect
+       x="506"
+       y="412"
+       width="42"
+       height="72"
+       fill="none"
+       stroke="#000000"
+       stroke-width="1.2"
+       id="rect114" />
+    <text
+       x="530"
+       y="384"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="13px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       font-style="italic"
+       id="text114">X̃</text>
+    <text
+       x="527"
+       y="497"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="9.5px"
+       font-weight="normal"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text115">C×D×H×W</text>
+    <text
+       x="291"
+       y="535"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="15px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text116">(b) Squeeze-and-Excitation (SE) Block</text>
+    <rect
+       x="582"
+       y="300"
+       width="370"
+       height="255"
+       fill="#e3edf7"
+       stroke="#2aa7de"
+       stroke-width="2.5"
+       id="rect116" />
+    <polygon
+       points="616,350 608,358 596,358 604,350 "
+       fill="#f3f3f3"
+       stroke="#e0201b"
+       stroke-width="1.6"
+       id="polygon116" />
+    <polygon
+       points="616,424 608,432 608,358 616,350 "
+       fill="#c4c4c4"
+       stroke="#e0201b"
+       stroke-width="1.6"
+       id="polygon117" />
+    <rect
+       x="596"
+       y="358"
+       width="12"
+       height="74"
+       fill="#e6e6e6"
+       stroke="#e0201b"
+       stroke-width="1.6"
+       id="rect117" />
+    <text
+       x="606"
+       y="447"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="9px"
+       font-weight="normal"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text117">C_in</text>
+    <polyline
+       points="618,395 632,395"
+       fill="none"
+       stroke="#000000"
+       stroke-width="1.8"
+       marker-end="url(#arr)"
+       id="polyline117" />
+    <rect
+       x="634"
+       y="352"
+       width="26"
+       height="86"
+       fill="#d9d9d9"
+       stroke="#000000"
+       stroke-width="1.6"
+       id="rect118" />
+    <text
+       transform="rotate(-90,521,-126)"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="10px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text118">Conv3d 3³, s</text>
+    <rect
+       x="660"
+       y="352"
+       width="26"
+       height="86"
+       fill="#cfe0a8"
+       stroke="#000000"
+       stroke-width="1.6"
+       id="rect119" />
+    <text
+       transform="rotate(-90,534,-139)"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="10px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text119">GN</text>
+    <rect
+       x="686"
+       y="352"
+       width="26"
+       height="86"
+       fill="#cfe0a8"
+       stroke="#000000"
+       stroke-width="1.6"
+       id="rect120" />
+    <text
+       transform="rotate(-90,547,-152)"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="10px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text120">LReLU</text>
+    <rect
+       x="712"
+       y="352"
+       width="26"
+       height="86"
+       fill="#d9d9d9"
+       stroke="#000000"
+       stroke-width="1.6"
+       id="rect121" />
+    <text
+       transform="rotate(-90,560,-165)"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="10px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text121">Conv3d 3³</text>
+    <rect
+       x="738"
+       y="352"
+       width="26"
+       height="86"
+       fill="#cfe0a8"
+       stroke="#000000"
+       stroke-width="1.6"
+       id="rect122" />
+    <text
+       transform="rotate(-90,573,-178)"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="10px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text122">GN</text>
+    <rect
+       x="764"
+       y="352"
+       width="26"
+       height="86"
+       fill="#f78fb3"
+       stroke="#000000"
+       stroke-width="1.6"
+       id="rect123" />
+    <text
+       transform="rotate(-90,586,-191)"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="10px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text123">SE</text>
+    <polyline
+       points="790,395 818,395"
+       fill="none"
+       stroke="#000000"
+       stroke-width="1.8"
+       marker-end="url(#arr)"
+       id="polyline123" />
+    <circle
+       cx="828"
+       cy="395"
+       r="10"
+       fill="#ffffff"
+       stroke="#000000"
+       stroke-width="1.6"
+       id="circle123" />
+    <text
+       x="828"
+       y="395.5"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="15px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text124">+</text>
+    <polyline
+       points="838,395 850,395"
+       fill="none"
+       stroke="#000000"
+       stroke-width="1.8"
+       marker-end="url(#arr)"
+       id="polyline124" />
+    <rect
+       x="852"
+       y="370"
+       width="22"
+       height="50"
+       fill="#cfe0a8"
+       stroke="#000000"
+       stroke-width="1.6"
+       id="rect124" />
+    <text
+       transform="rotate(-90,629,-234)"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="9.5px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text125">LReLU</text>
+    <polyline
+       points="874,395 890,395"
+       fill="none"
+       stroke="#000000"
+       stroke-width="1.8"
+       marker-end="url(#arr)"
+       id="polyline125" />
+    <polygon
+       points="912,350 904,358 892,358 900,350 "
+       fill="#f3f3f3"
+       stroke="#e0201b"
+       stroke-width="1.6"
+       id="polygon125" />
+    <polygon
+       points="912,424 904,432 904,358 912,350 "
+       fill="#c4c4c4"
+       stroke="#e0201b"
+       stroke-width="1.6"
+       id="polygon126" />
+    <rect
+       x="892"
+       y="358"
+       width="12"
+       height="74"
+       fill="#e6e6e6"
+       stroke="#e0201b"
+       stroke-width="1.6"
+       id="rect126" />
+    <text
+       x="902"
+       y="447"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="9px"
+       font-weight="normal"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text126">C_out</text>
+    <polyline
+       points="625,395 625,478 700,478"
+       fill="none"
+       stroke="#000000"
+       stroke-width="1.8"
+       id="polyline126" />
+    <rect
+       x="700"
+       y="465"
+       width="92"
+       height="26"
+       fill="#ffffff"
+       stroke="#000000"
+       stroke-width="1.6"
+       stroke-dasharray="4, 3"
+       rx="3"
+       id="rect127" />
+    <text
+       x="746"
+       y="478"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="9px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text127">1×1×1 Conv + GN</text>
+    <polyline
+       points="792,478 828,478 828,407"
+       fill="none"
+       stroke="#000000"
+       stroke-width="1.8"
+       marker-end="url(#arr)"
+       id="polyline127" />
+    <text
+       x="746"
+       y="503"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="8.5px"
+       font-weight="normal"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#444444"
+       font-style="italic"
+       id="text128">projection if s≠1 or C_in≠C_out, else identity</text>
+    <text
+       x="767"
+       y="535"
+       font-family="Arial, Helvetica, sans-serif"
+       font-size="15px"
+       font-weight="bold"
+       text-anchor="middle"
+       dominant-baseline="central"
+       fill="#000000"
+       id="text129">(c) Residual Block (Res-SE)</text>
+  </g>
+  <text
+     x="0"
+     y="561.35413"
+     font-family="'Times New Roman', Times, serif"
+     font-size="15px"
+     id="text130">Fig. 1. An illustration of our 3D ResNet compressor. (a) The overall framework with multi-scale mean+std readout and</text>
+  <text
+     x="719.88428"
+     y="560.59143"
+     font-family="'Times New Roman', Times, serif"
+     font-size="15px"
+     id="text131">two heads (summary statistics t trained</text>
+  <text
+     x="498.63614"
+     y="579.89087"
+     font-family="'Times New Roman', Times, serif"
+     font-size="15px"
+     id="text132">and-excitation block used inside every residual stage. (c) The 3D residual</text>
+  <text
+     xml:space="preserve"
+     id="text1"
+     style="font-size:8px;font-family:Calibri;-inkscape-font-specification:Calibri;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect3);display:inline;opacity:0.800578;fill:none;stroke:#000000;stroke-width:0.377953;stroke-linejoin:round" />
+  <polyline
+     points="652,222 665,222"
+     fill="none"
+     stroke="#000000"
+     stroke-width="1.8"
+     id="polyline3"
+     transform="translate(-124.45776,-124.12782)" />
+  <polyline
+     points="652,222 665,222"
+     fill="none"
+     stroke="#000000"
+     stroke-width="1.8"
+     id="polyline4"
+     transform="matrix(0,8.7192228,-1,0,750.44224,-5586.1611)" />
+  <g
+     id="g8"
+     transform="matrix(1.9045238,0,0,1.9045238,-8.3027729,-34.406995)"
+     style="fill:#c55842;fill-opacity:1">
+    <polygon
+       points="48,72 74,72 64,82 38,82 "
+       fill="#93b4f5"
+       stroke="#000000"
+       stroke-width="1.2"
+       id="polygon4"
+       transform="matrix(0.85794887,0,0,0.34237262,-26.674036,35.768809)"
+       style="fill:#c55842;fill-opacity:1;stroke-width:0.566529;stroke-dasharray:none" />
+    <polygon
+       points="74,72 74,142 64,152 64,82 "
+       fill="#2f5fc4"
+       stroke="#000000"
+       stroke-width="1.2"
+       id="polygon7"
+       transform="matrix(0.85794887,0,0,0.34237262,-26.674036,35.768809)"
+       style="opacity:0.971076;fill:#c55842;fill-opacity:1;stroke-width:0.566529;stroke-dasharray:none" />
+    <rect
+       x="5.9280219"
+       y="63.843365"
+       width="22.306669"
+       height="23.966084"
+       fill="#5b8def"
+       stroke="#000000"
+       stroke-width="1.48411"
+       id="rect8"
+       style="fill:#c55842;fill-opacity:1;stroke-width:0.307046;stroke-dasharray:none" />
+  </g>
+  <g
+     id="g11"
+     transform="matrix(1.9045238,0,0,1.9045238,4.7690994,-8.3247218)"
+     style="fill:#7bc542;fill-opacity:1">
+    <polygon
+       points="74,72 64,82 38,82 48,72 "
+       fill="#93b4f5"
+       stroke="#000000"
+       stroke-width="1.2"
+       id="polygon8"
+       transform="matrix(0.85794887,0,0,0.34237262,-26.674036,35.768809)"
+       style="fill:#7bc542;fill-opacity:1;stroke-width:0.566529;stroke-dasharray:none" />
+    <polygon
+       points="74,142 64,152 64,82 74,72 "
+       fill="#2f5fc4"
+       stroke="#000000"
+       stroke-width="1.2"
+       id="polygon9"
+       transform="matrix(0.85794887,0,0,0.34237262,-26.674036,35.768809)"
+       style="opacity:0.971076;fill:#7bc542;fill-opacity:1;stroke-width:0.566529;stroke-dasharray:none" />
+    <rect
+       x="5.9280219"
+       y="63.843365"
+       width="22.306669"
+       height="23.966084"
+       fill="#5b8def"
+       stroke="#000000"
+       stroke-width="1.48411"
+       id="rect11"
+       style="fill:#7bc542;fill-opacity:1;stroke-width:0.307046;stroke-dasharray:none" />
+  </g>
+  <polyline
+     points="652,222 665,222"
+     fill="none"
+     stroke="#000000"
+     stroke-width="1.8"
+     id="polyline16"
+     transform="matrix(1.2514098,0,0,1,-190.37695,-172.43952)"
+     style="marker-end:url(#Triangle)" />
+  <rect
+     x="-100.20352"
+     y="700.72339"
+     width="87.367622"
+     height="33.688232"
+     fill="#33b5e5"
+     stroke="#000000"
+     stroke-width="2.19491"
+     id="rect17"
+     transform="rotate(-90)"
+     style="stroke-width:1.6;stroke-dasharray:none" />
+  <text
+     x="-53.400959"
+     y="712.5675"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="9.5px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text25"
+     transform="rotate(-90)"
+     style="font-size:16px"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial, Helvetica, sans-serif;-inkscape-font-specification:'Arial, Helvetica, sans-serif'"
+       id="tspan17">FC128</tspan></text>
+  <text
+     x="-53.400959"
+     y="725.5675"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="7.5px"
+     font-weight="normal"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text27"
+     transform="rotate(-90)">LN·LReLU</text>
+  <text
+     xml:space="preserve"
+     id="text31"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial, Helvetica, sans-serif;-inkscape-font-specification:'Arial, Helvetica, sans-serif';writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect31);display:inline;opacity:0.971076;fill:#7bc542;fill-opacity:1;stroke:#3e3e3e;stroke-width:1.6;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" />
+  <polyline
+     points="652,222 665,222"
+     fill="none"
+     stroke="#000000"
+     stroke-width="1.8"
+     id="polyline49"
+     transform="matrix(1.1404353,0,0,1,-8.3521945,-171.79784)"
+     style="marker-end:url(#marker49)" />
+  <polyline
+     points="652,222 665,222"
+     fill="none"
+     stroke="#000000"
+     stroke-width="1.8"
+     id="polyline50"
+     transform="matrix(1.1404353,0,0,1,-58.080518,-47.767872)" />
+  <rect
+     x="-226.16074"
+     y="650.99512"
+     width="87.367622"
+     height="33.688232"
+     fill="#33b5e5"
+     stroke="#000000"
+     stroke-width="2.19491"
+     id="rect50"
+     transform="rotate(-90)"
+     style="stroke-width:1.6;stroke-dasharray:none" />
+  <text
+     x="-179.35817"
+     y="662.83923"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="9.5px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text52"
+     transform="rotate(-90)"
+     style="font-size:16px"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial, Helvetica, sans-serif;-inkscape-font-specification:'Arial, Helvetica, sans-serif'"
+       id="tspan50">FC 256</tspan></text>
+  <text
+     x="-179.35817"
+     y="675.83923"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="7.5px"
+     font-weight="normal"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text53"
+     transform="rotate(-90)">LN·LReLU</text>
+  <polyline
+     points="652,222 665,222"
+     fill="none"
+     stroke="#000000"
+     stroke-width="1.8"
+     id="polyline53"
+     transform="matrix(1.2514098,0,0,1,-189.99135,-46.998942)"
+     style="marker-end:url(#Triangle)" />
+  <rect
+     x="-225.6441"
+     y="701.10901"
+     width="87.367622"
+     height="33.688232"
+     fill="#33b5e5"
+     stroke="#000000"
+     stroke-width="2.19491"
+     id="rect59"
+     transform="rotate(-90)"
+     style="stroke-width:1.6;stroke-dasharray:none" />
+  <text
+     x="-178.84154"
+     y="712.95312"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="9.5px"
+     font-weight="bold"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text59"
+     transform="rotate(-90)"
+     style="font-size:16px"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Arial, Helvetica, sans-serif;-inkscape-font-specification:'Arial, Helvetica, sans-serif'"
+       id="tspan59">FC128</tspan></text>
+  <text
+     x="-178.84154"
+     y="725.95312"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="7.5px"
+     font-weight="normal"
+     text-anchor="middle"
+     dominant-baseline="central"
+     fill="#000000"
+     id="text62"
+     transform="rotate(-90)">LN·LReLU</text>
+  <polyline
+     points="652,222 665,222"
+     fill="none"
+     stroke="#000000"
+     stroke-width="1.8"
+     id="polyline62"
+     transform="matrix(1.1404353,0,0,1,-8.3521945,-171.79784)"
+     style="marker-end:url(#marker49)" />
+  <polyline
+     points="652,222 665,222"
+     fill="none"
+     stroke="#000000"
+     stroke-width="1.8"
+     id="polyline63"
+     transform="matrix(1.1404353,0,0,1,-7.9665744,-48.7603)"
+     style="marker-end:url(#marker49)" />
+  <polyline
+     points="652,222 665,222"
+     fill="none"
+     stroke="#000000"
+     stroke-width="1.8"
+     id="polyline64"
+     transform="matrix(1.1404353,0,0,1,27.710354,-170.94777)"
+     style="marker-end:url(#marker49)" />
+  <polyline
+     points="652,222 665,222"
+     fill="none"
+     stroke="#000000"
+     stroke-width="1.8"
+     id="polyline65"
+     transform="matrix(1.1404353,0,0,1,28.076809,-50.401941)"
+     style="marker-end:url(#marker49)" />
+  <text
+     x="0.14648438"
+     y="581.00647"
+     font-family="'Times New Roman', Times, serif"
+     font-size="15px"
+     id="text3">with VMIM, auxiliary parameter regression θ trained with MSE). (b) The squeeze-</text>
+  <text
+     x="-0.095214844"
+     y="598.26233"
+     font-family="'Times New Roman', Times, serif"
+     font-size="15px"
+     id="text4">with GroupNorm, SE and projection shortcut.</text>
+</svg>
