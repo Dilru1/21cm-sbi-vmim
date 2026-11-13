@@ -1,0 +1,54 @@
+# Path A: MLP compressor of the PDF+PS summaries to t_dim = 16, pure VMIM (2-component GMM head).
+name: patha/vmim_k16
+out_root: ${SBI_OUT}
+n_params: 4
+seeds:
+  compressor: [43, 44, 45]
+  nle: [42, 43, 44]
+
+data:
+  summaries_npz: ${SBI_SUMMARIES}
+
+compressor:
+  type: mlp
+  objective: vmim
+  t_dim: 16
+  dense_layers: [256, 256, 128, 64]
+  dropout: 0.0
+  n_mix_head: 2
+  hidden_head: 64
+  sigma_floor: 1.0e-2       # floor on the head's Cholesky diagonal (normalised theta units)
+  head_lr_mult: 5.0
+  lr: 2.0e-4
+  epochs: 400
+  plateau_patience: 15
+  batch_size: 32            # one random noise realisation per simulation per epoch
+  num_workers: 4
+  split_seed: 43
+  val_frac: 0.1
+  probe_every: 5            # RF-R2 / head-sigma diagnostics
+  save_batch_size: 4096
+
+nle:
+  split_seed: 42            # train/val split of simulations
+  val_frac: 0.1
+  nsplit: 10
+  batch_size: 32
+  lr_phase1: 2.0e-4
+  lr_phase2: 2.0e-5
+  num_workers: 2
+  hidden: 64
+  n_layers: 4
+  num_bins: 8
+  tail_bound: 5.0
+
+mcmc:
+  target_path: ${SBI_SBC_TARGETS}
+  walkers: 160
+  steps: 2000
+  burnin: 500
+  seed: 13                  # chain seed = seed + sim id
+  loglik_batch_size: 8192
+  use_wedge_prior: true
+  wedge_tau_idx: 1
+  wedge_mmin_idx: 3

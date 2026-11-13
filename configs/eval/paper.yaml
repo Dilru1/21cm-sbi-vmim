@@ -1,0 +1,20 @@
+# All paper runs (every seed listed in each config).
+out: ${SBI_OUT}/eval/paper
+thin: 11
+dlogp: 10.0               # keep samples within dlogp of the chain maximum
+burnin_frac: 0.0
+nbins: 30
+walker_cut: 5.0           # drop walkers whose median log p < 90th pct of walker medians - walker_cut
+params: [0, 1, 2, 3]
+param_names: [log10_FX, tau, rHS, log10_Mmin]
+groups:
+  - {label: "PDF+PS",          config: configs/baseline/pdf_ps.yaml}
+  - {label: "Path A VMIM k=4", config: configs/patha/vmim_k4.yaml}
+  - {label: "Path A VMIM k=8", config: configs/patha/vmim_k8.yaml}
+  - {label: "Path A VMIM k=16", config: configs/patha/vmim_k16.yaml}
+  - {label: "Path B VMIM 100h", config: configs/pathb/vmim_100h.yaml}
+  - {label: "Path B VMIM 50h",  config: configs/pathb/vmim_50h.yaml}
+  - {label: "Path B VMIM 25h",  config: configs/pathb/vmim_25h.yaml}
+  - {label: "Path B MSE 100h",  config: configs/pathb/mse_100h.yaml}
+  - {label: "Path B MSE 50h",   config: configs/pathb/mse_50h.yaml}
+  - {label: "Path B MSE 25h",   config: configs/pathb/mse_25h.yaml}

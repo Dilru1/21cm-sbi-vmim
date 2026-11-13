@@ -1,0 +1,15 @@
+# Comparing arbitrary chain directories (e.g. a rerun against an earlier run).
+out: ${SBI_OUT}/eval/compare
+thin: 11
+dlogp: 10.0               # keep samples within dlogp of the chain maximum
+burnin_frac: 0.0
+nbins: 30
+walker_cut: 5.0           # drop walkers whose median log p < 90th pct of walker medians - walker_cut
+params: [0, 1, 2, 3]
+param_names: [log10_FX, tau, rHS, log10_Mmin]
+groups:
+  - label: "Path A VMIM k=4 (this repo)"
+    config: configs/patha/vmim_k4.yaml
+  - label: "Path A VMIM k=4 (earlier run)"
+    chains:
+      - /path/to/earlier/run_c43/chains_n42

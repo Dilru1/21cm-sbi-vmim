@@ -1,0 +1,72 @@
+# Path B: 3D CNN on mean-removed noisy cubes (3 redshifts), vmim objective, 25h observation
+# (noise cubes of 100 h scaled by noise_scale = 2.0; noise std ~ 1/sqrt(t_obs)).
+name: pathb/vmim_25h
+out_root: ${SBI_OUT}
+n_params: 4
+seeds:
+  compressor: [43, 44, 45]
+  nle: [42, 43, 44]
+
+data:
+  box: 32
+  n_signal: 9827            # signal files hold n_signal cubes; rows are selected by sim_ids_path
+  n_noise: 1000             # noise realisations per simulation in the exported table
+  signal_paths:
+    - ${SBI_DATA}/dtb_data/clean_cubes_z=8.18.dat
+    - ${SBI_DATA}/dtb_data/clean_cubes_z=10.32.dat
+    - ${SBI_DATA}/dtb_data/clean_cubes_z=12.06.dat
+  noise_paths:
+    - ${SBI_DATA}/dtb_data/noise_cubes_100h_z=8.18.dat
+    - ${SBI_DATA}/dtb_data/noise_cubes_100h_z=10.32.dat
+    - ${SBI_DATA}/dtb_data/noise_cubes_100h_z=12.06.dat
+  params_path: ${SBI_DATA}/astro_params_masked_from_original.npy
+  sim_ids_path: ${SBI_DATA}/original_sim_ids_masked_from_original.npy
+  params:                   # physical -> [0, 1]
+    - {transform: log10, scale: 0.00192, log_lo: -1.0, log_hi: 1.0}   # F_X
+    - {transform: log10, lo: 738.9, hi: 10504.7}                      # tau
+    - {transform: none}                                               # r_H/S (already in [0, 1])
+    - {transform: linear, lo: 8.0, hi: 9.6}                           # log10 M_min
+    - {transform: linear, lo: 0.05, hi: 0.5}                          # f_esc (not inferred)
+
+compressor:
+  type: cnn
+  objective: vmim
+  n_mix_head: 2
+  hidden_head: 64
+  sigma_floor: 1.0e-2
+  head_lr_mult: 5.0
+  t_dim: 4
+  noise_scale: 2.0
+  lr: 2.0e-4
+  epochs: 400
+  plateau_patience: 25
+  batch_size: 16
+  num_workers: 4
+  split_seed: 43
+  val_frac: 0.1
+  probe_every: 5
+  save_batch_size: 512
+
+nle:
+  split_seed: 42            # train/val split of simulations
+  val_frac: 0.1
+  nsplit: 10
+  batch_size: 32
+  lr_phase1: 2.0e-4
+  lr_phase2: 2.0e-5
+  num_workers: 2
+  hidden: 64
+  n_layers: 4
+  num_bins: 8
+  tail_bound: 5.0
+
+mcmc:
+  target_path: ${SBI_SBC_TARGETS}
+  walkers: 160
+  steps: 2000
+  burnin: 500
+  seed: 13                  # chain seed = seed + sim id
+  loglik_batch_size: 8192
+  use_wedge_prior: true
+  wedge_tau_idx: 1
+  wedge_mmin_idx: 3

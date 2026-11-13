@@ -1,0 +1,7 @@
+# versions used for the paper runs (python 3.10)
+torch==2.7.1          # stage 2 ran with a torch 2.13 nightly; any torch >= 2.0 works
+nflows==0.14
+numpy==2.2.6
+scikit-learn==1.7.2   # training diagnostics (random-forest R^2)
+PyYAML==6.0.3
+matplotlib==3.10.9
